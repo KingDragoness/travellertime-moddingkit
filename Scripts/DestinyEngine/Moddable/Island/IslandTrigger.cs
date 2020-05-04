@@ -13,7 +13,7 @@ namespace DestinyEngine
 
         public void EnterIsland()
         {
-            DestinyMainEngine.instance.Enter_Island(regionName, index, overrideGCECoord);
+
         }
 
         private void OnTriggerEnter(Collider other)

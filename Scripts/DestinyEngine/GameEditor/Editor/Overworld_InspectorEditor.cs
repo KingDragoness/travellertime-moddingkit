@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-using TravellerTime;
+using DestinyEngine;
 
 [CustomEditor(typeof(OverworldEdit))]
 public class Overworld_InspectorEditor : Editor
@@ -33,7 +33,8 @@ public class Overworld_InspectorEditor : Editor
             }
             if (GUILayout.Button("Save World", GUILayout.Width(95)))
             {
-                overworldEdit.Save_WorldMap();
+                var path = EditorUtility.SaveFilePanelInProject("Save World Data", Application.dataPath, "json", "Save World Data");
+                overworldEdit.Save_WorldMap(path);
             }
 
         EditorGUILayout.EndHorizontal();

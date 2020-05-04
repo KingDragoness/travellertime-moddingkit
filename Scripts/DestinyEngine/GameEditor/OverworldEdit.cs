@@ -15,10 +15,13 @@ namespace DestinyEngine
     {
 
         #if (UNITY_EDITOR)
+        public bool showVanillaWorld = false;
         public Overworld_MapData mapData;
         public GameObject islandPrefab;
 
         private List<OverworldEditor_Island> pooledMinimapIsland = new List<OverworldEditor_Island>();
+        private Overworld_MapData vanillaIslandData;
+
         [HideInNormalInspector] public bool disableUpdate = false;
 
         private void Awake()
@@ -50,6 +53,9 @@ namespace DestinyEngine
 
         public void Update_WorldMap()
         {
+            string filePath = Application.streamingAssetsPath + "/OverworldData.worldDat";
+            vanillaIslandData = JsonUtility.FromJson<Overworld_MapData>(File.ReadAllText(filePath));
+
             int i = 0;
             pooledMinimapIsland.Clear();
             OverworldEditor_Island[] islands = this.GetComponentsInChildren<OverworldEditor_Island>();
@@ -67,13 +73,7 @@ namespace DestinyEngine
                 {
                     if (pooledMinimapIsland[i] != null)
                     {
-                        pooledMinimapIsland[i].RegionName = islandData.RegionName;
-                        pooledMinimapIsland[i].RadiusEnter = islandData.RadiusEnter;
-                        pooledMinimapIsland[i].transform.localScale = new Vector3(islandData.IslandSize.x, 1, islandData.IslandSize.z);
-
-                        pooledMinimapIsland[i].transform.position = islandData.GCECoord;
-                        pooledMinimapIsland[i].transform.rotation = Quaternion.identity;
-                        pooledMinimapIsland[i].gameObject.name = islandData.RegionName;
+                        ReloadIsland(islandData, i);
                         valid = true;
                     }
                     else
@@ -86,12 +86,49 @@ namespace DestinyEngine
                 {
                     if (pooledMinimapIsland.Find(z => z.RegionName == islandData.RegionName) != null)
                     {
-                        continue; //wtf
+                        continue;
                     }
 
                     OverworldEditor_Island Island = Instantiate(islandPrefab, islandData.GCECoord, Quaternion.identity).GetComponent<OverworldEditor_Island>();
                     Island.RegionName = islandData.RegionName;
-                    Island.RadiusEnter = islandData.RadiusEnter;
+                    Island.transform.localScale = new Vector3(islandData.IslandSize.x, 1, islandData.IslandSize.z);
+
+                    Island.transform.SetParent(this.transform);
+                    Island.gameObject.name = islandData.RegionName;
+
+                    pooledMinimapIsland.Add(Island);
+                }
+
+                i++;
+            }
+
+            if (showVanillaWorld)
+            foreach(IslandData islandData in vanillaIslandData.GlobalIslands)
+            {
+                bool valid = false;
+
+                if (pooledMinimapIsland.Count > i)
+                {
+                    if (pooledMinimapIsland[i] != null)
+                    {
+                        ReloadIsland(islandData, i);
+                        valid = true;
+                    }
+                    else
+                    {
+
+                    }
+                }
+
+                if (!valid)
+                {
+                    if (pooledMinimapIsland.Find(z => z.RegionName == islandData.RegionName) != null)
+                    {
+                        continue;
+                    }
+
+                    OverworldEditor_Island Island = Instantiate(islandPrefab, islandData.GCECoord, Quaternion.identity).GetComponent<OverworldEditor_Island>();
+                    Island.RegionName = islandData.RegionName;
                     Island.transform.localScale = new Vector3(islandData.IslandSize.x, 1, islandData.IslandSize.z);
 
                     Island.transform.SetParent(this.transform);
@@ -108,6 +145,17 @@ namespace DestinyEngine
             Debug.Log("Overworld Map data updated.");
         }
 
+        void ReloadIsland(IslandData islandData, int i)
+        {
+            pooledMinimapIsland[i].RegionName = islandData.RegionName;
+            pooledMinimapIsland[i].RadiusEnter = islandData.RadiusEnter;
+            pooledMinimapIsland[i].transform.localScale = new Vector3(islandData.IslandSize.x, 1, islandData.IslandSize.z);
+
+            pooledMinimapIsland[i].transform.position = islandData.GCECoord;
+            pooledMinimapIsland[i].transform.rotation = Quaternion.identity;
+            pooledMinimapIsland[i].gameObject.name = islandData.RegionName;
+        }
+
         public void Save_WorldMap(string fileName)
         {
             string mapDat = JsonUtility.ToJson(mapData, true);
@@ -118,7 +166,7 @@ namespace DestinyEngine
 
         public void Load_WorldMap()
         {
-            string filePath = Application.streamingAssetsPath + "/OverworldData.worldDat";
+            string filePath = EditorUtility.OpenFilePanel ("Load World Data", Application.dataPath, "worldDat");
 
             mapData = JsonUtility.FromJson<Overworld_MapData>(File.ReadAllText(filePath));
             Debug.Log("Overworld Map data has been loaded.");
