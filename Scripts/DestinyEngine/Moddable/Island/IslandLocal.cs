@@ -4,6 +4,12 @@ using UnityEngine;
 
 namespace DestinyEngine
 {
+    [System.Flags] public enum IslandLocal_Flags
+    {
+        Interior,
+        DisableWater
+    }
+
     [System.Serializable]
     public class SpawnZone
     {
@@ -16,7 +22,21 @@ namespace DestinyEngine
     public class IslandLocal_Data
     {
         public string RegionName = "";
+        public List<Interactables> all_Interactables = new List<Interactables>();
+        public List<IslandLocal_Flags> all_Flags = new List<IslandLocal_Flags>();
         public List<SpawnZone> all_SpawnZones = new List<SpawnZone>();
+
+        public bool CheckFlag(IslandLocal_Flags Flag)
+        {
+            if (all_Flags.Contains(Flag))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 
     [System.Serializable]
@@ -24,5 +44,12 @@ namespace DestinyEngine
     {
 
         public IslandLocal_Data Data;
+
+        int i = 0;
+
+        private void Start()
+        {
+        }
+
     }
 }

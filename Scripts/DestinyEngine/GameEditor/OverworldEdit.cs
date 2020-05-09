@@ -148,7 +148,6 @@ namespace DestinyEngine
         void ReloadIsland(IslandData islandData, int i)
         {
             pooledMinimapIsland[i].RegionName = islandData.RegionName;
-            pooledMinimapIsland[i].RadiusEnter = islandData.RadiusEnter;
             pooledMinimapIsland[i].transform.localScale = new Vector3(islandData.IslandSize.x, 1, islandData.IslandSize.z);
 
             pooledMinimapIsland[i].transform.position = islandData.GCECoord;

@@ -9,7 +9,6 @@ namespace DestinyEngine
     public class IslandGlobal_Data
     {
         public string RegionName = "";
-        public float RadiusEnter = 500f;
 
         [Tooltip("When entered, this island will overwrite current GCE Coord.")]
         public bool overrideGCECoord = true;
@@ -19,9 +18,9 @@ namespace DestinyEngine
     [System.Serializable]
     public class IslandData
     {
+        public string   NameDisplay = "";
         public string   RegionName = "";
         public string   ModPackName = "vanilla";
-        public float    RadiusEnter = 500f;
         public Vector3  GCECoord    = new Vector3(0, 0, 0);
 
         [Tooltip("IslandSize Y axis will not affect the scale.")]
