@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System.IO;
+using DestinyEngine;
 
 public class ModPack_Editor : EditorWindow
 {
-    public TravellerTime.ModPack_Data modData = new TravellerTime.ModPack_Data();
+    public ModPack_Data modData = new ModPack_Data();
 
     [MenuItem("Mod Tools/Edit Modpack Settings")]
     static void Init()
