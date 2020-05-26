@@ -9,6 +9,7 @@ namespace TravellerTime
     public class Airplane : Vehicle
     {
         public MFlight.Demo.Plane planeControl;
+
         public override void TurnOff_Vehicle()
         {
             planeControl.enabled = false;
@@ -16,6 +17,16 @@ namespace TravellerTime
         public override void TurnOn_Vehicle()
         {
             planeControl.enabled = true;
+        }
+
+        public override void LoadState()
+        {
+
+        }
+
+        public override void SaveState()
+        {
+
         }
     }
 }

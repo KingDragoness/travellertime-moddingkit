@@ -9,6 +9,7 @@ namespace TravellerTime
     public class Boat : Vehicle
     {
         public BoatAlignNormal boatControl;
+
         public override void TurnOff_Vehicle()
         {
             boatControl._playerControlled = false;
@@ -16,6 +17,16 @@ namespace TravellerTime
         public override void TurnOn_Vehicle()
         {
             boatControl._playerControlled = true;
+        }
+
+        public override void LoadState()
+        {
+
+        }
+
+        public override void SaveState()
+        {
+
         }
     }
 }
