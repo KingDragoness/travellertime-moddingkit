@@ -23,7 +23,7 @@ MonoBehaviour:
   gameVersion: 0.0.1
   modFileExtension: .umod
   commandLineLaunchFormat: +mod=$PATH
-  targetUnityVersion: 2019.2.8f1
+  targetUnityVersion: 2019.2.21f1
   developerWebsiteURL: http://trivialinteractive.co.uk
   onlineDocumentationURL: http://umod.trivialinteractive.co.uk/umoduserguide.html
   onlineScriptingReferenceURL: http://umod.trivialinteractive.co.uk/scriptingreference
@@ -215,7 +215,7 @@ MonoBehaviour:
   security:
     performBuildSecurityChecks: 1
     allowScriptsInMods: 1
-    allowAssembliesInMods: 0
+    allowAssembliesInMods: 1
     securityRestrictions: {fileID: 11400000, guid: 8d55681ab9ab21a488be988ddf1c985d,
       type: 2}
     readOnly: 0
