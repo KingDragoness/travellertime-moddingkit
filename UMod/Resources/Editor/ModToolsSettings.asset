@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   toolsIconSmall: {fileID: 0}
   toolsIconLarge: {fileID: 0}
-  toolsName: Traveller of Time Mod Tools
-  toolsVersion: 0.0.1
+  toolsName: Traveller Modding Kit
+  toolsVersion: 0.0.2
   firstRunWindow:
     assemblyQualifiedName: 
-  developerName: Aksel Indonesia
-  gameName: Traveller of Time
-  gameVersion: 0.0.1
+  developerName: Akxel Games
+  gameName: Spirit of Traveller Pre-alpha
+  gameVersion: 0.0.2
   modFileExtension: .umod
   commandLineLaunchFormat: +mod=$PATH
   targetUnityVersion: 2019.2.21f1
@@ -30,72 +30,23 @@ MonoBehaviour:
   assetSharing:
     sharedAssetBundlePath: Resources/Editor/ModToolsSharedAssets.modbundle
     sharedAssets:
-    - assetGUID: 47b13047-1d4a-4e9d-9d80-58906a0a63e1
-      assetBundlePath: Assets/MentalDreamsAssets/PropsPack/Prefabs/barrel.prefab
-      assetPreviewBundlePath: Assets/umod-buildtools-sharedasset-previews/barrel.prefab.png
+    - assetGUID: 492444523ebadcd49be54590a16fc759
+      assetBundlePath: Assets/Test/Vehicle/$VEHICLE_Vanilla.BoatRow.prefab
+      assetPreviewBundlePath: Assets/umod-buildtools-sharedasset-previews/$VEHICLE_Vanilla.BoatRow.prefab.png
       assetType:
-        assemblyQualifiedName: UnityEngine.GameObject, UnityEngine, Version=0.0.0.0,
+        assemblyQualifiedName: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
       assetLabels: []
-    - assetGUID: 9f4f73a2-aacf-44a6-9f0c-cfe4dec33078
-      assetBundlePath: Assets/MentalDreamsAssets/PropsPack/Prefabs/bin.prefab
-      assetPreviewBundlePath: Assets/umod-buildtools-sharedasset-previews/bin.prefab.png
+    - assetGUID: dd9bf34ff3e6eb54f82527b007d7c808
+      assetBundlePath: Assets/Test/Vehicle/$VEHICLE_Vanilla.MainShip(plane).prefab
+      assetPreviewBundlePath: Assets/umod-buildtools-sharedasset-previews/$VEHICLE_Vanilla.MainShip(plane).prefab.png
       assetType:
-        assemblyQualifiedName: UnityEngine.GameObject, UnityEngine, Version=0.0.0.0,
-          Culture=neutral, PublicKeyToken=null
-      assetLabels: []
-    - assetGUID: 5cac6bab-f4da-4956-ae31-558c6a23499f
-      assetBundlePath: Assets/MentalDreamsAssets/PropsPack/Prefabs/box.prefab
-      assetPreviewBundlePath: Assets/umod-buildtools-sharedasset-previews/box.prefab.png
-      assetType:
-        assemblyQualifiedName: UnityEngine.GameObject, UnityEngine, Version=0.0.0.0,
-          Culture=neutral, PublicKeyToken=null
-      assetLabels: []
-    - assetGUID: f5719094-1902-42ff-864f-6a88270a979f
-      assetBundlePath: Assets/MentalDreamsAssets/PropsPack/Prefabs/Box004.prefab
-      assetPreviewBundlePath: Assets/umod-buildtools-sharedasset-previews/Box004.prefab.png
-      assetType:
-        assemblyQualifiedName: UnityEngine.GameObject, UnityEngine, Version=0.0.0.0,
-          Culture=neutral, PublicKeyToken=null
-      assetLabels: []
-    - assetGUID: a5febdc8-9447-4b0c-ab3b-a2f118d0661e
-      assetBundlePath: Assets/MentalDreamsAssets/PropsPack/Prefabs/bucket.prefab
-      assetPreviewBundlePath: Assets/umod-buildtools-sharedasset-previews/bucket.prefab.png
-      assetType:
-        assemblyQualifiedName: UnityEngine.GameObject, UnityEngine, Version=0.0.0.0,
-          Culture=neutral, PublicKeyToken=null
-      assetLabels: []
-    - assetGUID: 9c34f632-b4f0-4003-89e4-b5691e28a8d9
-      assetBundlePath: Assets/MentalDreamsAssets/PropsPack/Prefabs/cabinet.prefab
-      assetPreviewBundlePath: Assets/umod-buildtools-sharedasset-previews/cabinet.prefab.png
-      assetType:
-        assemblyQualifiedName: UnityEngine.GameObject, UnityEngine, Version=0.0.0.0,
-          Culture=neutral, PublicKeyToken=null
-      assetLabels: []
-    - assetGUID: 86752c55-3f53-4e73-83c4-7626744dec09
-      assetBundlePath: Assets/MentalDreamsAssets/PropsPack/Prefabs/cablereel.prefab
-      assetPreviewBundlePath: Assets/umod-buildtools-sharedasset-previews/cablereel.prefab.png
-      assetType:
-        assemblyQualifiedName: UnityEngine.GameObject, UnityEngine, Version=0.0.0.0,
-          Culture=neutral, PublicKeyToken=null
-      assetLabels: []
-    - assetGUID: dff32637-6d98-4516-8b23-339ad065ea08
-      assetBundlePath: Assets/MentalDreamsAssets/PropsPack/Prefabs/palette_box.prefab
-      assetPreviewBundlePath: Assets/umod-buildtools-sharedasset-previews/palette_box.prefab.png
-      assetType:
-        assemblyQualifiedName: UnityEngine.GameObject, UnityEngine, Version=0.0.0.0,
-          Culture=neutral, PublicKeyToken=null
-      assetLabels: []
-    - assetGUID: d04e59a8-a90d-4406-ab0c-a6bbabfd8bb8
-      assetBundlePath: Assets/MentalDreamsAssets/PropsPack/Prefabs/shelf.prefab
-      assetPreviewBundlePath: Assets/umod-buildtools-sharedasset-previews/shelf.prefab.png
-      assetType:
-        assemblyQualifiedName: UnityEngine.GameObject, UnityEngine, Version=0.0.0.0,
+        assemblyQualifiedName: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
       assetLabels: []
   options:
     allowAssetsInMods: 1
-    allowScenesInMods: 0
+    allowScenesInMods: 1
     allowScriptsInMods: 1
     allowMultipleModsPerProject: 1
     allowModReferences: 1
@@ -198,25 +149,19 @@ MonoBehaviour:
       isSeparator: 1
       windowType:
         assemblyQualifiedName: 
-    - menuEntryName: Game Assets (Experimental)
+    - menuEntryName: Game Assets
       menuAction: 5
       enabled: 1
       isSeparator: 0
       windowType:
         assemblyQualifiedName: UMod.Exporter.GameAssetsWindow, UMod-Exporter, Version=1.0.0.0,
           Culture=neutral, PublicKeyToken=null
-    - menuEntryName: Modpack Edit
-      menuAction: 5
-      enabled: 1
-      isSeparator: 0
-      windowType:
-        assemblyQualifiedName: 
     readOnly: 0
   security:
     performBuildSecurityChecks: 1
     allowScriptsInMods: 1
     allowAssembliesInMods: 1
-    securityRestrictions: {fileID: 11400000, guid: 8d55681ab9ab21a488be988ddf1c985d,
+    securityRestrictions: {fileID: 11400000, guid: ec48e15fce9a35846964f190f066079d,
       type: 2}
     readOnly: 0
   gameLocking:
@@ -224,5 +169,6 @@ MonoBehaviour:
     allowGameVersionLocking: 1
     gameLockingGUID: d7102f4f-258e-4554-adf5-20061b78db5a
     readOnly: 0
+  stripShaderNames: []
   readOnly: 1
   newModTextFile: {fileID: 4900000, guid: 565e07c038553cf488486a6cbfad595c, type: 3}
