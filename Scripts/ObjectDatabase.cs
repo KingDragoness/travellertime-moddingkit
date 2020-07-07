@@ -17,7 +17,7 @@ namespace DestinyEngine.Object
         public List<Item_Junk> allItemJunk = new List<Item_Junk>();
         public List<Item_Weapon> allItemWeapon = new List<Item_Weapon>();
 
-        
+        public List<WorldObject> allBaseWorldObjects = new List<WorldObject>();
 
     }
 

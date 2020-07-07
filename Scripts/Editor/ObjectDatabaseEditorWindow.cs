@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System.Linq;
+using DestinyEngine;
 
 namespace DestinyEngine.Object
 {
@@ -12,7 +13,8 @@ namespace DestinyEngine.Object
         Ammo,
         Junk,
         Key,
-        Weapon
+        Weapon,
+        BaseWorldObject
     }
 
     public class ObjectDatabaseEditorWindow : EditorWindow
@@ -20,9 +22,9 @@ namespace DestinyEngine.Object
 
 
         public ObjectDatabase objectDatabase;
-        private List<Object>    pooled_Objects = new List<Object>();
-        private List<Object>    filter_Objects = new List<Object>();
-        private string          wordFilter = "Hello World";
+        private List<BaseObject>    pooled_Objects = new List<BaseObject>();
+        private List<BaseObject>    filter_Objects = new List<BaseObject>();
+        private string          wordFilter = "";
 
 
         private GUISkin skin;
@@ -95,12 +97,13 @@ namespace DestinyEngine.Object
                         }
                         EditorGUILayout.EndFoldoutHeaderGroup();
 
-                        foldoutShow_Audio = EditorGUILayout.BeginFoldoutHeaderGroup(foldoutShow_Audio, "Audio");
+                        foldoutShow_Audio = EditorGUILayout.BeginFoldoutHeaderGroup(foldoutShow_Audio, "WorldObjects");
                         if (foldoutShow_Audio)
                         {
-                            if (GUILayout.Button("Weapon Sound", buttonStyle))
+                            if (GUILayout.Button("Base WorldObject", buttonStyle))
                             {
-
+                                typeList = ObjectEditor_TypeList.BaseWorldObject;
+                                Change_List();
                             }
                         }
                         EditorGUILayout.EndFoldoutHeaderGroup();
@@ -170,13 +173,22 @@ namespace DestinyEngine.Object
                     pooled_Objects.Add(item);
                 }
             }
+
+            if (typeList == ObjectEditor_TypeList.BaseWorldObject)
+            {
+                objectDatabase.Data.allBaseWorldObjects = objectDatabase.Data.allBaseWorldObjects.OrderBy(z => z.ID).ToList();
+                foreach (WorldObject worldobject in objectDatabase.Data.allBaseWorldObjects)
+                {
+                    pooled_Objects.Add(worldobject);
+                }
+            }
         }
 
         private bool    filter_isCapsSensitive = false;
         private bool    filter_limitPage = true;
         private int     filter_itemPerPage = 50;
         private int     pageIndex = 0;
-        private Object objectTarget = null;
+        private BaseObject objectTarget = null;
 
         void ShowItemsGUI()
         {
@@ -273,7 +285,7 @@ namespace DestinyEngine.Object
                         pageIndex = maxPage;
                     }
 
-                    List<Object> filter2 = new List<Object>();
+                    List<BaseObject> filter2 = new List<BaseObject>();
 
                     //PageIndex Start filter_Objects:
                     for (int x = 0; x < filter_itemPerPage; x++)
@@ -305,16 +317,18 @@ namespace DestinyEngine.Object
 
             for (int x = 0; x < filter_Objects.Count; x++)
             {
-
                 if (GUILayout.Button(filter_Objects[x].ID, buttonStyle))
                 {
                     objectTarget = filter_Objects[x];
                     GenericMenu menu = new GenericMenu();
 
+                    menu.AddItem(new GUIContent("Copy ID to Clipboard"), false, Context_CopyClipboard);
                     menu.AddItem(new GUIContent("New"), false, Context_New);
                     menu.AddItem(new GUIContent("Edit"), false, Context_Edit);
                     menu.AddItem(new GUIContent("Duplicate"), false, Context_Duplicate);
                     menu.AddItem(new GUIContent("Delete "), false, Context_Delete);
+                    menu.AddSeparator("");
+                    menu.AddItem(new GUIContent("Create object in scene "), false, Context_CreateObjectInScene);
 
                     menu.ShowAsContext();
                 }
@@ -358,6 +372,14 @@ namespace DestinyEngine.Object
 
                         break;
                     }
+                case ObjectEditor_TypeList.BaseWorldObject:
+                    {
+                        WorldObject newObject = new WorldObject();
+                        objectTarget = newObject;
+                        objectDatabase.Data.allBaseWorldObjects.Add(newObject);
+
+                        break;
+                    }
                 default:
 
                     break;
@@ -367,9 +389,15 @@ namespace DestinyEngine.Object
             DestinyObjectEditor.OpenWindow(objectDatabase, typeList, objectTarget, true);
         }
 
+
         void Context_Edit()
         {
             DestinyObjectEditor.OpenWindow(objectDatabase, typeList, objectTarget);
+        }
+
+        void Context_CopyClipboard()
+        {
+            EditorGUIUtility.systemCopyBuffer = objectTarget.ID;
         }
 
         void Context_Duplicate()
@@ -407,6 +435,13 @@ namespace DestinyEngine.Object
 
                             break;
                         }
+                    case ObjectEditor_TypeList.BaseWorldObject:
+                        {
+                            WorldObject newItem4 = WorldObject.Copy(objectTarget as WorldObject);
+                            objectDatabase.Data.allBaseWorldObjects.Add(newItem4);
+
+                            break;
+                        }
                     default:
 
                         break;
@@ -441,6 +476,11 @@ namespace DestinyEngine.Object
 
                         break;
 
+                    case ObjectEditor_TypeList.BaseWorldObject:
+                        objectDatabase.Data.allBaseWorldObjects.Remove(objectTarget as WorldObject);
+
+                        break;
+
                     default:
 
                         break;
@@ -449,6 +489,74 @@ namespace DestinyEngine.Object
                 Change_List();
             }
         }
+
+        void Context_CreateObjectInScene()
+        {
+            if (objectTarget.gameModel != null)
+            {
+                if (objectTarget is Item)
+                {
+                    GameObject createdObject = Instantiate(objectTarget.gameModel);
+                    Pickable pickable = createdObject.GetComponent<Pickable>();
+
+                    if (pickable == null)
+                    {
+                        if (createdObject.GetComponent<Spawnables>() != null)
+                        {
+                            Spawnables spawnable = createdObject.GetComponent<Spawnables>();
+                            DestroyImmediate(spawnable);
+                        }
+
+                        pickable = objectTarget.gameModel.AddComponent<Pickable>();
+                        pickable.pickableData.formID.BaseID = objectTarget.ID;
+                        pickable.pickableData.formID.DatabaseID = objectDatabase.Data.name;
+                        pickable.pickableData.formID.ObjectType = DestinyMainUtility.Check_ObjectType(objectTarget);
+                        pickable.pickableData.formID.ReferenceID = objectTarget.ID + "_" + DestinyMainUtility.GenerateStupidID(6);
+
+                        pickable.pickableData.itemData.DatabaseName = objectDatabase.Data.name;
+                        pickable.pickableData.itemData.ID = objectTarget.ID;
+                        pickable.pickableData.itemData.item_Type = DestinyMainUtility.Check_ItemType(objectTarget as Item);
+                    }
+                    else
+                    {
+                        pickable.pickableData.formID.BaseID = objectTarget.ID;
+                        pickable.pickableData.formID.DatabaseID = objectDatabase.Data.name;
+                        pickable.pickableData.formID.ObjectType = DestinyMainUtility.Check_ObjectType(objectTarget);
+                        pickable.pickableData.formID.ReferenceID = objectTarget.ID + "_" + DestinyMainUtility.GenerateStupidID(6);
+
+                        pickable.pickableData.itemData.DatabaseName = objectDatabase.Data.name;
+                        pickable.pickableData.itemData.ID = objectTarget.ID;
+                        pickable.pickableData.itemData.item_Type = DestinyMainUtility.Check_ItemType(objectTarget as Item);
+                    }
+                }
+                else
+                {
+                    Spawnables spawnable = Instantiate(objectTarget.gameModel).GetComponent<Spawnables>();
+
+                    if (spawnable == null)
+                    {
+                        spawnable = objectTarget.gameModel.AddComponent<Spawnables>();
+                        spawnable.Data.formID.BaseID = objectTarget.ID;
+                        spawnable.Data.formID.DatabaseID = objectDatabase.Data.name;
+                        spawnable.Data.formID.ObjectType = DestinyMainUtility.Check_ObjectType(objectTarget);
+                        spawnable.Data.formID.ReferenceID = objectTarget.ID + "_" + DestinyMainUtility.GenerateStupidID(6);
+                    }
+                    else
+                    {
+                        spawnable.Data.formID.BaseID = objectTarget.ID;
+                        spawnable.Data.formID.DatabaseID = objectDatabase.Data.name;
+                        spawnable.Data.formID.ObjectType = DestinyMainUtility.Check_ObjectType(objectTarget);
+                        spawnable.Data.formID.ReferenceID = objectTarget.ID + "_" + DestinyMainUtility.GenerateStupidID(6);
+
+                    }
+                }
+            }
+            else
+            {
+                Debug.LogError("No gameModel assigned to " + objectTarget.name + "!");
+            }
+        }
+
 
 
         void Test1()

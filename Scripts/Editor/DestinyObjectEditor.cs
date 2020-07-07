@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Reflection;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,11 +12,15 @@ namespace DestinyEngine.Object
     {
         private ObjectEditor_TypeList typeList = ObjectEditor_TypeList.None;
         private ObjectDatabase objectDatabase = null;
-        private Object objectTarget = null;
+        private BaseObject objectTarget = null;
         private bool isCreateNewObjectMode = false;
+        private List<int>       indexes = new List<int>();
+        private List<bool>      booleans = new List<bool>();
+        private List<string>    string_cache = new List<string>();
+
 
         [MenuItem("Destiny Engine/Object Database Editor Window")]
-        public static void OpenWindow(ObjectDatabase objectdatabase_, ObjectEditor_TypeList typelist, Object objectTarget_, bool isCreateNewObjectMode_ = false)
+        public static void OpenWindow(ObjectDatabase objectdatabase_, ObjectEditor_TypeList typelist, BaseObject objectTarget_, bool isCreateNewObjectMode_ = false)
         {
             DestinyObjectEditor window = GetWindow<DestinyObjectEditor>();
 
@@ -24,6 +29,19 @@ namespace DestinyEngine.Object
             window.objectDatabase = objectdatabase_;
             window.objectTarget = objectTarget_;
             window.isCreateNewObjectMode = isCreateNewObjectMode_;
+
+            while(window.indexes.Count < 100)
+            {
+                window.indexes.Add(1);
+            }
+            while (window.string_cache.Count < 100)
+            {
+                window.string_cache.Add("*");
+            }
+            while (window.booleans.Count < 100)
+            {
+                window.booleans.Add(false);
+            }
         }
 
         private void OnGUI()
@@ -65,6 +83,11 @@ namespace DestinyEngine.Object
                     listName = "allItemWeapon";
                     break;
 
+                case ObjectEditor_TypeList.BaseWorldObject:
+                    index = objectDatabase.Data.allBaseWorldObjects.FindIndex(x => x == objectTarget);
+                    listName = "allBaseWorldObjects";
+                    break;
+
                 default:
 
                     break;
@@ -77,7 +100,7 @@ namespace DestinyEngine.Object
 
             currentProperty = serializedObject.FindProperty("Data");
             SerializedProperty serializedList = currentProperty.FindPropertyRelative(listName).GetArrayElementAtIndex(index);
-            DrawProperties(serializedList, true);
+            Attempt_DrawInspector(serializedList);
 
             EditorGUILayout.Space();
 
@@ -99,7 +122,107 @@ namespace DestinyEngine.Object
                     Close();
                 }
             }
+        }
 
+
+        void Attempt_DrawInspector(SerializedProperty serializedList)
+        {
+            List<string> propNames = new List<string>();
+            currentProperty = serializedList;
+
+            switch (typeList)
+            {
+                case ObjectEditor_TypeList.Ammo:
+                    DrawProperties(serializedList, true);
+
+                    break;
+
+                case ObjectEditor_TypeList.Junk:
+                    DrawProperties(serializedList, true);
+
+                    break;
+
+                case ObjectEditor_TypeList.Key:
+                    DrawProperties(serializedList, true);
+
+                    break;
+
+                case ObjectEditor_TypeList.Weapon:
+                    propNames.AddRange(Get_ItemPropNames(objectTarget));
+                    propNames.Reverse();
+
+                    foreach(string s in propNames)
+                    {
+                        DrawField(s, true);
+
+                        if (s == "ammoID")
+                        {
+                            booleans[0] = GUILayout.Toggle(booleans[0], "Show Ammo IDs");
+
+                            if (booleans[0])
+                            {
+                                EditorGUILayout.BeginVertical("Box");
+
+                                for (int x = 0; x < objectDatabase.Data.allItemAmmo.Count; x++)
+                                {
+                                    bool endBox = false;
+
+                                    if (x % 3 == 0)
+                                    {
+                                        EditorGUILayout.BeginHorizontal();
+                                    }
+                                    else if (x % 3 == 2)
+                                    {
+                                        endBox = true;
+                                    }
+
+                                    EditorGUILayout.SelectableLabel(objectDatabase.Data.allItemAmmo[x].ID);
+
+                                    if (endBox)
+                                    {
+                                        EditorGUILayout.EndHorizontal();
+                                    }
+                                    else if (x == objectDatabase.Data.allItemAmmo.Count - 1)
+                                    {
+                                        EditorGUILayout.EndHorizontal();
+                                    }
+
+                                }
+
+                                EditorGUILayout.EndVertical();
+                            }
+                        }
+
+                    }
+                    break;
+
+                case ObjectEditor_TypeList.BaseWorldObject:
+                    DrawProperties(serializedList, true);
+
+                    break;
+
+                default:
+
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// 
+        /// </summary>
+        /// <param name="type">Item / Weapon</param>
+        /// <returns></returns>
+        List<string> Get_ItemPropNames(BaseObject object_)
+        {
+            List<string> propNames = new List<string>();
+            var prop = object_.GetType().GetFields();
+            foreach(FieldInfo p in prop)
+            {
+                propNames.Add(p.Name);
+            }
+
+            return propNames;
         }
 
         void Create_Object()
