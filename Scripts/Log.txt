@@ -1,8 +1,0 @@
-Current version: 0.0.1
-
-Added Features:
-- GCE & Overworld: Player can traverse the Overworld map with nearly unlimited size.
-
-- Islands: Can create islands, dungeons, interiors & etc.
-
-- Interactables: Can be extended to create custom puzzles/system. Use SaveState() to save the object's variables and LoadState() to load the object's variable.
