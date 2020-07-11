@@ -26,7 +26,7 @@ Traveller of Time allows for modders to modding using UMod.
 
 
 
-Current version: 0.0.1
+Current version: 0.0.5b
 
 ### Current Features:
 
