@@ -25,10 +25,3 @@ Current version: 0.0.5b
 -	Modders can add vehicles into the game. The game has a base script of Airplane and Boat.
 
 
-
-
-### Current Features:
-
-- **Interactables**: Can be extended to create custom puzzles/system. Use SaveState() to save the object's variables and LoadState() to load the object's variable.
-
-- **Islands**: Can create islands, dungeons, interiors & etc.
