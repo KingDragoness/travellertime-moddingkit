@@ -24,7 +24,6 @@ Current version: 0.0.5b
 
 -	Modders can add vehicles into the game. The game has a base script of Airplane and Boat.
 
--	To include new vehicle, add “**Appendable Vehicle Database**” to point the vehicle. To prevent ID collision, make sure name the vehicle ID like this: “**mymod123.Airplane_000**” or “**crazysubmarine.Submarine_000**”.
 
 
 
