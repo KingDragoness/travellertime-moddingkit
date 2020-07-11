@@ -1,6 +1,8 @@
 # Traveller Time Modding Kit [Pre-Alpha]
 
 Traveller of Time allows for modders to modding using UMod.  
+Current version: 0.0.5b
+
 
 #### World:
 
@@ -25,8 +27,6 @@ Traveller of Time allows for modders to modding using UMod.
 -	To include new vehicle, add “**Appendable Vehicle Database**” to point the vehicle. To prevent ID collision, make sure name the vehicle ID like this: “**mymod123.Airplane_000**” or “**crazysubmarine.Submarine_000**”.
 
 
-
-Current version: 0.0.5b
 
 ### Current Features:
 
