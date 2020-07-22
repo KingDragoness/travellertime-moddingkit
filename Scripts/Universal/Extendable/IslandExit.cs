@@ -9,9 +9,36 @@ namespace DestinyEngine
 
         public bool overrideGCECoord = true;
 
-        ///
-        //  Temporary Patch 
-        //
-        ///
+        private void ExitIsland()
+        {
+            print("Exitting Island");
+            DestinyMainEngine.main.LoadOverworld(fromIslandExit: true);
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            bool is_Vehicle = false;
+
+            Transform parent = other.transform.parent;
+            int i = 1;
+            while (parent != null)
+            {
+                if (DestinyMainEngine.main.ActiveVehicle != null)
+                {
+                    if (parent.gameObject == DestinyMainEngine.main.ActiveVehicle.gameObject)
+                    {
+                        is_Vehicle = true;
+                    }
+                }
+
+                parent = parent.parent;
+                ++i;
+            }
+
+            if (other.CompareTag("Player") && is_Vehicle)
+            {
+                ExitIsland();
+            }
+        }
     }
 }
