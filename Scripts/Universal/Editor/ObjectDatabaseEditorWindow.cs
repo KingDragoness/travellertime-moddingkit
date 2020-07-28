@@ -192,7 +192,7 @@ namespace DestinyEngine.Object
             if (typeList == ObjectEditor_TypeList.BaseWorldObject)
             {
                 objectDatabase.Data.allBaseWorldObjects = objectDatabase.Data.allBaseWorldObjects.OrderBy(z => z.ID).ToList();
-                foreach (WorldObject worldobject in objectDatabase.Data.allBaseWorldObjects)
+                foreach (BaseWorldObject worldobject in objectDatabase.Data.allBaseWorldObjects)
                 {
                     pooled_Objects.Add(worldobject);
                 }
@@ -397,7 +397,7 @@ namespace DestinyEngine.Object
                     }
                 case ObjectEditor_TypeList.BaseWorldObject:
                     {
-                        WorldObject newObject = new WorldObject();
+                        BaseWorldObject newObject = new BaseWorldObject();
                         objectTarget = newObject;
                         objectDatabase.Data.allBaseWorldObjects.Add(newObject);
 
@@ -467,7 +467,7 @@ namespace DestinyEngine.Object
                         }
                     case ObjectEditor_TypeList.BaseWorldObject:
                         {
-                            WorldObject newItem4 = WorldObject.Copy(objectTarget as WorldObject);
+                            BaseWorldObject newItem4 = BaseWorldObject.Copy(objectTarget as BaseWorldObject);
                             objectDatabase.Data.allBaseWorldObjects.Add(newItem4);
 
                             break;
@@ -512,7 +512,7 @@ namespace DestinyEngine.Object
                         break;
 
                     case ObjectEditor_TypeList.BaseWorldObject:
-                        objectDatabase.Data.allBaseWorldObjects.Remove(objectTarget as WorldObject);
+                        objectDatabase.Data.allBaseWorldObjects.Remove(objectTarget as BaseWorldObject);
 
                         break;
 
@@ -532,21 +532,21 @@ namespace DestinyEngine.Object
                 if (objectTarget is Item)
                 {
                     GameObject createdObject = Instantiate(objectTarget.gameModel);
-                    Pickable pickable = createdObject.GetComponent<Pickable>();
+                    PickableScript pickable = createdObject.GetComponent<PickableScript>();
 
                     if (pickable == null)
                     {
-                        if (createdObject.GetComponent<Spawnables>() != null)
+                        if (createdObject.GetComponent<ObjectReferenceScript>() != null)
                         {
-                            Spawnables spawnable = createdObject.GetComponent<Spawnables>();
+                            ObjectReferenceScript spawnable = createdObject.GetComponent<ObjectReferenceScript>();
                             DestroyImmediate(spawnable);
                         }
 
-                        pickable = objectTarget.gameModel.AddComponent<Pickable>();
+                        pickable = objectTarget.gameModel.AddComponent<PickableScript>();
                         pickable.pickableData.formID.BaseID = objectTarget.ID;
                         pickable.pickableData.formID.DatabaseID = objectDatabase.Data.name;
                         pickable.pickableData.formID.ObjectType = DestinyMainUtility.Check_ObjectType(objectTarget);
-                        pickable.pickableData.formID.ReferenceID = objectTarget.ID + "_" + DestinyMainUtility.GenerateStupidID(6);
+                        pickable.pickableData.formID.ReferenceID = objectTarget.ID + "_" + DestinyMainUtility.GenerateSpawnableID(6);
 
                         pickable.pickableData.itemData.DatabaseName = objectDatabase.Data.name;
                         pickable.pickableData.itemData.ID = objectTarget.ID;
@@ -557,7 +557,7 @@ namespace DestinyEngine.Object
                         pickable.pickableData.formID.BaseID = objectTarget.ID;
                         pickable.pickableData.formID.DatabaseID = objectDatabase.Data.name;
                         pickable.pickableData.formID.ObjectType = DestinyMainUtility.Check_ObjectType(objectTarget);
-                        pickable.pickableData.formID.ReferenceID = objectTarget.ID + "_" + DestinyMainUtility.GenerateStupidID(6);
+                        pickable.pickableData.formID.ReferenceID = objectTarget.ID + "_" + DestinyMainUtility.GenerateSpawnableID(6);
 
                         pickable.pickableData.itemData.DatabaseName = objectDatabase.Data.name;
                         pickable.pickableData.itemData.ID = objectTarget.ID;
@@ -566,22 +566,22 @@ namespace DestinyEngine.Object
                 }
                 else
                 {
-                    Spawnables spawnable = Instantiate(objectTarget.gameModel).GetComponent<Spawnables>();
+                    ObjectReferenceScript spawnable = Instantiate(objectTarget.gameModel).GetComponent<ObjectReferenceScript>();
 
                     if (spawnable == null)
                     {
-                        spawnable = objectTarget.gameModel.AddComponent<Spawnables>();
+                        spawnable = objectTarget.gameModel.AddComponent<ObjectReferenceScript>();
                         spawnable.Data.formID.BaseID = objectTarget.ID;
                         spawnable.Data.formID.DatabaseID = objectDatabase.Data.name;
                         spawnable.Data.formID.ObjectType = DestinyMainUtility.Check_ObjectType(objectTarget);
-                        spawnable.Data.formID.ReferenceID = objectTarget.ID + "_" + DestinyMainUtility.GenerateStupidID(6);
+                        spawnable.Data.formID.ReferenceID = objectTarget.ID + "_" + DestinyMainUtility.GenerateSpawnableID(6);
                     }
                     else
                     {
                         spawnable.Data.formID.BaseID = objectTarget.ID;
                         spawnable.Data.formID.DatabaseID = objectDatabase.Data.name;
                         spawnable.Data.formID.ObjectType = DestinyMainUtility.Check_ObjectType(objectTarget);
-                        spawnable.Data.formID.ReferenceID = objectTarget.ID + "_" + DestinyMainUtility.GenerateStupidID(6);
+                        spawnable.Data.formID.ReferenceID = objectTarget.ID + "_" + DestinyMainUtility.GenerateSpawnableID(6);
 
                     }
                 }

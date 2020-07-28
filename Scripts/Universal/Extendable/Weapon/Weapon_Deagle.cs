@@ -54,6 +54,13 @@ namespace TravellerTime.Vanilla {
 
             WeaponAnimator.SetTrigger("Fire");
 
+            SaveFlag();
+            Impact();
+           
+        }
+
+        private void SaveFlag()
+        {
             if (!ConnectedItemData.flagData.ContainsKey("CurrentAmmo"))
             {
                 ConnectedItemData.flagData.Add("CurrentAmmo", magazineCurrent.ToString());
@@ -62,10 +69,6 @@ namespace TravellerTime.Vanilla {
             {
                 ConnectedItemData.flagData["CurrentAmmo"] = magazineCurrent.ToString();
             }
-
-            Impact();
-
-           
         }
 
         public override void Reload()
@@ -114,7 +117,7 @@ namespace TravellerTime.Vanilla {
 
             Is_Cooldown = false;
             DestinyInternalCommand.instance.GameUI_RefreshAmmoCounter();
-
+            SaveFlag();
         }
     }
 }

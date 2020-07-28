@@ -5,12 +5,11 @@ using UnityEngine;
 using UnityEditor;
 using DestinyEngine.Object;
 using DestinyEngine.Interact;
-using Sirenix.OdinInspector.Editor;
 
 namespace DestinyEngine
 {
     [CustomEditor(typeof(ChestContainer), true)]
-    public class ChestContainerEditor : OdinEditor
+    public class ChestContainerEditor : Editor
     {
         public ItemData_Type itemType;
         public ObjectDatabase currentDatabase;
@@ -191,7 +190,7 @@ namespace DestinyEngine
             }
         }
 
-        protected override void OnEnable()
+        protected void OnEnable()
         {
             skin = (GUISkin)Resources.Load("DatabaseSkin");
             buttonStyle = skin.GetStyle("Button");
@@ -201,7 +200,7 @@ namespace DestinyEngine
             JsonUtility.FromJsonOverwrite(data, this);
         }
 
-        protected override void OnDisable()
+        protected void OnDisable()
         {
             var data = JsonUtility.ToJson(this, false);
             EditorPrefs.SetString("Destiny.ChestContainerEditor", data);
