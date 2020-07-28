@@ -18,10 +18,12 @@ Current version: 0.0.5b
 
 #### Inventory:
 
--	To include new item, add “**Appendable Inventory Database**” to add an item.
+-	To include new item, add “**Inventory Database**” to add an item.
 
 #### Vehicle:
 
 -	Modders can add vehicles into the game. The game has a base script of Airplane and Boat.
 
+#### ObjectReference:
 
+-	Worldobjects can be spawned in the world and have its object state saved.
