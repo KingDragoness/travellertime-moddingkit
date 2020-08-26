@@ -1,6 +1,6 @@
 # Traveller Time Modding Kit [Pre-Alpha]
 
-Traveller of Time allows for modders to modding using UMod.  
+Traveller of Time allows for modders to create islands, vehicle, database or items.
 Current version: Pre-Alpha 0.0.7b
 
 
