@@ -1,0 +1,174 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1295631454, guid: 4d9ac0cbb6dcbc8428255d2df10dafee, type: 3}
+  m_Name: ModToolsSettings
+  m_EditorClassIdentifier: 
+  toolsIconSmall: {fileID: 0}
+  toolsIconLarge: {fileID: 0}
+  toolsName: Destiny Modding Suite
+  toolsVersion: 0.0.7
+  firstRunWindow:
+    assemblyQualifiedName: 
+  developerName: Akxel
+  gameName: Traveller of Time
+  gameVersion: 0.0.7
+  modFileExtension: .script
+  commandLineLaunchFormat: +mod=$PATH
+  targetUnityVersion: 2019.4.3f1
+  developerWebsiteURL: http://trivialinteractive.co.uk
+  onlineDocumentationURL: http://umod.trivialinteractive.co.uk/umoduserguide.html
+  onlineScriptingReferenceURL: http://umod.trivialinteractive.co.uk/scriptingreference
+  assetSharing:
+    sharedAssetBundlePath: Resources/Editor/ModToolsSharedAssets.modbundle
+    sharedAssets:
+    - assetGUID: 492444523ebadcd49be54590a16fc759
+      assetBundlePath: Assets/Test/Vehicle/$VEHICLE_Vanilla.BoatRow.prefab
+      assetPreviewBundlePath: Assets/umod-buildtools-sharedasset-previews/$VEHICLE_Vanilla.BoatRow.prefab.png
+      assetType:
+        assemblyQualifiedName: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      assetLabels: []
+    - assetGUID: dd9bf34ff3e6eb54f82527b007d7c808
+      assetBundlePath: Assets/Test/Vehicle/$VEHICLE_Vanilla.MainShip(plane).prefab
+      assetPreviewBundlePath: Assets/umod-buildtools-sharedasset-previews/$VEHICLE_Vanilla.MainShip(plane).prefab.png
+      assetType:
+        assemblyQualifiedName: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      assetLabels: []
+  options:
+    allowAssetsInMods: 1
+    allowScenesInMods: 1
+    allowScriptsInMods: 1
+    allowMultipleModsPerProject: 1
+    allowModReferences: 1
+    allowDotNet4X: 1
+    allowMenu: 1
+    menuRoot: Scripting
+    menuEntries:
+    - menuEntryName: Export script mod...
+      menuAction: 5
+      enabled: 1
+      isSeparator: 0
+      windowType:
+        assemblyQualifiedName: UMod.Exporter.ExporterWindow, UMod-Exporter, Version=1.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+    - menuEntryName: New script mod...
+      menuAction: 5
+      enabled: 1
+      isSeparator: 0
+      windowType:
+        assemblyQualifiedName: UMod.Exporter.CreateModWindow, UMod-Exporter, Version=1.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+    - menuEntryName: Create/Prefab Node
+      menuAction: 1
+      enabled: 0
+      isSeparator: 0
+      windowType:
+        assemblyQualifiedName: 
+    - menuEntryName: Create/Material Node
+      menuAction: 2
+      enabled: 0
+      isSeparator: 0
+      windowType:
+        assemblyQualifiedName: 
+    - menuEntryName: 
+      menuAction: 0
+      enabled: 1
+      isSeparator: 1
+      windowType:
+        assemblyQualifiedName: 
+    - menuEntryName: Export Settings
+      menuAction: 5
+      enabled: 1
+      isSeparator: 0
+      windowType:
+        assemblyQualifiedName: UMod.Exporter.SettingsWindow, UMod-Exporter, Version=1.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+    - menuEntryName: 
+      menuAction: 0
+      enabled: 1
+      isSeparator: 1
+      windowType:
+        assemblyQualifiedName: 
+    - menuEntryName: Build script mod %#b
+      menuAction: 3
+      enabled: 1
+      isSeparator: 0
+      windowType:
+        assemblyQualifiedName: 
+    - menuEntryName: Build and Run %#r
+      menuAction: 0
+      enabled: 0
+      isSeparator: 0
+      windowType:
+        assemblyQualifiedName: 
+    - menuEntryName: 
+      menuAction: 0
+      enabled: 1
+      isSeparator: 1
+      windowType:
+        assemblyQualifiedName: 
+    - menuEntryName: Help
+      menuAction: 5
+      enabled: 1
+      isSeparator: 0
+      windowType:
+        assemblyQualifiedName: UMod.Exporter.HelpWindow, UMod-Exporter, Version=1.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+    - menuEntryName: About
+      menuAction: 5
+      enabled: 1
+      isSeparator: 0
+      windowType:
+        assemblyQualifiedName: UMod.Exporter.AboutWindow, UMod-Exporter, Version=1.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+    - menuEntryName: 
+      menuAction: 0
+      enabled: 0
+      isSeparator: 1
+      windowType:
+        assemblyQualifiedName: 
+    - menuEntryName: Referencing/Rebuild Reference Cache
+      menuAction: 6
+      enabled: 0
+      isSeparator: 0
+      windowType:
+        assemblyQualifiedName: 
+    - menuEntryName: 
+      menuAction: 0
+      enabled: 0
+      isSeparator: 1
+      windowType:
+        assemblyQualifiedName: 
+    - menuEntryName: Game Assets
+      menuAction: 5
+      enabled: 0
+      isSeparator: 0
+      windowType:
+        assemblyQualifiedName: UMod.Exporter.GameAssetsWindow, UMod-Exporter, Version=1.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+    readOnly: 0
+  security:
+    performBuildSecurityChecks: 1
+    allowScriptsInMods: 1
+    allowAssembliesInMods: 1
+    securityRestrictions: {fileID: 11400000, guid: ec48e15fce9a35846964f190f066079d,
+      type: 2}
+    readOnly: 0
+  gameLocking:
+    allowGameLocking: 0
+    allowGameVersionLocking: 0
+    gameLockingGUID: d7102f4f-258e-4554-adf5-20061b78db5a
+    readOnly: 0
+  stripShaderNames: []
+  readOnly: 1
+  newModTextFile: {fileID: 4900000, guid: 565e07c038553cf488486a6cbfad595c, type: 3}
