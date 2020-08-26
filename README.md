@@ -1,7 +1,7 @@
 # Traveller Time Modding Kit [Pre-Alpha]
 
 Traveller of Time allows for modders to modding using UMod.  
-Current version: 0.0.6c
+Current version: 0.0.7b
 
 
 #### World:
