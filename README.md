@@ -1,7 +1,16 @@
 # Traveller Time Modding Kit [Pre-Alpha]
 
-Traveller of Time allows for modders to modding using UMod.  
-Current version: 0.0.7b
+Traveller of Time allows for modders to create islands, vehicle, database or items.
+
+**Current version:** Pre-Alpha 0.0.7b
+
+### Requirements:
+
+1. Cinemachine
+
+2. Unity Timeline
+
+3. Rewired (Skip all the addon installation)
 
 
 #### World:
@@ -16,9 +25,9 @@ Current version: 0.0.7b
 
 -	Action command to allow object interaction.
 
-#### Inventory:
+#### Database:
 
--	To include new item, add “**Inventory Database**” to add an item.
+-	Database are object database to store ingame items, worldobjects, quests and actors.
 
 #### Vehicle:
 
