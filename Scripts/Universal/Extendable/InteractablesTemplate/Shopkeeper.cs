@@ -53,6 +53,7 @@ namespace DestinyEngine.Interact
 
             Save_Variable("m_all_InventoryItem", dataToSave_);
             Save_Variable("m_merchantCash", shopkeeperMoney_);
+            Save_Variable("INTERACTABLE_SPECIAL_FLAG", "ChestContainer");
 
         }
     }

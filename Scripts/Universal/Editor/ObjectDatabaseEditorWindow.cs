@@ -15,7 +15,9 @@ namespace DestinyEngine.Object
         Key,
         Weapon,
         Misc,
-        BaseWorldObject
+        BaseWorldObject,
+        Actors,
+        Quests
     }
 
     public class ObjectDatabaseEditorWindow : EditorWindow
@@ -34,8 +36,9 @@ namespace DestinyEngine.Object
         private Color almostwhite = new Color(1, 1, 1, 0.2f);
         private ObjectEditor_TypeList typeList = ObjectEditor_TypeList.None;
 
-        bool foldoutShow_Audio;
+        bool foldoutShow_WorldObject;
         bool foldoutShow_Item;
+        bool foldoutShow_Faction;
 
         Vector2 scrollPos_ItemCategory;
         Vector2 scrollPos_IDObject;
@@ -103,12 +106,28 @@ namespace DestinyEngine.Object
                         }
                         EditorGUILayout.EndFoldoutHeaderGroup();
 
-                        foldoutShow_Audio = EditorGUILayout.BeginFoldoutHeaderGroup(foldoutShow_Audio, "WorldObjects");
-                        if (foldoutShow_Audio)
+                        foldoutShow_WorldObject = EditorGUILayout.BeginFoldoutHeaderGroup(foldoutShow_WorldObject, "WorldObjects");
+                        if (foldoutShow_WorldObject)
                         {
                             if (GUILayout.Button("Base WorldObject", buttonStyle))
                             {
                                 typeList = ObjectEditor_TypeList.BaseWorldObject;
+                                Change_List();
+                            }
+                            if (GUILayout.Button("Actors", buttonStyle))
+                            {
+                                typeList = ObjectEditor_TypeList.Actors;
+                                Change_List();
+                            }
+                        }
+                        EditorGUILayout.EndFoldoutHeaderGroup();
+
+                        foldoutShow_Faction = EditorGUILayout.BeginFoldoutHeaderGroup(foldoutShow_Faction, "Characters");
+                        if (foldoutShow_Faction)
+                        {
+                            if (GUILayout.Button("Quests", buttonStyle))
+                            {
+                                typeList = ObjectEditor_TypeList.Quests;
                                 Change_List();
                             }
                         }
@@ -195,6 +214,24 @@ namespace DestinyEngine.Object
                 foreach (BaseWorldObject worldobject in objectDatabase.Data.allBaseWorldObjects)
                 {
                     pooled_Objects.Add(worldobject);
+                }
+            }
+
+            if (typeList == ObjectEditor_TypeList.Actors)
+            {
+                objectDatabase.Data.allBaseActors = objectDatabase.Data.allBaseActors.OrderBy(z => z.ID).ToList();
+                foreach (Actor actor in objectDatabase.Data.allBaseActors)
+                {
+                    pooled_Objects.Add(actor);
+                }
+            }
+
+            if (typeList == ObjectEditor_TypeList.Quests)
+            {
+                objectDatabase.Data.allBaseQuests = objectDatabase.Data.allBaseQuests.OrderBy(z => z.ID).ToList();
+                foreach (Quest quest in objectDatabase.Data.allBaseQuests)
+                {
+                    pooled_Objects.Add(quest);
                 }
             }
         }
@@ -403,6 +440,22 @@ namespace DestinyEngine.Object
 
                         break;
                     }
+                case ObjectEditor_TypeList.Actors:
+                    {
+                        Actor newActor = new Actor();
+                        objectTarget = newActor;
+                        objectDatabase.Data.allBaseActors.Add(newActor);
+
+                        break;
+                    }
+                case ObjectEditor_TypeList.Quests:
+                    {
+                        Quest quest = new Quest();
+                        objectTarget = quest;
+                        objectDatabase.Data.allBaseQuests.Add(quest);
+
+                        break;
+                    }
                 default:
 
                     break;
@@ -472,6 +525,20 @@ namespace DestinyEngine.Object
 
                             break;
                         }
+                    case ObjectEditor_TypeList.Actors:
+                        {
+                            Actor actor = Actor.Copy(objectTarget as Actor);
+                            objectDatabase.Data.allBaseActors.Add(actor);
+
+                            break;
+                        }
+                    case ObjectEditor_TypeList.Quests:
+                        {
+                            Quest quest = Quest.Copy(objectTarget as Quest);
+                            objectDatabase.Data.allBaseQuests.Add(quest);
+
+                            break;
+                        }
                     default:
 
                         break;
@@ -513,6 +580,16 @@ namespace DestinyEngine.Object
 
                     case ObjectEditor_TypeList.BaseWorldObject:
                         objectDatabase.Data.allBaseWorldObjects.Remove(objectTarget as BaseWorldObject);
+
+                        break;
+
+                    case ObjectEditor_TypeList.Actors:
+                        objectDatabase.Data.allBaseActors.Remove(objectTarget as Actor);
+
+                        break;
+
+                    case ObjectEditor_TypeList.Quests:
+                        objectDatabase.Data.allBaseQuests.Remove(objectTarget as Quest);
 
                         break;
 

@@ -12,12 +12,18 @@ namespace TravellerTime.Vanilla
     {
         public int magazineCurrent = 30;
         public int magazineCapacity = 30;
+        public float ak47_cooldown = 0.15f;
 
         public int MagazineCurrent { get { return magazineCurrent; } set { magazineCurrent = value; } }
         public int MagazineCapacity { get { return magazineCapacity; } set { magazineCapacity = value; } }
+        public float cooldownFire { get { return ak47_cooldown; } set { ak47_cooldown = value; } }
+        public bool Is_Reloading { get { return isReloading; } set { isReloading = value; } }
 
-        private bool is_Reloading = false;
-        public bool Is_Reloading { get { return is_Reloading; } set { is_Reloading = value; } }
+
+        private bool isReloading = false;
+        private bool isSprinting = false;
+
+        private float internalCooldownTimer = 0.15f;
 
         public override void Initialize_Weapon()
         {
@@ -32,8 +38,63 @@ namespace TravellerTime.Vanilla
             base.Initialize_Weapon();
         }
 
+        private void Update()
+        {
+            if (DestinyMainEngine.main.ExamplePlayer.IsPlayerWalking())
+            {
+                WeaponAnimator.SetFloat("Moving", 1f);
+
+            }
+            else
+            {
+                WeaponAnimator.SetFloat("Moving", 0f);
+
+            }
+
+            if (DestinyMainEngine.main.ExamplePlayer.IsPlayerSprinting())
+            {
+                isSprinting = true;
+
+            }
+            else
+            {
+                isSprinting = false;
+
+            }
+
+            if (isSprinting)
+            {
+                WeaponAnimator.SetBool("isSprinting", true);
+
+            }
+            else
+            {
+                WeaponAnimator.SetBool("isSprinting", false);
+
+            }
+
+            if (Is_Cooldown)
+            {
+                internalCooldownTimer -= 1 * Time.deltaTime;
+
+                if (internalCooldownTimer < 0)
+                {
+                    Is_Cooldown = false;
+                }
+
+            }
+        }
+
         public override void Fire()
         {
+            if (isSprinting)
+            {
+                return;
+            }
+            if (Is_Reloading)
+            {
+                return;
+            }
             if (Is_Cooldown)
             {
                 return;
@@ -44,6 +105,7 @@ namespace TravellerTime.Vanilla
                 return;
             }
 
+            internalCooldownTimer = cooldownFire;
             Is_Cooldown = true;
             if (MagazineCurrent > 0)
                 MagazineCurrent -= 1;
@@ -52,7 +114,12 @@ namespace TravellerTime.Vanilla
 
             SaveFlag();
             Impact();
+            Recoil();
+        }
 
+        public void Recoil()
+        {
+            DestinyInternalCommand.instance.Camera_Recoil(1.2f);
         }
 
         private void SaveFlag()
@@ -83,7 +150,10 @@ namespace TravellerTime.Vanilla
 
         public override void Reload()
         {
-
+            if (Is_Reloading)
+            {
+                return;
+            }
             if (MagazineCurrent >= MagazineCapacity)
             {
                 return;
@@ -100,8 +170,8 @@ namespace TravellerTime.Vanilla
 
             }
             Is_Reloading = true;
-            WeaponAnimator.SetTrigger("Reload");
 
+            WeaponAnimator.SetTrigger("Reload");
         }
 
         public void Set_ReloadOff()

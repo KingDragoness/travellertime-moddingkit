@@ -18,6 +18,7 @@ namespace DestinyEngine
         private void OnTriggerEnter(Collider other)
         {
             bool is_Vehicle = false;
+            bool is_Player = false;
 
             Transform parent = other.transform.parent;
             int i = 1;
@@ -35,7 +36,17 @@ namespace DestinyEngine
                 ++i;
             }
 
+            if (other.transform == DestinyMainEngine.main.ExamplePlayer.transform)
+            {
+                is_Player = true;
+            }
+
             if (other.CompareTag("Player") && is_Vehicle)
+            {
+                ExitIsland();
+            }
+
+            if (other.CompareTag("Player") && is_Player)
             {
                 ExitIsland();
             }

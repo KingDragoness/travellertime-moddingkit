@@ -12,12 +12,15 @@ namespace TravellerTime.Vanilla {
 
         public int magazineCurrent = 10;
         public int magazineCapacity = 10;
+        public float deagle_cooldown = 1f;
 
         public int MagazineCurrent { get { return magazineCurrent;  } set { magazineCurrent = value; } }
         public int MagazineCapacity { get { return magazineCapacity; } set { magazineCapacity = value; } }
+        public float cooldownFire { get { return deagle_cooldown; } set { deagle_cooldown = value; } }
+        public bool Is_Reloading { get { return is_Reloading; } set { is_Reloading = value; } }
+
 
         private bool is_Reloading = false;
-        public bool Is_Reloading { get { return is_Reloading; } set { is_Reloading = value; } }
 
         public override void Initialize_Weapon()
         {
@@ -31,6 +34,21 @@ namespace TravellerTime.Vanilla {
             }
             base.Initialize_Weapon();
         }
+
+        private void Update()
+        {
+            if (DestinyMainEngine.main.ExamplePlayer.IsPlayerWalking() | DestinyMainEngine.main.ExamplePlayer.IsPlayerSprinting())
+            {
+                WeaponAnimator.SetFloat("Moving", 1f);
+
+            }
+            else
+            {
+                WeaponAnimator.SetFloat("Moving", 0f);
+
+            }
+        }
+
         public override void Fire()
         {
 
@@ -56,7 +74,12 @@ namespace TravellerTime.Vanilla {
 
             SaveFlag();
             Impact();
-           
+            Recoil();
+        }
+
+        public void Recoil()
+        {
+            DestinyInternalCommand.instance.Camera_Recoil(2f);
         }
 
         private void SaveFlag()
@@ -119,5 +142,6 @@ namespace TravellerTime.Vanilla {
             DestinyInternalCommand.instance.GameUI_RefreshAmmoCounter();
             SaveFlag();
         }
+
     }
 }

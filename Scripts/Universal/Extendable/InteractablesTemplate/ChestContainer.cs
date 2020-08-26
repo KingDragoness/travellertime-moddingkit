@@ -33,7 +33,8 @@ namespace DestinyEngine.Interact
                 TypeNameHandling = TypeNameHandling.All
             });
 
-            Save_Variable("m_all_InventoryItem", dataToSave);
+            Save_Variable("m_all_InventoryItem", dataToSave); //Must have "m_all_InventoryItem" in it's name if you want the chest appear correctly in map marker
+            Save_Variable("INTERACTABLE_SPECIAL_FLAG", "ChestContainer"); //Must use this line if you want the chest appear correctly in map marker
 
         }
     }
