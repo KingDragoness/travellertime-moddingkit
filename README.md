@@ -1,7 +1,8 @@
 # Traveller Time Modding Kit [Pre-Alpha]
 
 Traveller of Time allows for modders to create islands, vehicle, database or items.
-Current version: Pre-Alpha 0.0.7b
+
+**Current version:** Pre-Alpha 0.0.7b
 
 ### Requirements:
 
@@ -9,7 +10,7 @@ Current version: Pre-Alpha 0.0.7b
 
 2. Unity Timeline
 
-
+3. Rewired (Skip all the addon installation)
 
 
 #### World:
