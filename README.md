@@ -12,6 +12,11 @@ Traveller of Time allows for modders to create islands, vehicle, database or ite
 
 3. Rewired (Skip all the addon installation)
 
+### Optional:
+
+1. Edy's Vehicle Physics (for land vehicles)
+
+
 
 #### World:
 
