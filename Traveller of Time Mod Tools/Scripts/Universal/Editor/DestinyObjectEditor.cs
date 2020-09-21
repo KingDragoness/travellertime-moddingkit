@@ -18,6 +18,7 @@ namespace DestinyEngine.Object
         private List<bool>      booleans = new List<bool>();
         private List<string>    string_cache = new List<string>();
 
+        private Vector2 scrollPos;
 
         [MenuItem("Destiny Engine/Object Database Editor Window")]
         public static void OpenWindow(ObjectDatabase objectdatabase_, ObjectEditor_TypeList typelist, BaseObject objectTarget_, bool isCreateNewObjectMode_ = false)
@@ -46,6 +47,8 @@ namespace DestinyEngine.Object
 
         private void OnGUI()
         {
+            scrollPos = EditorGUILayout.BeginScrollView(scrollPos);
+
             if (isCreateNewObjectMode)
             {
                 GUILayout.Label("Create New Object");
@@ -53,6 +56,7 @@ namespace DestinyEngine.Object
 
             DrawInspector();
 
+            EditorGUILayout.EndScrollView();
         }
 
         void DrawInspector()
@@ -279,7 +283,7 @@ namespace DestinyEngine.Object
 
                                 EditorGUILayout.BeginHorizontal("Box");
                                 {
-                                    EditorGUILayout.BeginVertical("Box", GUILayout.Width(350));
+                                    EditorGUILayout.BeginVertical("Box", GUILayout.Width(250));
                                     {
                                         if (GUILayout.Button("[NEW ALIAS]"))
                                         {
@@ -336,7 +340,7 @@ namespace DestinyEngine.Object
 
                                 EditorGUILayout.BeginHorizontal("Box");
                                 {
-                                    EditorGUILayout.BeginVertical("Box", GUILayout.Width(350));
+                                    EditorGUILayout.BeginVertical("Box", GUILayout.Width(250));
                                     {
                                         if (GUILayout.Button("[NEW OBJECTIVE]"))
                                         {
@@ -431,9 +435,11 @@ namespace DestinyEngine.Object
             if (questAlias_aliasType == Quest_AliasFillType.UniqueObject)
             {
                 SerializedProperty prop_local = prop_questAlias.FindPropertyRelative("object_ID");
+                SerializedProperty prop_objectType = prop_questAlias.FindPropertyRelative("objectData_Type");
 
                 EditorGUILayout.PropertyField(prop_local, true);
                 EditorGUILayout.PropertyField(prop_databaseID, true);
+                EditorGUILayout.PropertyField(prop_objectType, true);
 
             }
 

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3230184807029532140}
   - component: {fileID: 3230184807029532141}
   - component: {fileID: 3230184807029532142}
-  - component: {fileID: 6006491229940693906}
+  - component: {fileID: 5953734976989894486}
   m_Layer: 0
   m_Name: '[insert island name here]'
   m_TagString: Untagged
@@ -59,7 +59,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9f47f529fdeddd948a2d2722f73e6ac4, type: 2}
+  - {fileID: 2100000, guid: ec632cd36b19149d38d844f9f9a85858, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -94,7 +94,7 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &6006491229940693906
+--- !u!114 &5953734976989894486
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -103,7 +103,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3230184807029532136}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eda969275d410ff44a3806fbf6898682, type: 3}
+  m_Script: {fileID: 11500000, guid: c5c188a24a1d9aa479a00134584b76ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   RegionName: 

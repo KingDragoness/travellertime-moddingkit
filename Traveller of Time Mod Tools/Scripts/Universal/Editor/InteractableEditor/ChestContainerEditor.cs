@@ -5,11 +5,12 @@ using UnityEngine;
 using UnityEditor;
 using DestinyEngine.Object;
 using DestinyEngine.Interact;
+using Sirenix.OdinInspector.Editor;
 
-namespace DestinyEngine
+namespace DestinyEngine.Editor
 {
     [CustomEditor(typeof(ChestContainer), true)]
-    public class ChestContainerEditor : Editor
+    public class ChestContainerEditor : OdinEditor
     {
         public ItemData_Type itemType;
         public ObjectDatabase currentDatabase;

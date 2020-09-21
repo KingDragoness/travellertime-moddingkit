@@ -23,7 +23,14 @@ namespace DestinyEngine.Interact
         {
             JsonSerializerSettings settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All };
 
-            itemContainer = JsonConvert.DeserializeObject<ItemContainer>(Get_Variable("m_all_InventoryItem"), settings);
+            try
+            {
+                itemContainer = JsonConvert.DeserializeObject<ItemContainer>(Get_Variable("m_all_InventoryItem"), settings);
+            }
+            catch
+            {
+
+            }
         }
 
         public override void SaveState()

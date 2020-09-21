@@ -23,7 +23,7 @@ namespace DestinyEngine.Object
         }
     }
 
-    public class ObjectDatabaseEditor : Editor
+    public class ObjectDatabaseEditor : UnityEditor.Editor
     {
 
         public override void OnInspectorGUI()

@@ -138,7 +138,7 @@ namespace DestinyEngine.Object
                 }
                 EditorGUILayout.EndVertical();
 
-                EditorGUILayout.BeginVertical("Box", GUILayout.Width(320), GUILayout.ExpandHeight(true));
+                EditorGUILayout.BeginVertical("Box", GUILayout.Width(440), GUILayout.ExpandHeight(true));
                 {
                     scrollPos_IDObject = EditorGUILayout.BeginScrollView(scrollPos_IDObject);
                     {
@@ -369,7 +369,7 @@ namespace DestinyEngine.Object
 
             for (int x = 0; x < filter_Objects.Count; x++)
             {
-                if (GUILayout.Button(filter_Objects[x].ID, buttonStyle))
+                if (GUILayout.Button($"{filter_Objects[x].ID} ({filter_Objects[x].name})", buttonStyle))
                 {
                     objectTarget = filter_Objects[x];
                     GenericMenu menu = new GenericMenu();
@@ -613,13 +613,13 @@ namespace DestinyEngine.Object
 
                     if (pickable == null)
                     {
-                        if (createdObject.GetComponent<ObjectReferenceScript>() != null)
+                        if (createdObject.GetComponent<WorldObjectScript>() != null)
                         {
-                            ObjectReferenceScript spawnable = createdObject.GetComponent<ObjectReferenceScript>();
+                            WorldObjectScript spawnable = createdObject.GetComponent<WorldObjectScript>();
                             DestroyImmediate(spawnable);
                         }
 
-                        pickable = objectTarget.gameModel.AddComponent<PickableScript>();
+                        pickable = createdObject.AddComponent<PickableScript>();
                         pickable.pickableData.formID.BaseID = objectTarget.ID;
                         pickable.pickableData.formID.DatabaseID = objectDatabase.Data.name;
                         pickable.pickableData.formID.ObjectType = DestinyMainUtility.Check_ObjectType(objectTarget);
@@ -643,11 +643,13 @@ namespace DestinyEngine.Object
                 }
                 else
                 {
-                    ObjectReferenceScript spawnable = Instantiate(objectTarget.gameModel).GetComponent<ObjectReferenceScript>();
+                    GameObject createdObject = Instantiate(objectTarget.gameModel);
+                    WorldObjectScript spawnable = createdObject.GetComponent<WorldObjectScript>();
 
                     if (spawnable == null)
                     {
-                        spawnable = objectTarget.gameModel.AddComponent<ObjectReferenceScript>();
+                        spawnable = createdObject.AddComponent<WorldObjectScript>();
+                        spawnable.Data = new ObjectReference_Data();
                         spawnable.Data.formID.BaseID = objectTarget.ID;
                         spawnable.Data.formID.DatabaseID = objectDatabase.Data.name;
                         spawnable.Data.formID.ObjectType = DestinyMainUtility.Check_ObjectType(objectTarget);
