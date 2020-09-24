@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: 8d79249563881ef4ea4f09dc63d49c18
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Steelfish
+  fontNames:
+  - Steelfish
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 09eb6520d1e4e2847b841dd6fcc58819, type: 3}
+  - {fileID: 12800000, guid: 2e9eb695abdf8704fb6a88ee10b3a53a, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

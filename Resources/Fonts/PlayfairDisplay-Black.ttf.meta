@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: 7a3da59449dd29841a02cb1b806ec8a1
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Playfair Display
+  fontNames:
+  - Playfair Display
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 6c482cd9f9c55934e982c8fd2c291575, type: 3}
+  - {fileID: 12800000, guid: 73ffdb4ccbdfff64dba942e2fd974c5d, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
