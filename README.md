@@ -8,9 +8,8 @@ Traveller of Time allows for modders to create islands, vehicle, database or ite
 
 1. Cinemachine
 
-2. Unity Timeline
+2. Unity Timeline (For cutscenes)
 
-3. Rewired (Skip all the addon installation)
 
 ### Optional:
 
