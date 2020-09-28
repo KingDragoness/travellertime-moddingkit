@@ -16,7 +16,8 @@ namespace TravellerTime
 
         public override void LoadState()
         {
-
+            VehicleStandardInput vehicleInput = vehicle.GetComponent<VehicleStandardInput>();
+            vehicleInput.enabled = false;
         }
 
         public override void SaveState()

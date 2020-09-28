@@ -15,6 +15,7 @@ namespace Scripts.Utility
             public Vector3          pos;
         }
 
+        public bool DEBUG_drawGizmos = true;
         [Range(0.1f,0.8f)]
         public float LOD0_Size = 0.4f;
         [Range(0.01f, 0.4f)]
@@ -25,18 +26,23 @@ namespace Scripts.Utility
 
         private void OnDrawGizmos()
         {
+            if (!DEBUG_drawGizmos)
+            {
+                return;
+            }
+
             foreach (LODGroup lodgroup in allLODGroups_Created)
             {
                 if (lodgroup == null)
                     continue;
 
                 Vector3 pos = lodgroup.transform.position;
-                pos.x += 50;
-                pos.y += 50;
-                pos.z += 50;
+                pos.x += 25;
+                pos.y += 25;
+                pos.z += 25;
 
                 Gizmos.color = new Color(1, 0, 0, 0.3f);
-                Gizmos.DrawCube(pos, new Vector3(100, 100, 100));
+                Gizmos.DrawCube(pos, new Vector3(50, 50, 50));
             }
 
         }
@@ -49,11 +55,11 @@ namespace Scripts.Utility
             foreach (LODGroup lodgroup in allLODGroups_Created)
             {
                 Vector3 pos = lodgroup.transform.position;
-                pos /= 100;
+                pos /= 50;
                 pos.x = Mathf.Floor(pos.x);
                 pos.y = Mathf.Floor(pos.y);
                 pos.z = Mathf.Floor(pos.z);
-                pos *= 100;
+                pos *= 50;
 
                 lodgroup.gameObject.name = "LODRegion - " + pos.ToString();
                 lodgroup.transform.position = pos;
@@ -159,18 +165,18 @@ namespace Scripts.Utility
 
                 lodgroup.gameObject.name = "LODRegion - " +lodgroup.transform.position.ToString();
                 lodgroup.SetLODs(lods.ToArray());
-                lodgroup.size = 75f;
+                lodgroup.size = 35f;
             }
         }
 
         private LOD_Info CreateLODInfo(MeshRenderer meshRenderer, int lodlevel)
         {
             Vector3 pos = meshRenderer.transform.position;
-            pos /= 100;
+            pos /= 50;
             pos.x = Mathf.Floor(pos.x);
             pos.y = Mathf.Floor(pos.y);
             pos.z = Mathf.Floor(pos.z);
-            pos *= 100;
+            pos *= 50;
 
             LOD_Info lodinfo = new LOD_Info();
             lodinfo.pos = pos;
