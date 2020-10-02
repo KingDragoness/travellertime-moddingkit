@@ -2,7 +2,7 @@
 
 Traveller of Time allows for modders to create islands, vehicle, database or items.
 
-**Current version:** Pre-Alpha 0.0.8
+**Current version:** Pre-Alpha 0.1.0
 
 ### Requirements:
 
