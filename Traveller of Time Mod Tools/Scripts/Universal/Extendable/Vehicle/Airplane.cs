@@ -43,5 +43,10 @@ namespace TravellerTime
 
             Save_Variable("m_thrust", thrust_);
         }
+
+        public override void ExecuteFunction(string functionName)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

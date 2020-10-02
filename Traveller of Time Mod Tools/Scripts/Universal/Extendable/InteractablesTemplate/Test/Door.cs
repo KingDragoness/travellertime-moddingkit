@@ -58,6 +58,11 @@ namespace TestingTesting
             m_IsDoorOpened = !m_IsDoorOpened;
             Update_State();
         }
+
+        public override void ExecuteFunction(string functionName)
+        {
+            throw new System.NotImplementedException();
+        }
         #endregion
     }
 

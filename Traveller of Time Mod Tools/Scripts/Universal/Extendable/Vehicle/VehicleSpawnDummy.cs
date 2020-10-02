@@ -7,6 +7,11 @@ namespace TravellerTime
 {
     public class VehicleSpawnDummy : Vehicle
     {
+        public override void ExecuteFunction(string functionName)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public override void LoadState()
         {
             throw new System.NotImplementedException();

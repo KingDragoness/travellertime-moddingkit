@@ -59,5 +59,10 @@ namespace TestingTesting.Quests
             DestinyInternalCommand.instance.Inventory_RemoveItem("vanilla", "Fake OneRing", "Item_Key", 1);
 
         }
+
+        public override void ExecuteFunction(string functionName)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

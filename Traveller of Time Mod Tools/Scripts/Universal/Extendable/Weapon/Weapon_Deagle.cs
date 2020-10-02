@@ -143,5 +143,9 @@ namespace TravellerTime.Vanilla {
             SaveFlag();
         }
 
+        public override void ExecuteFunction(string functionName)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

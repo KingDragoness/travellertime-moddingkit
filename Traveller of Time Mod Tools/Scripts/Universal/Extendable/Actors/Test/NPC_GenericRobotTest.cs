@@ -45,5 +45,10 @@ namespace TestingTesting
         {
             actorScript.Save_Variable("PositionTEST", transform.position.ToString());
         }
+
+        public override void ExecuteFunction(string functionName)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

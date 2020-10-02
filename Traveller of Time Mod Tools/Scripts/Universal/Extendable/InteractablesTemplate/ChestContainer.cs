@@ -19,6 +19,11 @@ namespace DestinyEngine.Interact
             }
         }
 
+        public override void ExecuteFunction(string functionName)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public override void LoadState()
         {
             JsonSerializerSettings settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All };

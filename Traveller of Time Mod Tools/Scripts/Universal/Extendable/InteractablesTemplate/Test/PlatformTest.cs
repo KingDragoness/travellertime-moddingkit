@@ -73,5 +73,9 @@ namespace TestingTesting
             Director.Evaluate();
         }
 
+        public override void ExecuteFunction(string functionName)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

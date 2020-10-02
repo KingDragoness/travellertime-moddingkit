@@ -19,6 +19,11 @@ namespace TestingTesting
             }
         }
 
+        public override void ExecuteFunction(string functionName)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public override void LoadState()
         {
 

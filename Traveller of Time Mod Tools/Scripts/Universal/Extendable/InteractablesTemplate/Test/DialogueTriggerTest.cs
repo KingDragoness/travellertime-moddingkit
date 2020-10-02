@@ -65,5 +65,9 @@ namespace DestinyEngine.Interact
 
         }
 
+        public override void ExecuteFunction(string functionName)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
