@@ -3,26 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Scripts.Utility
+namespace DestinyEngine.Utility
 {
     public class AutoLODGrouper : MonoBehaviour
     {
         public class LOD_Info
         {
-            public MeshRenderer     rendr;
-            public LODGroup         lodGroup;
-            public int              lodlevel = 0;
-            public Vector3          pos;
+            public MeshRenderer rendr;
+            public LODGroup lodGroup;
+            public int lodlevel = 0;
+            public Vector3 pos;
         }
 
         public bool DEBUG_drawGizmos = true;
-        [Range(0.1f,0.8f)]
+        [Range(0.1f, 0.8f)]
         public float LOD0_Size = 0.4f;
         [Range(0.01f, 0.4f)]
         public float LOD1_Size = 0.1f;
         [Range(0.001f, 0.2f)]
         public float LOD2_Size = 0.03f;
         List<LODGroup> allLODGroups_Created = new List<LODGroup>();
+
+
+        public static float cubeSize = 50f;
+        public static float LODSizeScreen = 36f;
 
         private void OnDrawGizmos()
         {
@@ -37,12 +41,12 @@ namespace Scripts.Utility
                     continue;
 
                 Vector3 pos = lodgroup.transform.position;
-                pos.x += 25;
-                pos.y += 25;
-                pos.z += 25;
+                pos.x += cubeSize / 2;
+                pos.y += cubeSize / 2;
+                pos.z += cubeSize / 2;
 
                 Gizmos.color = new Color(1, 0, 0, 0.3f);
-                Gizmos.DrawCube(pos, new Vector3(50, 50, 50));
+                Gizmos.DrawCube(pos, new Vector3(cubeSize, cubeSize, cubeSize));
             }
 
         }
@@ -55,14 +59,26 @@ namespace Scripts.Utility
             foreach (LODGroup lodgroup in allLODGroups_Created)
             {
                 Vector3 pos = lodgroup.transform.position;
-                pos /= 50;
+                pos /= cubeSize;
+                print(pos);
+
+                //Prevent rounding error
+                pos.x = Mathf.Round(pos.x * 10) / 10;
+                pos.y = Mathf.Round(pos.y * 10) / 10;
+                pos.z = Mathf.Round(pos.z * 10) / 10;
+
                 pos.x = Mathf.Floor(pos.x);
                 pos.y = Mathf.Floor(pos.y);
                 pos.z = Mathf.Floor(pos.z);
-                pos *= 50;
+
+                print(pos);
+
+                pos *= cubeSize;
 
                 lodgroup.gameObject.name = "LODRegion - " + pos.ToString();
                 lodgroup.transform.position = pos;
+
+                print(pos);
             }
 
             List<LOD_Info> all_LODInfo = new List<LOD_Info>();
@@ -92,20 +108,13 @@ namespace Scripts.Utility
                 all_LODInfo.Add(lodinfo);
             }
 
-            //Setting lodinfo's lodgroup
             foreach (LOD_Info lodinfo in all_LODInfo)
             {
-                LODGroup lodgroup;
+                LODGroup lodgroup = FindNearestLODGroup(allLODGroups_Created, lodinfo);
 
-                if (allLODGroups_Created.Find(vec => 
-                vec.transform.position.x == lodinfo.pos.x &&
-                vec.transform.position.y == lodinfo.pos.y &&
-                vec.transform.position.z == lodinfo.pos.z) != null) 
+                if (lodgroup != null)
                 {
-                    lodgroup = allLODGroups_Created.Find(vec =>
-                    vec.transform.position.x == lodinfo.pos.x &&
-                    vec.transform.position.y == lodinfo.pos.y &&
-                    vec.transform.position.z == lodinfo.pos.z);
+                    //This is empty
                 }
                 else
                 {
@@ -163,20 +172,26 @@ namespace Scripts.Utility
                 lods.Add(lod1);
                 lods.Add(lod2);
 
-                lodgroup.gameObject.name = "LODRegion - " +lodgroup.transform.position.ToString();
+                lodgroup.gameObject.name = "LODRegion - " + lodgroup.transform.position.ToString();
                 lodgroup.SetLODs(lods.ToArray());
-                lodgroup.size = 35f;
+                lodgroup.size = LODSizeScreen;
             }
         }
 
         private LOD_Info CreateLODInfo(MeshRenderer meshRenderer, int lodlevel)
         {
             Vector3 pos = meshRenderer.transform.position;
-            pos /= 50;
-            pos.x = Mathf.Floor(pos.x);
-            pos.y = Mathf.Floor(pos.y);
-            pos.z = Mathf.Floor(pos.z);
-            pos *= 50;
+            pos /= cubeSize;
+
+            if (pos.x != 0)
+                pos.x = Mathf.Floor(pos.x);
+
+            if (pos.y != 0)
+                pos.y = Mathf.Floor(pos.y);
+
+            if (pos.z != 0)
+                pos.z = Mathf.Floor(pos.z);
+            pos *= cubeSize;
 
             LOD_Info lodinfo = new LOD_Info();
             lodinfo.pos = pos;
@@ -184,6 +199,31 @@ namespace Scripts.Utility
             lodinfo.rendr = meshRenderer;
 
             return lodinfo;
+        }
+
+        private LODGroup FindNearestLODGroup(List<LODGroup> LODGroupLists, LOD_Info lodinfo)
+        {
+            foreach (LODGroup lod in LODGroupLists)
+            {
+
+                if (ValueOnRange(lodinfo.pos.x, lod.transform.position.x - 1, lod.transform.position.x + 1))
+                {
+                    if (ValueOnRange(lodinfo.pos.y, lod.transform.position.y - 1, lod.transform.position.y + 1))
+                    {
+                        if (ValueOnRange(lodinfo.pos.z, lod.transform.position.z - 1, lod.transform.position.z + 1))
+                        {
+                            return lod;
+                        }
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        private bool ValueOnRange(float thisValue, float value1, float value2)
+        {
+            return thisValue >= Mathf.Min(value1, value2) && thisValue <= Mathf.Max(value1, value2);
         }
 
     }
