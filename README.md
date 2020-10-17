@@ -11,11 +11,6 @@ Traveller of Time allows for modders to create islands, vehicle, database or ite
 2. Unity Timeline (For cutscenes)
 
 
-### Optional:
-
-1. Edy's Vehicle Physics (for land vehicles)
-
-
 
 #### World:
 
