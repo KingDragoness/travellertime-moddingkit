@@ -7,7 +7,7 @@ using DestinyEngine.Object;
 
 namespace DestinyEngine.Interact
 {
-    public class ChestContainer : Interactables
+    public class ChestContainer : InteractableScript
     {
         public ItemContainer itemContainer;
 
@@ -19,7 +19,7 @@ namespace DestinyEngine.Interact
             }
         }
 
-        public override void ExecuteFunction(string functionName)
+        public override void CommandExecute(string functionName)
         {
             throw new System.NotImplementedException();
         }

@@ -6,7 +6,7 @@ using EVP;
 
 namespace TravellerTime
 {
-    public class EVP_Car : Vehicle
+    public class EVP_Car : VehicleScript
     {
         public VehicleController vehicle;
 
@@ -23,6 +23,11 @@ namespace TravellerTime
         public override void SaveState()
         {
 
+        }
+
+        public override void SaveScriptAsJSON()
+        {
+            //Implement something
         }
 
         public override void TurnOff_Vehicle()
@@ -112,6 +117,11 @@ namespace TravellerTime
             {
                 vehicleDamage.enableRepairKey = enabled;
             }
+        }
+
+        public override void CommandExecute(string functionName)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

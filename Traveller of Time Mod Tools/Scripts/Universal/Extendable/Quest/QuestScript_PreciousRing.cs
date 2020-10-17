@@ -9,7 +9,7 @@ using QuestState = DestinyEngine.Object.QuestState;
 
 namespace TestingTesting.Quests
 {
-    public class QuestScript_PreciousRing : QuestObject
+    public class QuestScript_PreciousRing : QuestScript
     {
 
 
@@ -47,7 +47,7 @@ namespace TestingTesting.Quests
             DestinyInternalCommand.instance.Quest_SetIndexComplete("vanilla", "Misc_PreciousRing", 10);
             DestinyInternalCommand.instance.Quest_CompleteObjective("vanilla", "Misc_PreciousRing", 0);
             DestinyInternalCommand.instance.Quest_SetCurrentState("vanilla", "Misc_PreciousRing", QuestState.Success);
-            DestinyInternalCommand.instance.Inventory_RemoveItem("vanilla", "OneRing", "Item_Key", 1);
+            DestinyInternalCommand.instance.Inventory_RemoveItem("vanilla", "OneRing", "Key", 1);
         }
 
         private void CompleteQuest_GiveFakeRing()
@@ -56,11 +56,11 @@ namespace TestingTesting.Quests
             DestinyInternalCommand.instance.Quest_SetIndexComplete("vanilla", "Misc_PreciousRing", 11);
             DestinyInternalCommand.instance.Quest_CompleteObjective("vanilla", "Misc_PreciousRing", 1);
             DestinyInternalCommand.instance.Quest_SetCurrentState("vanilla", "Misc_PreciousRing", QuestState.Success);
-            DestinyInternalCommand.instance.Inventory_RemoveItem("vanilla", "Fake OneRing", "Item_Key", 1);
+            DestinyInternalCommand.instance.Inventory_RemoveItem("vanilla", "Fake OneRing", "Key", 1);
 
         }
 
-        public override void ExecuteFunction(string functionName)
+        public override void CommandExecute(string functionName)
         {
             throw new System.NotImplementedException();
         }

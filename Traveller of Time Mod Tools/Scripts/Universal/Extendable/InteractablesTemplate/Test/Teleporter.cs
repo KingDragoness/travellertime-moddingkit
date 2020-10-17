@@ -5,7 +5,7 @@ using DestinyEngine;
 
 namespace TestingTesting
 {
-    public class Teleporter : Interactables
+    public class Teleporter : InteractableScript
     {
 
         [Header("Objects")]
@@ -19,7 +19,7 @@ namespace TestingTesting
             }
         }
 
-        public override void ExecuteFunction(string functionName)
+        public override void CommandExecute(string functionName)
         {
             throw new System.NotImplementedException();
         }

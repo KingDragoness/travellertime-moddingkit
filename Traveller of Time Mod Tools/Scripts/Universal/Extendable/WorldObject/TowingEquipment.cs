@@ -11,7 +11,7 @@ namespace TestingTesting
     public class TowingEquipment : DestinyScript, ICommand, IColliderReceiver
     {
 
-        public List<ActionCommand> actionCommands = new List<ActionCommand>();
+        public List<ActionCommand_Parent> actionCommands = new List<ActionCommand_Parent>();
         public MonoBehaviour rotateScript;
         public LineRenderer lineRenderer;
         public Transform pointTowingStart;
@@ -24,9 +24,9 @@ namespace TestingTesting
 
         private float currentThrust = 7000;
 
-        private DestinyEngine.Vehicle targetVehicle;
+        private DestinyEngine.VehicleScript targetVehicle;
         private WorldObjectScript worldObjectScript;
-        private AssemblyInstallScript assemblyInstallScript;
+        private ScriptInstaller installer;
 
         //Data internal
         private bool isRopeUnrolled = false;
@@ -63,7 +63,7 @@ namespace TestingTesting
         private void Initialize_ActionCommand()
         {
 
-            ActionCommand parentCommand = new ActionCommand();
+            ActionCommand_Parent parentCommand = new ActionCommand_Parent();
             parentCommand.commandID = "TowingEquipment1";
             parentCommand.commandName = "Towing Equipment";
             parentCommand.commandRange = 999;
@@ -277,10 +277,7 @@ namespace TestingTesting
 
         private void Retrieve()
         {
-            DestinyEventHandler.onActionCommandOpen -= UpdateTowingEquipment;
-            DestinyEventHandler.OnTick -= TickEquipment;
-            worldObjectScript.OnLoadState -= LoadState;
-            worldObjectScript.OnSaveState -= SaveState;
+            DestroyObject();
 
             DestinyInternalCommand.instance.Inventory_AddItem("vanilla", "Construct_TowEquipment", "Item_Weapon", 1);
             DestinyMainEngine.main.SpawnablesManager_.Remove_Spawnable(worldObjectScript);
@@ -288,7 +285,20 @@ namespace TestingTesting
 
         }
 
-        public List<ActionCommand> CommandListRetrieveAll()
+        private void OnDisable()
+        {
+            DestroyObject();
+        }
+
+        private void DestroyObject()
+        {
+            DestinyEventHandler.onActionCommandOpen -= UpdateTowingEquipment;
+            DestinyEventHandler.OnTick -= TickEquipment;
+            worldObjectScript.OnLoadState -= LoadState;
+            worldObjectScript.OnSaveState -= SaveState;
+        }
+
+        public List<ActionCommand_Parent> CommandListRetrieveAll()
         {
             return actionCommands;
         }
@@ -302,7 +312,7 @@ namespace TestingTesting
         {
             targetVehicle = null;
 
-            DestinyEngine.Vehicle vehicle = DestinyMainEngine.main.ActiveVehicle;
+            DestinyEngine.VehicleScript vehicle = DestinyMainEngine.main.ActiveVehicle;
 
             if (vehicle != null)
             {
@@ -334,7 +344,7 @@ namespace TestingTesting
 
             if (targetVehicle != null)
             {
-                DATA_vehicleRefID = targetVehicle.StupidIslandID;
+                DATA_vehicleRefID = targetVehicle.RefID;
             }
 
             worldObjectScript.Save_Variable("isRopeUnrolled", DATA_isRopeUnrolled);
@@ -379,7 +389,7 @@ namespace TestingTesting
                 isTowing = false;
             }
 
-            targetVehicle = DestinyMainEngine.main.VehicleManager_.Spawned_Vehicle.Find(x => x.StupidIslandID == vehicleRefID);
+            targetVehicle = DestinyMainEngine.main.VehicleManager_.Spawned_Vehicle.Find(x => x.RefID == vehicleRefID);
 
             try
             {
@@ -393,7 +403,7 @@ namespace TestingTesting
             UpdateTowingEquipment();
         }
 
-        public override void ExecuteFunction(string functionName)
+        public void CommandExecute(string functionName)
         {
             if (functionName == "Refresh")
             {

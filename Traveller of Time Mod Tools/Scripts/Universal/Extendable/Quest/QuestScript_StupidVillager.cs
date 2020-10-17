@@ -5,9 +5,9 @@ using DestinyEngine;
 
 namespace TestingTesting.Quests
 {
-    public class QuestScript_StupidVillager : QuestObject
+    public class QuestScript_StupidVillager : QuestScript
     {
-        public override void ExecuteFunction(string functionName)
+        public override void CommandExecute(string functionName)
         {
             throw new System.NotImplementedException();
         }

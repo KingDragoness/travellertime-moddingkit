@@ -15,6 +15,7 @@ namespace DestinyEngine.Object
         Key,
         Weapon,
         Misc,
+        Music,
         BaseWorldObject,
         Actors,
         Quests
@@ -130,6 +131,11 @@ namespace DestinyEngine.Object
                                 typeList = ObjectEditor_TypeList.Quests;
                                 Change_List();
                             }
+                            if (GUILayout.Button("Musics", buttonStyle))
+                            {
+                                typeList = ObjectEditor_TypeList.Music;
+                                Change_List();
+                            }
                         }
                         EditorGUILayout.EndFoldoutHeaderGroup();
                     }
@@ -232,6 +238,16 @@ namespace DestinyEngine.Object
                 foreach (Quest quest in objectDatabase.Data.allBaseQuests)
                 {
                     pooled_Objects.Add(quest);
+                }
+            }
+
+
+            if (typeList == ObjectEditor_TypeList.Music)
+            {
+                objectDatabase.Data.allMusics = objectDatabase.Data.allMusics.OrderBy(z => z.ID).ToList();
+                foreach (Music music in objectDatabase.Data.allMusics)
+                {
+                    pooled_Objects.Add(music);
                 }
             }
         }
@@ -456,6 +472,14 @@ namespace DestinyEngine.Object
 
                         break;
                     }
+                case ObjectEditor_TypeList.Music:
+                    {
+                        Music music = new Music();
+                        objectTarget = music;
+                        objectDatabase.Data.allMusics.Add(music);
+
+                        break;
+                    }
                 default:
 
                     break;
@@ -539,6 +563,13 @@ namespace DestinyEngine.Object
 
                             break;
                         }
+                    case ObjectEditor_TypeList.Music:
+                        {
+                            Music music = Music.Copy(objectTarget as Music);
+                            objectDatabase.Data.allMusics.Add(music);
+
+                            break;
+                        }
                     default:
 
                         break;
@@ -590,6 +621,12 @@ namespace DestinyEngine.Object
 
                     case ObjectEditor_TypeList.Quests:
                         objectDatabase.Data.allBaseQuests.Remove(objectTarget as Quest);
+
+                        break;
+
+
+                    case ObjectEditor_TypeList.Music:
+                        objectDatabase.Data.allMusics.Remove(objectTarget as Music);
 
                         break;
 
@@ -653,14 +690,14 @@ namespace DestinyEngine.Object
                         spawnable.Data.formID.BaseID = objectTarget.ID;
                         spawnable.Data.formID.DatabaseID = objectDatabase.Data.name;
                         spawnable.Data.formID.ObjectType = DestinyMainUtility.Check_ObjectType(objectTarget);
-                        spawnable.Data.formID.ReferenceID = objectTarget.ID + "_" + DestinyMainUtility.GenerateSpawnableID(6);
+                        spawnable.Data.formID.ReferenceID = objectTarget.ID + "_" + DestinyMainUtility.GenerateSpawnableID(9);
                     }
                     else
                     {
                         spawnable.Data.formID.BaseID = objectTarget.ID;
                         spawnable.Data.formID.DatabaseID = objectDatabase.Data.name;
                         spawnable.Data.formID.ObjectType = DestinyMainUtility.Check_ObjectType(objectTarget);
-                        spawnable.Data.formID.ReferenceID = objectTarget.ID + "_" + DestinyMainUtility.GenerateSpawnableID(6);
+                        spawnable.Data.formID.ReferenceID = objectTarget.ID + "_" + DestinyMainUtility.GenerateSpawnableID(9);
 
                     }
                 }

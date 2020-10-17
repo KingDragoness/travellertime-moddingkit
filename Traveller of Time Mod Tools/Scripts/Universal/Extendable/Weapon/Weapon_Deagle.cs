@@ -7,7 +7,7 @@ using DestinyEngine;
 
 namespace TravellerTime.Vanilla {
 
-    public class Weapon_Deagle : DefaultWeapon, Weapon_Gun
+    public class Weapon_Deagle : WeaponScript, Weapon_Gun
     {
 
         public int magazineCurrent = 10;
@@ -143,7 +143,7 @@ namespace TravellerTime.Vanilla {
             SaveFlag();
         }
 
-        public override void ExecuteFunction(string functionName)
+        public override void CommandExecute(string functionName)
         {
             throw new System.NotImplementedException();
         }

@@ -25,13 +25,13 @@ namespace TestingTesting
             {
                 actorScript.currentConversation = actorScript.allConversations[1];
             }
-            if (Get_Variable("") == "")
+            if (actorScript.Get_Variable("") == "")
             {
 
             }
         }
 
-        public List<ActionCommand> CommandListRetrieveAll()
+        public List<ActionCommand_Parent> CommandListRetrieveAll()
         {
             throw new System.NotImplementedException();
         }
@@ -46,7 +46,7 @@ namespace TestingTesting
             actorScript.Save_Variable("PositionTEST", transform.position.ToString());
         }
 
-        public override void ExecuteFunction(string functionName)
+        public void CommandExecute(string functionName)
         {
             throw new System.NotImplementedException();
         }

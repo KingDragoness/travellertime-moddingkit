@@ -7,7 +7,7 @@ using Sirenix.OdinInspector;
 
 namespace DestinyEngine.Interact
 {
-    public class DialogueTriggerTest : Interactables
+    public class DialogueTriggerTest : InteractableScript
     {
         public DialogueDatabase DialogueDatabase;
 
@@ -65,7 +65,7 @@ namespace DestinyEngine.Interact
 
         }
 
-        public override void ExecuteFunction(string functionName)
+        public override void CommandExecute(string functionName)
         {
             throw new System.NotImplementedException();
         }

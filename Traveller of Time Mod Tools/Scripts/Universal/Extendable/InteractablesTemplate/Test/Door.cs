@@ -6,7 +6,7 @@ using DestinyEngine;
 namespace TestingTesting
 {
     //FOR TEST ONLY!
-    public class Door : Interactables
+    public class Door : InteractableScript
     {
         [Header("Objects")]
         public GameObject cylinder;
@@ -59,7 +59,7 @@ namespace TestingTesting
             Update_State();
         }
 
-        public override void ExecuteFunction(string functionName)
+        public override void CommandExecute(string functionName)
         {
             throw new System.NotImplementedException();
         }

@@ -7,7 +7,7 @@ using DestinyEngine;
 
 namespace TravellerTime
 {
-    public class Airplane : Vehicle
+    public class Airplane : VehicleScript
     {
         public MFlight.Demo.Plane planeControl;
 
@@ -44,9 +44,14 @@ namespace TravellerTime
             Save_Variable("m_thrust", thrust_);
         }
 
-        public override void ExecuteFunction(string functionName)
+        public override void CommandExecute(string functionName)
         {
             throw new System.NotImplementedException();
+        }
+
+        public override void SaveScriptAsJSON()
+        {
+            //Implement something
         }
     }
 }

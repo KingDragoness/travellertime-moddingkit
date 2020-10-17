@@ -7,7 +7,7 @@ using TravellerTime;
 
 namespace TestingTesting
 {
-    public class AutoTurretTest : Interactables
+    public class AutoTurretTest : InteractableScript
     {
         public bool toggleTurret = false;
         public float speed = 10f;
@@ -142,7 +142,7 @@ namespace TestingTesting
             }
         }
 
-        public override void ExecuteFunction(string functionName)
+        public override void CommandExecute(string functionName)
         {
             throw new System.NotImplementedException();
         }

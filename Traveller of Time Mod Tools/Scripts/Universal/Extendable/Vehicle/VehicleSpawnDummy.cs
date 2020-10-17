@@ -5,9 +5,9 @@ using DestinyEngine;
 
 namespace TravellerTime
 {
-    public class VehicleSpawnDummy : Vehicle
+    public class VehicleSpawnDummy : VehicleScript
     {
-        public override void ExecuteFunction(string functionName)
+        public override void CommandExecute(string functionName)
         {
             throw new System.NotImplementedException();
         }
@@ -30,6 +30,11 @@ namespace TravellerTime
         public override void TurnOn_Vehicle()
         {
             throw new System.NotImplementedException();
+        }
+
+        public override void SaveScriptAsJSON()
+        {
+            //Implement something
         }
     }
 }

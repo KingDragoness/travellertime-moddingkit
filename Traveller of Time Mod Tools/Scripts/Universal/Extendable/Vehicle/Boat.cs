@@ -6,7 +6,7 @@ using DestinyEngine;
 
 namespace TravellerTime
 {
-    public class Boat : Vehicle
+    public class Boat : VehicleScript
     {
         public BoatAlignNormal boatControl;
 
@@ -29,9 +29,14 @@ namespace TravellerTime
 
         }
 
-        public override void ExecuteFunction(string functionName)
+        public override void CommandExecute(string functionName)
         {
             throw new System.NotImplementedException();
+        }
+
+        public override void SaveScriptAsJSON()
+        {
+            //Implement something
         }
     }
 }

@@ -49,23 +49,23 @@ namespace DestinyEngine.Editor
                 {
                     itemType = (ItemData_Type)EditorGUILayout.EnumPopup("Item type", itemType);
 
-                    if (itemType == ItemData_Type.Item_Ammo)
+                    if (itemType == ItemData_Type.Ammo)
                     {
                         items.AddRange(currentDatabase.Data.allItemAmmo);
                     }
-                    else if (itemType == ItemData_Type.Item_Junk)
+                    else if (itemType == ItemData_Type.Junk)
                     {
                         items.AddRange(currentDatabase.Data.allItemJunk);
                     }
-                    else if (itemType == ItemData_Type.Item_Key)
+                    else if (itemType == ItemData_Type.Key)
                     {
                         items.AddRange(currentDatabase.Data.allItemKey);
                     }
-                    else if (itemType == ItemData_Type.Item_Weapon)
+                    else if (itemType == ItemData_Type.Weapon)
                     {
                         items.AddRange(currentDatabase.Data.allItemWeapon);
                     }
-                    else if (itemType == ItemData_Type.Item_Misc)
+                    else if (itemType == ItemData_Type.Misc)
                     {
                         items.AddRange(currentDatabase.Data.allItemMiscs);
                     }

@@ -7,7 +7,7 @@ using DestinyEngine;
 
 namespace TestingTesting
 {
-    public class PlatformTest : Interactables, IMoverController
+    public class PlatformTest : InteractableScript, IMoverController
     {
         public PhysicsMover Mover;
         public PlayableDirector Director;
@@ -73,7 +73,7 @@ namespace TestingTesting
             Director.Evaluate();
         }
 
-        public override void ExecuteFunction(string functionName)
+        public override void CommandExecute(string functionName)
         {
             throw new System.NotImplementedException();
         }

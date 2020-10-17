@@ -108,6 +108,11 @@ namespace DestinyEngine.Object
                     listName = "allBaseQuests";
                     break;
 
+                case ObjectEditor_TypeList.Music:
+                    index = objectDatabase.Data.allMusics.FindIndex(x => x == objectTarget);
+                    listName = "allMusics";
+                    break;
+
                 default:
 
                     break;
@@ -382,6 +387,11 @@ namespace DestinyEngine.Object
                             DrawField(s, true);
                         }
                     }
+                    break;
+
+                case ObjectEditor_TypeList.Music:
+                    DrawProperties(serializedList, true);
+
                     break;
 
                 default:

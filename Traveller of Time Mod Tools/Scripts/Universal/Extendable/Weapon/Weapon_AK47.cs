@@ -8,7 +8,7 @@ using DestinyEngine.Object;
 namespace TravellerTime.Vanilla
 {
 
-    public class Weapon_AK47 : DefaultWeapon, Weapon_Gun
+    public class Weapon_AK47 : WeaponScript, Weapon_Gun
     {
         public int magazineCurrent = 30;
         public int magazineCapacity = 30;
@@ -38,6 +38,10 @@ namespace TravellerTime.Vanilla
             base.Initialize_Weapon();
         }
 
+        public override void SaveScriptAsJSON()
+        {
+            //Implement something
+        }
         private void Update()
         {
             if (DestinyMainEngine.main.ExamplePlayer.IsPlayerWalking())
@@ -201,7 +205,7 @@ namespace TravellerTime.Vanilla
 
         }
 
-        public override void ExecuteFunction(string functionName)
+        public override void CommandExecute(string functionName)
         {
             throw new System.NotImplementedException();
         }
