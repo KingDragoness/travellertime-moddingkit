@@ -21,7 +21,10 @@ namespace TestingTesting
 
         public override void CommandExecute(string functionName)
         {
-            throw new System.NotImplementedException();
+            if (functionName == "command.teleport")
+            {
+                TeleportPlayer();
+            }
         }
 
         public override void LoadState()

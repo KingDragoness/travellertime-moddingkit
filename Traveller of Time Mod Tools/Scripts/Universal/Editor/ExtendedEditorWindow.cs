@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 using UnityEditor;
+using Sirenix.OdinInspector.Editor;
 
 namespace DestinyEngine.Object
 {
-    public class ExtendedEditorWindow : EditorWindow
+    public class ExtendedEditorWindow : OdinEditorWindow
     {
 
         protected SerializedObject serializedObject;

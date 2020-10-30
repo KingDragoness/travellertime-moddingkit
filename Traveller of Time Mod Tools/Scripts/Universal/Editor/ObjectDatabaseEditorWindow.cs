@@ -14,11 +14,15 @@ namespace DestinyEngine.Object
         Junk,
         Key,
         Weapon,
+        Armor,
+        Consume,
         Misc,
         Music,
         BaseWorldObject,
         Actors,
-        Quests
+        Quests,
+        Crafting,
+        VehiclePart
     }
 
     public class ObjectDatabaseEditorWindow : EditorWindow
@@ -40,6 +44,8 @@ namespace DestinyEngine.Object
         bool foldoutShow_WorldObject;
         bool foldoutShow_Item;
         bool foldoutShow_Faction;
+        bool foldoutShow_Vehicle;
+        bool foldoutShow_Miscellanous;
 
         Vector2 scrollPos_ItemCategory;
         Vector2 scrollPos_IDObject;
@@ -99,6 +105,16 @@ namespace DestinyEngine.Object
                                 typeList = ObjectEditor_TypeList.Weapon;
                                 Change_List();
                             }
+                            if (GUILayout.Button("Armor", buttonStyle))
+                            {
+                                typeList = ObjectEditor_TypeList.Armor;
+                                Change_List();
+                            }
+                            if (GUILayout.Button("Consumables", buttonStyle))
+                            {
+                                typeList = ObjectEditor_TypeList.Consume;
+                                Change_List();
+                            }
                             if (GUILayout.Button("Misc", buttonStyle))
                             {
                                 typeList = ObjectEditor_TypeList.Misc;
@@ -106,6 +122,8 @@ namespace DestinyEngine.Object
                             }
                         }
                         EditorGUILayout.EndFoldoutHeaderGroup();
+
+
 
                         foldoutShow_WorldObject = EditorGUILayout.BeginFoldoutHeaderGroup(foldoutShow_WorldObject, "WorldObjects");
                         if (foldoutShow_WorldObject)
@@ -123,6 +141,8 @@ namespace DestinyEngine.Object
                         }
                         EditorGUILayout.EndFoldoutHeaderGroup();
 
+
+
                         foldoutShow_Faction = EditorGUILayout.BeginFoldoutHeaderGroup(foldoutShow_Faction, "Characters");
                         if (foldoutShow_Faction)
                         {
@@ -131,9 +151,34 @@ namespace DestinyEngine.Object
                                 typeList = ObjectEditor_TypeList.Quests;
                                 Change_List();
                             }
+                        }
+                        EditorGUILayout.EndFoldoutHeaderGroup();
+
+
+
+                        foldoutShow_Vehicle = EditorGUILayout.BeginFoldoutHeaderGroup(foldoutShow_Vehicle, "Vehicles");
+                        if (foldoutShow_Vehicle)
+                        {
+                            if (GUILayout.Button("Vehicle Part", buttonStyle))
+                            {
+                                typeList = ObjectEditor_TypeList.VehiclePart;
+                                Change_List();
+                            }
+                        }
+                        EditorGUILayout.EndFoldoutHeaderGroup();
+
+
+                        foldoutShow_Miscellanous = EditorGUILayout.BeginFoldoutHeaderGroup(foldoutShow_Miscellanous, "Miscellanous");
+                        if (foldoutShow_Miscellanous)
+                        {
                             if (GUILayout.Button("Musics", buttonStyle))
                             {
                                 typeList = ObjectEditor_TypeList.Music;
+                                Change_List();
+                            }
+                            if (GUILayout.Button("Crafting Workbench", buttonStyle))
+                            {
+                                typeList = ObjectEditor_TypeList.Crafting;
                                 Change_List();
                             }
                         }
@@ -205,6 +250,24 @@ namespace DestinyEngine.Object
                 }
             }
 
+            if (typeList == ObjectEditor_TypeList.Armor)
+            {
+                objectDatabase.Data.allItemArmors = objectDatabase.Data.allItemArmors.OrderBy(z => z.ID).ToList();
+                foreach (Item_Armor item in objectDatabase.Data.allItemArmors)
+                {
+                    pooled_Objects.Add(item);
+                }
+            }
+
+            if (typeList == ObjectEditor_TypeList.Consume)
+            {
+                objectDatabase.Data.allItemConsumables = objectDatabase.Data.allItemConsumables.OrderBy(z => z.ID).ToList();
+                foreach (Item_Consumables item in objectDatabase.Data.allItemConsumables)
+                {
+                    pooled_Objects.Add(item);
+                }
+            }
+
             if (typeList == ObjectEditor_TypeList.Misc)
             {
                 objectDatabase.Data.allItemMiscs = objectDatabase.Data.allItemMiscs.OrderBy(z => z.ID).ToList();
@@ -248,6 +311,25 @@ namespace DestinyEngine.Object
                 foreach (Music music in objectDatabase.Data.allMusics)
                 {
                     pooled_Objects.Add(music);
+                }
+            }
+
+            if (typeList == ObjectEditor_TypeList.Crafting)
+            {
+                objectDatabase.Data.allCraftingBench = objectDatabase.Data.allCraftingBench.OrderBy(z => z.ID).ToList();
+                foreach (CraftingWorkbench music in objectDatabase.Data.allCraftingBench)
+                {
+                    pooled_Objects.Add(music);
+                }
+            }
+
+
+            if (typeList == ObjectEditor_TypeList.VehiclePart)
+            {
+                objectDatabase.Data.allVehicleParts = objectDatabase.Data.allVehicleParts.OrderBy(z => z.ID).ToList();
+                foreach (VehiclePart vehiclePart in objectDatabase.Data.allVehicleParts)
+                {
+                    pooled_Objects.Add(vehiclePart);
                 }
             }
         }
@@ -440,6 +522,22 @@ namespace DestinyEngine.Object
 
                         break;
                     }
+                case ObjectEditor_TypeList.Armor:
+                    {
+                        Item_Armor newItem1 = new Item_Armor();
+                        objectTarget = newItem1;
+                        objectDatabase.Data.allItemArmors.Add(newItem1);
+
+                        break;
+                    }
+                case ObjectEditor_TypeList.Consume:
+                    {
+                        Item_Consumables newItem1 = new Item_Consumables();
+                        objectTarget = newItem1;
+                        objectDatabase.Data.allItemConsumables.Add(newItem1);
+
+                        break;
+                    }
                 case ObjectEditor_TypeList.Misc:
                     {
                         Item_Misc newItem1 = new Item_Misc();
@@ -477,6 +575,22 @@ namespace DestinyEngine.Object
                         Music music = new Music();
                         objectTarget = music;
                         objectDatabase.Data.allMusics.Add(music);
+
+                        break;
+                    }
+                case ObjectEditor_TypeList.Crafting:
+                    {
+                        CraftingWorkbench crafting = new CraftingWorkbench();
+                        objectTarget = crafting;
+                        objectDatabase.Data.allCraftingBench.Add(crafting);
+
+                        break;
+                    }
+                case ObjectEditor_TypeList.VehiclePart:
+                    {
+                        VehiclePart vehiclePart = new VehiclePart();
+                        objectTarget = vehiclePart;
+                        objectDatabase.Data.allVehicleParts.Add(vehiclePart);
 
                         break;
                     }
@@ -535,6 +649,20 @@ namespace DestinyEngine.Object
 
                             break;
                         }
+                    case ObjectEditor_TypeList.Armor:
+                        {
+                            Item_Armor newItem4 = Item_Armor.Copy(objectTarget as Item_Armor);
+                            objectDatabase.Data.allItemArmors.Add(newItem4);
+
+                            break;
+                        }
+                    case ObjectEditor_TypeList.Consume:
+                        {
+                            Item_Consumables newItem4 = Item_Consumables.Copy(objectTarget as Item_Consumables);
+                            objectDatabase.Data.allItemConsumables.Add(newItem4);
+
+                            break;
+                        }
                     case ObjectEditor_TypeList.Misc:
                         {
                             Item_Misc newItem5 = Item_Misc.Copy(objectTarget as Item_Misc);
@@ -567,6 +695,20 @@ namespace DestinyEngine.Object
                         {
                             Music music = Music.Copy(objectTarget as Music);
                             objectDatabase.Data.allMusics.Add(music);
+
+                            break;
+                        }
+                    case ObjectEditor_TypeList.Crafting:
+                        {
+                            CraftingWorkbench craftBench = CraftingWorkbench.Copy(objectTarget as CraftingWorkbench);
+                            objectDatabase.Data.allCraftingBench.Add(craftBench);
+
+                            break;
+                        }
+                    case ObjectEditor_TypeList.VehiclePart:
+                        {
+                            VehiclePart vehicle = VehiclePart.Copy(objectTarget as VehiclePart);
+                            objectDatabase.Data.allVehicleParts.Add(vehicle);
 
                             break;
                         }
@@ -604,6 +746,16 @@ namespace DestinyEngine.Object
 
                         break;
 
+                    case ObjectEditor_TypeList.Armor:
+                        objectDatabase.Data.allItemArmors.Remove(objectTarget as Item_Armor);
+
+                        break;
+
+                    case ObjectEditor_TypeList.Consume:
+                        objectDatabase.Data.allItemConsumables.Remove(objectTarget as Item_Consumables);
+
+                        break;
+
                     case ObjectEditor_TypeList.Misc:
                         objectDatabase.Data.allItemMiscs.Remove(objectTarget as Item_Misc);
 
@@ -627,6 +779,16 @@ namespace DestinyEngine.Object
 
                     case ObjectEditor_TypeList.Music:
                         objectDatabase.Data.allMusics.Remove(objectTarget as Music);
+
+                        break;
+
+                    case ObjectEditor_TypeList.Crafting:
+                        objectDatabase.Data.allCraftingBench.Remove(objectTarget as CraftingWorkbench);
+
+                        break;
+
+                    case ObjectEditor_TypeList.VehiclePart:
+                        objectDatabase.Data.allVehicleParts.Remove(objectTarget as VehiclePart);
 
                         break;
 
@@ -659,23 +821,23 @@ namespace DestinyEngine.Object
                         pickable = createdObject.AddComponent<PickableScript>();
                         pickable.pickableData.formID.BaseID = objectTarget.ID;
                         pickable.pickableData.formID.DatabaseID = objectDatabase.Data.name;
-                        pickable.pickableData.formID.ObjectType = DestinyMainUtility.Check_ObjectType(objectTarget);
-                        pickable.pickableData.formID.ReferenceID = objectTarget.ID + "_" + DestinyMainUtility.GenerateSpawnableID(6);
+                        pickable.pickableData.formID.ObjectType = Destiny_MainUtility.Check_ObjectType(objectTarget);
+                        pickable.pickableData.formID.ReferenceID = objectTarget.ID + "_" + Destiny_MainUtility.GenerateSpawnableID(6);
 
                         pickable.pickableData.itemData.DatabaseName = objectDatabase.Data.name;
                         pickable.pickableData.itemData.ID = objectTarget.ID;
-                        pickable.pickableData.itemData.item_Type = DestinyMainUtility.Check_ItemType(objectTarget as Item);
+                        pickable.pickableData.itemData.item_Type = Destiny_MainUtility.Check_ItemType(objectTarget as Item);
                     }
                     else
                     {
                         pickable.pickableData.formID.BaseID = objectTarget.ID;
                         pickable.pickableData.formID.DatabaseID = objectDatabase.Data.name;
-                        pickable.pickableData.formID.ObjectType = DestinyMainUtility.Check_ObjectType(objectTarget);
-                        pickable.pickableData.formID.ReferenceID = objectTarget.ID + "_" + DestinyMainUtility.GenerateSpawnableID(6);
+                        pickable.pickableData.formID.ObjectType = Destiny_MainUtility.Check_ObjectType(objectTarget);
+                        pickable.pickableData.formID.ReferenceID = objectTarget.ID + "_" + Destiny_MainUtility.GenerateSpawnableID(6);
 
                         pickable.pickableData.itemData.DatabaseName = objectDatabase.Data.name;
                         pickable.pickableData.itemData.ID = objectTarget.ID;
-                        pickable.pickableData.itemData.item_Type = DestinyMainUtility.Check_ItemType(objectTarget as Item);
+                        pickable.pickableData.itemData.item_Type = Destiny_MainUtility.Check_ItemType(objectTarget as Item);
                     }
                 }
                 else
@@ -686,18 +848,18 @@ namespace DestinyEngine.Object
                     if (spawnable == null)
                     {
                         spawnable = createdObject.AddComponent<WorldObjectScript>();
-                        spawnable.Data = new ObjectReference_Data();
-                        spawnable.Data.formID.BaseID = objectTarget.ID;
-                        spawnable.Data.formID.DatabaseID = objectDatabase.Data.name;
-                        spawnable.Data.formID.ObjectType = DestinyMainUtility.Check_ObjectType(objectTarget);
-                        spawnable.Data.formID.ReferenceID = objectTarget.ID + "_" + DestinyMainUtility.GenerateSpawnableID(9);
+                        spawnable.Assign_ObjectRefData(new ObjectReference_Data());
+                        spawnable.Get_ObjectRefData().formID.BaseID = objectTarget.ID;
+                        spawnable.Get_ObjectRefData().formID.DatabaseID = objectDatabase.Data.name;
+                        spawnable.Get_ObjectRefData().formID.ObjectType = Destiny_MainUtility.Check_ObjectType(objectTarget);
+                        spawnable.Get_ObjectRefData().formID.ReferenceID = objectTarget.ID + "_" + Destiny_MainUtility.GenerateSpawnableID(9);
                     }
                     else
                     {
-                        spawnable.Data.formID.BaseID = objectTarget.ID;
-                        spawnable.Data.formID.DatabaseID = objectDatabase.Data.name;
-                        spawnable.Data.formID.ObjectType = DestinyMainUtility.Check_ObjectType(objectTarget);
-                        spawnable.Data.formID.ReferenceID = objectTarget.ID + "_" + DestinyMainUtility.GenerateSpawnableID(9);
+                        spawnable.Get_ObjectRefData().formID.BaseID = objectTarget.ID;
+                        spawnable.Get_ObjectRefData().formID.DatabaseID = objectDatabase.Data.name;
+                        spawnable.Get_ObjectRefData().formID.ObjectType = Destiny_MainUtility.Check_ObjectType(objectTarget);
+                        spawnable.Get_ObjectRefData().formID.ReferenceID = objectTarget.ID + "_" + Destiny_MainUtility.GenerateSpawnableID(9);
 
                     }
                 }

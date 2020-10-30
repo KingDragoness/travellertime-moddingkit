@@ -10,9 +10,10 @@ namespace DestinyEngine.Object
 {
     public class DestinyObjectEditor : ExtendedEditorWindow
     {
+        public BaseObject objectTarget;
+
         private ObjectEditor_TypeList typeList = ObjectEditor_TypeList.None;
         private ObjectDatabase objectDatabase = null;
-        private BaseObject objectTarget = null;
         private bool isCreateNewObjectMode = false;
         private List<int>       indexes = new List<int>();
         private List<bool>      booleans = new List<bool>();
@@ -43,8 +44,17 @@ namespace DestinyEngine.Object
             {
                 window.booleans.Add(false);
             }
+
         }
 
+        protected override void OnGUI()
+        {
+            EditorUtility.SetDirty(objectDatabase);
+            base.OnGUI();
+        }
+
+
+        /*
         private void OnGUI()
         {
             scrollPos = EditorGUILayout.BeginScrollView(scrollPos);
@@ -86,6 +96,17 @@ namespace DestinyEngine.Object
                 case ObjectEditor_TypeList.Weapon:
                     index = objectDatabase.Data.allItemWeapon.FindIndex(x => x == objectTarget);
                     listName = "allItemWeapon";
+                    break;
+
+                case ObjectEditor_TypeList.Armor:
+                    index = objectDatabase.Data.allItemArmors.FindIndex(x => x == objectTarget);
+                    listName = "allItemArmors";
+                    break;
+
+
+                case ObjectEditor_TypeList.Consume:
+                    index = objectDatabase.Data.allItemConsumables.FindIndex(x => x == objectTarget);
+                    listName = "allItemConsumables";
                     break;
 
                 case ObjectEditor_TypeList.Misc:
@@ -211,6 +232,16 @@ namespace DestinyEngine.Object
                         }
 
                     }
+                    break;
+
+                case ObjectEditor_TypeList.Armor:
+                    DrawProperties(serializedList, true);
+
+                    break;
+
+                case ObjectEditor_TypeList.Consume:
+                    DrawProperties(serializedList, true);
+
                     break;
 
                 case ObjectEditor_TypeList.Misc:
@@ -533,6 +564,20 @@ namespace DestinyEngine.Object
 
                         break;
                     }
+                case ObjectEditor_TypeList.Armor:
+                    {
+                        Item_Armor newItem4 = objectTarget as Item_Armor;
+                        objectDatabase.Data.allItemArmors.Add(newItem4);
+
+                        break;
+                    }
+                case ObjectEditor_TypeList.Consume:
+                    {
+                        Item_Consumables newItem4 = objectTarget as Item_Consumables;
+                        objectDatabase.Data.allItemConsumables.Add(newItem4);
+
+                        break;
+                    }
                 case ObjectEditor_TypeList.Misc:
                     {
                         Item_Misc newItem5 = objectTarget as Item_Misc;
@@ -616,6 +661,6 @@ namespace DestinyEngine.Object
             }
             return enm.Current;
         }
-
+        */
     }
 }

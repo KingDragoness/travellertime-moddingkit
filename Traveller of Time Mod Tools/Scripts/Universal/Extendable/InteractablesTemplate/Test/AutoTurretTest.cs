@@ -131,6 +131,11 @@ namespace TestingTesting
             particle.transform.position = hit.point;
             particle.transform.up = -outCannon.forward;
 
+            DamageAnyNPC(hit);
+        }
+
+        void DamageAnyNPC(RaycastHit hit)
+        {
             MonoBehaviour[] list = hit.collider.gameObject.GetComponents<MonoBehaviour>();
             foreach (MonoBehaviour mb in list)
             {

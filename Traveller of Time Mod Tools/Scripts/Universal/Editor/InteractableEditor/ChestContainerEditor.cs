@@ -94,7 +94,7 @@ namespace DestinyEngine.Editor
                         newItem.ID = currentItem.ID;
                         newItem.DatabaseName = currentDatabase.Data.name;
                         newItem.count = 1;
-                        newItem.item_Type = DestinyMainUtility.Check_ItemType(currentItem);
+                        newItem.item_Type = Destiny_MainUtility.Check_ItemType(currentItem);
 
                         tempContainer.all_InventoryItem.Add(newItem);
                     }

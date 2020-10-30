@@ -54,7 +54,7 @@ namespace TestingTesting
         private void Start()
         {
             DestinyEventHandler.onActionCommandOpen += UpdateTowingEquipment;
-            DestinyEventHandler.OnTick += TickEquipment;
+            DestinyMainEngine.OnTick += TickEquipment;
             LoadState();
             worldObjectScript.OnSaveState += SaveState;
 
@@ -170,6 +170,7 @@ namespace TestingTesting
 
         private void UpdateTowingEquipment()
         {
+
             if (isRopeUnrolled)
             {
                 lineRenderer.enabled = true;
@@ -279,7 +280,7 @@ namespace TestingTesting
         {
             DestroyObject();
 
-            DestinyInternalCommand.instance.Inventory_AddItem("vanilla", "Construct_TowEquipment", "Item_Weapon", 1);
+            DestinyInternalCommand.instance.Inventory_AddItem("vanilla", "Construct_TowEquipment", "Weapon", 1);
             DestinyMainEngine.main.SpawnablesManager_.Remove_Spawnable(worldObjectScript);
             DestinyInternalCommand.instance.Quit_ActionCommand();
 
@@ -293,7 +294,7 @@ namespace TestingTesting
         private void DestroyObject()
         {
             DestinyEventHandler.onActionCommandOpen -= UpdateTowingEquipment;
-            DestinyEventHandler.OnTick -= TickEquipment;
+            DestinyMainEngine.OnTick -= TickEquipment;
             worldObjectScript.OnLoadState -= LoadState;
             worldObjectScript.OnSaveState -= SaveState;
         }
@@ -357,7 +358,7 @@ namespace TestingTesting
 
         public override void LoadState()
         {
-            ObjectReference_Data Data = worldObjectScript.Data;
+            ObjectReference_Data Data = worldObjectScript.Get_ObjectRefData();
             JsonSerializerSettings settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All };
 
             string vehicleRefID = Data.Get_Variable("vehicleRefID");
@@ -409,6 +410,11 @@ namespace TestingTesting
             {
                 RefreshSlider();
             }
+        }
+
+        public void OnChildCollisionExit(Collider collider)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
