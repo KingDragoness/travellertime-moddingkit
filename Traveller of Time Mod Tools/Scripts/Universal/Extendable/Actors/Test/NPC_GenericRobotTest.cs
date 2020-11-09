@@ -8,7 +8,6 @@ namespace TestingTesting
 {
     public class NPC_GenericRobotTest : DestinyScript, ICommand
     {
-        [Header("Ignore above")]
         public ActorScript actorScript;
 
         public void CommandExecute(ActionCommand command)

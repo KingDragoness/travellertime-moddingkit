@@ -50,6 +50,12 @@ namespace DestinyEngine.Object
         Vector2 scrollPos_ItemCategory;
         Vector2 scrollPos_IDObject;
 
+        private bool filter_isCapsSensitive = false;
+        private bool filter_limitPage = true;
+        private int filter_itemPerPage = 50;
+        private int pageIndex = 0;
+        private BaseObject objectTarget = null;
+
         [MenuItem("Destiny Engine/Object Database Editor Window")]
         public static void OpenWindow(ObjectDatabase objectDatabase)
         {
@@ -74,7 +80,15 @@ namespace DestinyEngine.Object
         private void OnGUI()
         {
             GUILayout.Label("Object Database Editor", EditorStyles.boldLabel);
+
+            EditorGUILayout.BeginHorizontal();
             objectDatabase = (ObjectDatabase) EditorGUILayout.ObjectField(objectDatabase, typeof(ObjectDatabase), false, GUILayout.MaxWidth(200));
+
+            if (GUILayout.Button("Apply all model script", buttonStyle, GUILayout.Width(220)))
+            {
+                Apply_PrefabChanges();
+            }
+            EditorGUILayout.EndHorizontal();
 
             EditorGUILayout.BeginHorizontal("Box");
             {
@@ -202,6 +216,115 @@ namespace DestinyEngine.Object
 
             }
             EditorGUILayout.EndHorizontal();
+        }
+
+        private void Apply_PrefabChanges()
+        {
+            var ListObjects = objectDatabase.GetAllBaseObjectsFromDatabase();
+            List<GameObject> listGameObjectDuplicatesCheck = new List<GameObject>();
+
+            foreach(var baseObject in ListObjects)
+            {
+                if (baseObject.gameModel == null)
+                {
+                    continue;
+                }
+
+                if (listGameObjectDuplicatesCheck.Find(x => x == baseObject.gameModel) != null)
+                {
+                    baseObject.gameModel = Create_BrandNewPrefab(baseObject);
+                }
+
+                listGameObjectDuplicatesCheck.Add(baseObject.gameModel);
+
+                if (baseObject is BaseWorldObject)
+                {
+                    WorldObjectScript worldObject = baseObject.gameModel.GetComponent<WorldObjectScript>();
+
+                    if (worldObject == null)
+                    {
+                        worldObject = baseObject.gameModel.AddComponent<WorldObjectScript>();
+                        ObjectReference_Data data = new ObjectReference_Data();
+                        data.formID.BaseID = baseObject.ID;
+                        data.formID.DatabaseID = objectDatabase.Data.name;
+                        data.formID.ObjectType = Destiny_MainUtility.Check_ObjectType(baseObject);
+                        worldObject.Data = data;
+                    }
+                    else
+                    {
+                        ObjectReference_Data data = worldObject.Data;
+                        data.formID.BaseID = baseObject.ID;
+                        data.formID.DatabaseID = objectDatabase.Data.name;
+                        data.formID.ObjectType = Destiny_MainUtility.Check_ObjectType(baseObject);
+                    }
+                }
+
+                if (baseObject is Item)
+                {
+                    PickableScript pickable = baseObject.gameModel.GetComponent<PickableScript>();
+
+                    if (pickable == null)
+                    {
+                        pickable = baseObject.gameModel.AddComponent<PickableScript>();
+                        Pickable_Data pickableData = new Pickable_Data();
+                        ItemData itemData = new ItemData();
+                        pickableData.formID.BaseID = baseObject.ID;
+                        pickableData.formID.DatabaseID = objectDatabase.Data.name;
+                        pickableData.formID.ObjectType = Destiny_MainUtility.Check_ObjectType(baseObject);
+                        pickableData.itemData.DatabaseName = objectDatabase.Data.name;
+                        pickableData.itemData.ID = baseObject.ID;
+                        pickableData.itemData.item_Type = Destiny_MainUtility.Check_ItemType(baseObject as Item);
+
+                        pickableData.itemData = itemData;
+                        pickable.pickableData = pickableData;
+                    }
+                    else
+                    {
+                        Pickable_Data pickableData = pickable.pickableData;
+                        pickableData.formID.BaseID = baseObject.ID;
+                        pickableData.formID.DatabaseID = objectDatabase.Data.name;
+                        pickableData.formID.ObjectType = Destiny_MainUtility.Check_ObjectType(baseObject);
+                        pickableData.itemData.DatabaseName = objectDatabase.Data.name;
+                        pickableData.itemData.ID = baseObject.ID;
+                        pickableData.itemData.item_Type = Destiny_MainUtility.Check_ItemType(baseObject as Item);
+                    }
+                }
+
+                if (baseObject is Actor)
+                {
+                    ActorScript actorScript = baseObject.gameModel.GetComponent<ActorScript>();
+
+                    if (actorScript == null)
+                    {
+                        actorScript = baseObject.gameModel.AddComponent<ActorScript>();
+                        Actor_Data actor_Data = new Actor_Data();
+                        actor_Data.formID.BaseID = baseObject.ID;
+                        actor_Data.formID.DatabaseID = objectDatabase.Data.name;
+                        actor_Data.formID.ObjectType = Destiny_MainUtility.Check_ObjectType(baseObject);
+
+                        actorScript.actorData = actor_Data;
+                    }
+                    else
+                    {
+                        Actor_Data actor_Data = actorScript.actorData;
+                        actor_Data.formID.BaseID = baseObject.ID;
+                        actor_Data.formID.DatabaseID = objectDatabase.Data.name;
+                        actor_Data.formID.ObjectType = Destiny_MainUtility.Check_ObjectType(baseObject);
+                    }
+                }
+            }
+        }
+
+        private GameObject Create_BrandNewPrefab(BaseObject baseObject)
+        {
+            var instanceRoot = (GameObject)PrefabUtility.InstantiatePrefab(baseObject.gameModel);
+
+            string localPath = "Assets/Resources/" + baseObject.ID + ".prefab";
+            localPath = AssetDatabase.GenerateUniqueAssetPath(localPath);
+
+            GameObject prefab = PrefabUtility.SaveAsPrefabAsset(instanceRoot, localPath);
+            DestroyImmediate(instanceRoot);
+            return prefab;
         }
 
         public void Change_List()
@@ -334,11 +457,6 @@ namespace DestinyEngine.Object
             }
         }
 
-        private bool    filter_isCapsSensitive = false;
-        private bool    filter_limitPage = true;
-        private int     filter_itemPerPage = 50;
-        private int     pageIndex = 0;
-        private BaseObject objectTarget = null;
 
         void ShowItemsGUI()
         {
@@ -878,6 +996,7 @@ namespace DestinyEngine.Object
         }
 
         #endregion
+
         void OnInspectorUpdate()
         {
             Repaint();

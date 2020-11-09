@@ -3,41 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using DestinyEngine;
 using DestinyEngine.Object;
-using TravellerTime;
 
 namespace TestingTesting
 {
-    public class AutoTurretTest : InteractableScript
+
+    public class NPC_TurretGunTest : DestinyScript, ICommand
     {
+        public ActorScript actorScript;
+
+        [Header("Turret System")]
         public bool toggleTurret = false;
-        public float speed = 10f;
+        public Transform Gun_Cannon;
+        public Transform Gun_Base;
+
         public Transform target;
         public Transform outCannon;
-        public GameObject muzzle;
+        public float speed = 10f;
+        public float speedCannon = 10f;
 
         public float TurretFire = 0.2f;
         public float FireError = 0.04f;
         public float TurretDamage = 5;
         private float _currentCooldown = 0.2f;
 
-        public override void CommandExecute(ActionCommand command)
-        {
-            if (command.commandID == "toggle")
-            {
-                toggleTurret = !toggleTurret;
-            }
-        }
-
-        public override void LoadState()
-        {
-
-        }
-
-        public override void SaveState()
-        {
-
-        }
-
+        // Start is called before the first frame update
         void Start()
         {
             target = DestinyMainEngine.main.ExamplePlayer.transform;
@@ -50,7 +39,6 @@ namespace TestingTesting
         }
 
         #region Generic Weapon Fire module
-
         private void Update_Turret()
         {
             if (toggleTurret)
@@ -63,19 +51,25 @@ namespace TestingTesting
                     _currentCooldown = TurretFire + Random.Range(0, FireError);
                 }
 
-                Vector3 aimVector = target.position - transform.position;
-
+                Vector3 aimVector = target.position - Gun_Base.position;
                 aimVector.y = 0f;
+                Quaternion newRotation = Quaternion.LookRotation(aimVector, Gun_Base.up);
+                Gun_Base.rotation = Quaternion.Slerp(Gun_Base.rotation, newRotation, Time.deltaTime * speed * 0.1f);
 
-                Quaternion newRotation = Quaternion.LookRotation(aimVector, transform.up);
-                transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, Time.deltaTime * speed * 0.1f);
+                Vector3 aimVector1 = target.position - Gun_Cannon.position;
+                Quaternion rot = Quaternion.Slerp(Gun_Cannon.rotation, Quaternion.LookRotation(aimVector1), speedCannon * Time.deltaTime);
+
+                Gun_Cannon.rotation = rot;
+
+                // put 0 on the axys you do not want for the rotation object to rotate
+                Gun_Cannon.eulerAngles = new Vector3(Gun_Cannon.eulerAngles.x, Gun_Cannon.eulerAngles.y, Gun_Cannon.eulerAngles.z);
+                Gun_Cannon.localEulerAngles = new Vector3(Gun_Cannon.localEulerAngles.x, 0, 0);
             }
         }
 
         void FireWeapon()
         {
             Impact();
-            muzzle.gameObject.SetActive(true);
         }
 
         private RaycastHit GetRaycastHit()
@@ -96,6 +90,10 @@ namespace TestingTesting
         {
             RaycastHit hit = GetRaycastHit();
 
+            GameObject particle = DestinyInternalCommand.instance.ImpactBullet(outCannon, hit);
+
+            #region Obselete
+            /*
             if (hit.collider == null)
             {
                 return;
@@ -134,10 +132,16 @@ namespace TestingTesting
             formID.ObjectType = ObjectData_Type.BaseWorldObject;
 
             GameObject particle = DestinyInternalCommand.instance.Spawnable_Create(formID);
+            */
+            #endregion
+
+            if (particle == null)
+            {
+                return;
+            }
 
             particle.transform.position = hit.point;
             particle.transform.up = -outCannon.forward;
-
             DamageAnyNPC(hit);
         }
 
@@ -153,12 +157,33 @@ namespace TestingTesting
                 }
             }
         }
-
         #endregion
 
-        public override void CommandExecute(string functionName)
+
+        public override void LoadState()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override void SaveState()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public List<ActionCommand_Parent> CommandListRetrieveAll()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void CommandExecute(ActionCommand command)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void CommandExecute(string functionName)
         {
             throw new System.NotImplementedException();
         }
     }
+
 }
