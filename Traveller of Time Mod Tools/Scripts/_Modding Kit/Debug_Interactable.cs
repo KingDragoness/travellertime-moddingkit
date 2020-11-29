@@ -5,7 +5,7 @@ using DestinyEngine;
 
 public class Debug_Interactable : MonoBehaviour
 {
-    public Interactables interactables;
+    public InteractableScript interactables;
     public string commandID = "";
 
     [ContextMenu("CommandExecute")]

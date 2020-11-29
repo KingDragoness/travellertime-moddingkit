@@ -5,7 +5,7 @@ using DestinyEngine;
 
 public class debug_Weapon : MonoBehaviour
 {
-    public DefaultWeapon defaultWeapon;
+    public WeaponScript defaultWeapon;
 
     private void Update()
     {
