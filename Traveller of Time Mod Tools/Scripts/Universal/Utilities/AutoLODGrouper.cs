@@ -76,6 +76,7 @@ namespace DestinyEngine.Utility
                 pos *= cubeSize;
 
                 lodgroup.gameObject.name = "LODRegion - " + pos.ToString();
+                lodgroup.transform.SetAsFirstSibling();
                 lodgroup.transform.position = pos;
 
                 print(pos);
@@ -121,6 +122,7 @@ namespace DestinyEngine.Utility
                     lodgroup = new GameObject().AddComponent<LODGroup>();
                     lodgroup.transform.parent = this.gameObject.transform;
                     lodgroup.transform.position = lodinfo.pos;
+                    lodgroup.transform.SetAsFirstSibling();
 
                     allLODGroups_Created.Add(lodgroup);
                 }
