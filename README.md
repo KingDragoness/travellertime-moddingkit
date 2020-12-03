@@ -10,6 +10,8 @@ Traveller of Time allows for modders to create islands, vehicle, database or ite
 
 2. Unity Timeline (For cutscenes)
 
+3. DotTween v2
+
 
 
 #### World:
