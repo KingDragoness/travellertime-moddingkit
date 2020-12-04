@@ -22,7 +22,8 @@ namespace DestinyEngine.Object
         Actors,
         Quests,
         Crafting,
-        VehiclePart
+        VehiclePart,
+        Animation
     }
 
     public class ObjectDatabaseEditorWindow : EditorWindow
@@ -193,6 +194,11 @@ namespace DestinyEngine.Object
                             if (GUILayout.Button("Crafting Workbench", buttonStyle))
                             {
                                 typeList = ObjectEditor_TypeList.Crafting;
+                                Change_List();
+                            }
+                            if (GUILayout.Button("Animation", buttonStyle))
+                            {
+                                typeList = ObjectEditor_TypeList.Animation;
                                 Change_List();
                             }
                         }
@@ -440,12 +446,20 @@ namespace DestinyEngine.Object
             if (typeList == ObjectEditor_TypeList.Crafting)
             {
                 objectDatabase.Data.allCraftingBench = objectDatabase.Data.allCraftingBench.OrderBy(z => z.ID).ToList();
-                foreach (CraftingWorkbench music in objectDatabase.Data.allCraftingBench)
+                foreach (CraftingWorkbench workbench in objectDatabase.Data.allCraftingBench)
                 {
-                    pooled_Objects.Add(music);
+                    pooled_Objects.Add(workbench);
                 }
             }
 
+            if (typeList == ObjectEditor_TypeList.Animation)
+            {
+                objectDatabase.Data.allAnimations = objectDatabase.Data.allAnimations.OrderBy(z => z.ID).ToList();
+                foreach (BaseAnimation animation in objectDatabase.Data.allAnimations)
+                {
+                    pooled_Objects.Add(animation);
+                }
+            }
 
             if (typeList == ObjectEditor_TypeList.VehiclePart)
             {
@@ -704,6 +718,14 @@ namespace DestinyEngine.Object
 
                         break;
                     }
+                case ObjectEditor_TypeList.Animation:
+                    {
+                        BaseAnimation animation = new BaseAnimation();
+                        objectTarget = animation;
+                        objectDatabase.Data.allAnimations.Add(animation);
+
+                        break;
+                    }
                 case ObjectEditor_TypeList.VehiclePart:
                     {
                         VehiclePart vehiclePart = new VehiclePart();
@@ -712,6 +734,7 @@ namespace DestinyEngine.Object
 
                         break;
                     }
+
                 default:
 
                     break;
@@ -823,6 +846,13 @@ namespace DestinyEngine.Object
 
                             break;
                         }
+                    case ObjectEditor_TypeList.Animation:
+                        {
+                            BaseAnimation animation = BaseAnimation.Copy(objectTarget as BaseAnimation);
+                            objectDatabase.Data.allAnimations.Add(animation);
+
+                            break;
+                        }
                     case ObjectEditor_TypeList.VehiclePart:
                         {
                             VehiclePart vehicle = VehiclePart.Copy(objectTarget as VehiclePart);
@@ -830,6 +860,7 @@ namespace DestinyEngine.Object
 
                             break;
                         }
+
                     default:
 
                         break;
@@ -902,6 +933,11 @@ namespace DestinyEngine.Object
 
                     case ObjectEditor_TypeList.Crafting:
                         objectDatabase.Data.allCraftingBench.Remove(objectTarget as CraftingWorkbench);
+
+                        break;
+
+                    case ObjectEditor_TypeList.Animation:
+                        objectDatabase.Data.allAnimations.Remove(objectTarget as BaseAnimation);
 
                         break;
 

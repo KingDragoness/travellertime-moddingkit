@@ -6,11 +6,19 @@ using DestinyEngine.Object;
 
 namespace TestingTesting
 {
-    public class NPC_GenericRobotTest : DestinyScript, ICommand
+    public class NPC_GenericRobotTest : DestinyScript
     {
         public ActorScript actorScript;
 
-        public void CommandExecute(ActionCommand command)
+        private void Awake()
+        {
+            if (actorScript != null)
+            {
+                actorScript.onCommandExecute += CommandExecute;
+            }
+        }
+
+        private void CommandExecute(ActionCommand command)
         {
             if (command.commandID == "talk")
             {
