@@ -18,20 +18,37 @@
             }
         },
         {
-            "NameDisplay": "World Test",
-            "RegionName": "vanilla_worldtest",
+            "NameDisplay": "Homeisland",
+            "RegionName": "vanilla.Homeisland",
             "dimension": 0,
             "isInterior": false,
-            "ModPackName": "vanilla_worldtest",
+            "ModPackName": "vanilla.Homeisland",
             "GCECoord": {
-                "x": -60.0,
+                "x": -26.0,
                 "y": 0.0,
-                "z": -30.0
+                "z": -5.0
             },
             "IslandSize": {
-                "x": 40.0,
+                "x": 10.0,
                 "y": 1.0,
-                "z": 40.0
+                "z": 10.0
+            }
+        },
+		{
+            "NameDisplay": "Giganthor",
+            "RegionName": "vanilla.Giganthor",
+            "dimension": 0,
+            "isInterior": false,
+            "ModPackName": "vanilla.Giganthor",
+            "GCECoord": {
+                "x": -24.0,
+                "y": 0.0,
+                "z": -27.0
+            },
+            "IslandSize": {
+                "x": 20.0,
+                "y": 1.0,
+                "z": 20.0
             }
         },
         {

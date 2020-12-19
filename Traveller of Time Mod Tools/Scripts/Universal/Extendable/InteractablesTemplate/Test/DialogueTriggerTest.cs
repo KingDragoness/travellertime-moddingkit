@@ -29,7 +29,7 @@ namespace DestinyEngine.Interact
 
         private void SpecialCheck()
         {
-            if (DestinyInternalCommand.instance.Quest_GetCompleteIndex("vanilla", "Misc_PreciousRing", 10) != false)
+            if (DestinyInternalCommand.instance.Quest_GetFlag("vanilla", "Misc_PreciousRing", "Real Ring") != false)
             {
                 currentConversation = allConversations[1];
             }

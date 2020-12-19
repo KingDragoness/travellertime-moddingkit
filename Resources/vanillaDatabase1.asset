@@ -1,0 +1,747 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85ebef67b1f493446b8e25aae53d7c49, type: 3}
+  m_Name: vanillaDatabase1
+  m_EditorClassIdentifier: 
+  Data:
+    name: vanilla
+    allItemAmmo:
+    - ID: 5.56x45mm
+      name: 5.56x45mm Bullet
+      gameModel: {fileID: 545630645051386462, guid: 52c0126defa9d5b4098fea5238854377,
+        type: 3}
+      description: Bullet for assault rifles and rifles.
+      value: 0.5
+      maxStack: 32767
+      isCraftable: 1
+      craftingRecipes:
+      - databaseID: vanilla
+        itemID: Metal
+        itemType: 1
+        amount: 2
+      - databaseID: vanilla
+        itemID: Gunpowder
+        itemType: 1
+        amount: 3
+      outputPerCraft: 10
+      workbenchID: AmmoBuild
+    - ID: 9mm
+      name: 9mm Bullet
+      gameModel: {fileID: 545630645051386462, guid: 9973288250f909646a1ad8e8b43a70a2,
+        type: 3}
+      description: Ammunition for pistols.
+      value: 0.5
+      maxStack: 32767
+      isCraftable: 1
+      craftingRecipes:
+      - databaseID: vanilla
+        itemID: Metal
+        itemType: 1
+        amount: 2
+      - databaseID: vanilla
+        itemID: Gunpowder
+        itemType: 1
+        amount: 2
+      outputPerCraft: 14
+      workbenchID: AmmoBuild
+    - ID: Artillery Shell
+      name: Artillery Shell
+      gameModel: {fileID: 0}
+      description: 
+      value: 1
+      maxStack: 32767
+      isCraftable: 1
+      craftingRecipes:
+      - databaseID: vanilla
+        itemID: Metal
+        itemType: 1
+        amount: 2
+      - databaseID: vanilla
+        itemID: Gunpowder
+        itemType: 1
+        amount: 4
+      outputPerCraft: 2
+      workbenchID: AmmoBuild
+    - ID: RPG Rocket
+      name: RPG Rocket
+      gameModel: {fileID: 0}
+      description: 
+      value: 1
+      maxStack: 32767
+      isCraftable: 1
+      craftingRecipes:
+      - databaseID: vanilla
+        itemID: Metal
+        itemType: 1
+        amount: 2
+      - databaseID: vanilla
+        itemID: Gunpowder
+        itemType: 1
+        amount: 4
+      outputPerCraft: 5
+      workbenchID: AmmoBuild
+    - ID: Shotgun Shell
+      name: Shotgun Shell
+      gameModel: {fileID: 0}
+      description: 
+      value: 0.7
+      maxStack: 32767
+      isCraftable: 1
+      craftingRecipes:
+      - databaseID: vanilla
+        itemID: Metal
+        itemType: 1
+        amount: 2
+      - databaseID: vanilla
+        itemID: Gunpowder
+        itemType: 1
+        amount: 3
+      outputPerCraft: 10
+      workbenchID: AmmoBuild
+    allItemKey:
+    - ID: BleakFallBarrow
+      name: Bleak Fall Barrow Dungeon Key
+      gameModel: {fileID: 0}
+      description: 
+      value: 100
+      maxStack: 32767
+      isCraftable: 0
+      craftingRecipes: []
+      outputPerCraft: 1
+      workbenchID: 
+    - ID: Fake OneRing
+      name: Fake One Ring
+      gameModel: {fileID: 9132988025416605977, guid: b003b7761c7faac4d8b2527462e29ba4,
+        type: 3}
+      description: Fake One ring. The stupid villager will not notice it.
+      value: 1
+      maxStack: 32767
+      isCraftable: 0
+      craftingRecipes: []
+      outputPerCraft: 1
+      workbenchID: 
+    - ID: HelvinaKey
+      name: Helvina Key
+      gameModel: {fileID: 1876312627898804826, guid: 40e9d5f5d9d96a74e8a482e1d3d56d7a,
+        type: 3}
+      description: 
+      value: 100
+      maxStack: 1
+      isCraftable: 0
+      craftingRecipes: []
+      outputPerCraft: 1
+      workbenchID: 
+    - ID: KeyOfDoom
+      name: Doom Key
+      gameModel: {fileID: 1493084073566204718, guid: 35625df6da2e7274d9d831e2dc1eda70,
+        type: 3}
+      description: 
+      value: 100
+      maxStack: 1
+      isCraftable: 0
+      craftingRecipes: []
+      outputPerCraft: 1
+      workbenchID: 
+    - ID: KeyOfWisdom
+      name: Key Of Wisdom
+      gameModel: {fileID: 0}
+      description: 
+      value: 100
+      maxStack: 1
+      isCraftable: 0
+      craftingRecipes: []
+      outputPerCraft: 1
+      workbenchID: 
+    - ID: OneRing
+      name: One Ring
+      gameModel: {fileID: 8885287009897219368, guid: fd1ec5a2328ecc34aa901a4f06571dc4,
+        type: 3}
+      description: This is only a test object.
+      value: 1
+      maxStack: 32767
+      isCraftable: 0
+      craftingRecipes: []
+      outputPerCraft: 1
+      workbenchID: 
+    - ID: WarnTorn
+      name: War Torn Key
+      gameModel: {fileID: 0}
+      description: Special test key.
+      value: 100
+      maxStack: 1
+      isCraftable: 0
+      craftingRecipes: []
+      outputPerCraft: 1
+      workbenchID: 
+    - ID: WorldTest-door00
+      name: World Test Room Key 1
+      gameModel: {fileID: 0}
+      description: 
+      value: 100
+      maxStack: 1
+      isCraftable: 0
+      craftingRecipes: []
+      outputPerCraft: 1
+      workbenchID: 
+    - ID: WorldTest-door01
+      name: World Test Room Key 2
+      gameModel: {fileID: 0}
+      description: 
+      value: 100
+      maxStack: 1
+      isCraftable: 0
+      craftingRecipes: []
+      outputPerCraft: 1
+      workbenchID: 
+    - ID: WorldTest-door02
+      name: World Test Room Key 3
+      gameModel: {fileID: 0}
+      description: 
+      value: 100
+      maxStack: 1
+      isCraftable: 0
+      craftingRecipes: []
+      outputPerCraft: 1
+      workbenchID: 
+    allItemJunk:
+    - ID: Garbage
+      name: Garbage
+      gameModel: {fileID: 0}
+      description: Useless pile.
+      value: 1
+      maxStack: 32767
+      isCraftable: 0
+      craftingRecipes: []
+      outputPerCraft: 1
+      workbenchID: 
+    - ID: Gunpowder
+      name: Gunpowder
+      gameModel: {fileID: 0}
+      description: A highly explosive ingredient that is used for creating bullets.
+      value: 4
+      maxStack: 32767
+      isCraftable: 0
+      craftingRecipes: []
+      outputPerCraft: 1
+      workbenchID: 
+    - ID: Metal
+      name: Metal
+      gameModel: {fileID: 0}
+      description: Commonly earth material.
+      value: 3
+      maxStack: 32767
+      isCraftable: 0
+      craftingRecipes: []
+      outputPerCraft: 1
+      workbenchID: 
+    - ID: Oil
+      name: Oil
+      gameModel: {fileID: 0}
+      description: A highly valuable liquid that can be used to fuel engine and vehicles.
+      value: 20
+      maxStack: 32767
+      isCraftable: 0
+      craftingRecipes: []
+      outputPerCraft: 1
+      workbenchID: 
+    allItemWeapon:
+    - ID: Construct_TowEquipment
+      name: Towing Equipment
+      gameModel: {fileID: 341005649734866077, guid: 8d9aa236a52aa33448b37ba9635b43ea,
+        type: 3}
+      description: Towing equipment to tow vehicle.
+      value: 25
+      maxStack: 1
+      isCraftable: 0
+      craftingRecipes: []
+      outputPerCraft: 1
+      workbenchID: 
+      weaponObject: {fileID: 7942681897069715886, guid: f165fb6937b1601429a8243d92e1b189,
+        type: 3}
+      weaponSlotSprite: {fileID: 21300000, guid: 66ee522b75b85074ebb55785dafacb27,
+        type: 3}
+      item_Weapon_Type: 3
+      ammoID: 
+      baseDamage: 0
+    - ID: Weapon_AK 47
+      name: AK 47
+      gameModel: {fileID: 2472805826024914330, guid: 07664377cfbd73a499e8496ba171cdae,
+        type: 3}
+      description: Kalashinov weapon. Test only.
+      value: 89
+      maxStack: 1
+      isCraftable: 0
+      craftingRecipes: []
+      outputPerCraft: 1
+      workbenchID: 
+      weaponObject: {fileID: 6997225334432929988, guid: 4f4f0a6e9d044b64d9dc3e3463c8ba71,
+        type: 3}
+      weaponSlotSprite: {fileID: 21300000, guid: 66ee522b75b85074ebb55785dafacb27,
+        type: 3}
+      item_Weapon_Type: 0
+      ammoID: 5.56x45mm
+      baseDamage: 6.5
+    - ID: Weapon_Pistol
+      name: Pistol
+      gameModel: {fileID: 8696195493239471094, guid: 16be6d838e474f846af47e2118a9dd22,
+        type: 3}
+      description: Normal pistol. Test only.
+      value: 75
+      maxStack: 1
+      isCraftable: 0
+      craftingRecipes: []
+      outputPerCraft: 1
+      workbenchID: 
+      weaponObject: {fileID: 5532142734947757007, guid: e1a8f51aa12a62a499e273e370056c64,
+        type: 3}
+      weaponSlotSprite: {fileID: 21300000, guid: 4d3be0dac95eadf43896a551d06aceee,
+        type: 3}
+      item_Weapon_Type: 1
+      ammoID: 9mm
+      baseDamage: 5
+    - ID: WeaponTEST_AK47
+      name: TestWeapon_AK47
+      gameModel: {fileID: 7796448857628674671, guid: 496a876443d068d489eb160cc99498e5,
+        type: 3}
+      description: Test Vanilla.Weapon_M4A1.
+      value: 1
+      maxStack: 1
+      isCraftable: 0
+      craftingRecipes: []
+      outputPerCraft: 1
+      workbenchID: 
+      weaponObject: {fileID: 6997225334432929988, guid: a384d24bf3f0276459dd9d73fbd6d455,
+        type: 3}
+      weaponSlotSprite: {fileID: 0}
+      item_Weapon_Type: 0
+      ammoID: 5.56x45mm
+      baseDamage: 5
+    allItemArmors: []
+    allItemConsumables: []
+    allItemMiscs:
+    - ID: centurion
+      name: Centurion
+      gameModel: {fileID: 0}
+      description: Centurion is a universally accepted currency.
+      value: 0
+      maxStack: 2147483647
+      isCraftable: 0
+      craftingRecipes: []
+      outputPerCraft: 1
+      workbenchID: 
+    - ID: precious_onering
+      name: One Ring
+      gameModel: {fileID: 0}
+      description: Test item
+      value: 1
+      maxStack: 2147483647
+      isCraftable: 0
+      craftingRecipes: []
+      outputPerCraft: 1
+      workbenchID: 
+    allBaseWorldObjects:
+    - ID: CK_TowEquipment
+      name: Towing Equipment
+      gameModel: {fileID: 8880026926176878555, guid: 2cd25ef3cf208bf48b9a880dc7b1a20b,
+        type: 3}
+    - ID: MiracleBox
+      name: Miracle Box
+      gameModel: {fileID: 3014527292564236257, guid: 4b3e388b9c901cb4a8009c36bcd7fd40,
+        type: 3}
+    - ID: PFX_BImpact_Concrete
+      name: PFX_BImpact_Concrete
+      gameModel: {fileID: 5949330706350999495, guid: c129805bb663c244c880c775540fc281,
+        type: 3}
+    - ID: PFX_BImpact_Ground
+      name: PFX_BImpact_Ground
+      gameModel: {fileID: 5773086663956495711, guid: fbaa98956d87601438f9734e091fa148,
+        type: 3}
+    - ID: PFX_BImpact_Metal
+      name: PFX_BImpact_Metal
+      gameModel: {fileID: 2571095548022581091, guid: 9cdf66c7334bdae43aae6c2b3deab45d,
+        type: 3}
+    - ID: PFX_BImpact_Wood
+      name: PFX_BImpact_Wood
+      gameModel: {fileID: 6051826126590468037, guid: add4f8042a5831349a38d1e093359f94,
+        type: 3}
+    - ID: WoodenBridge_0
+      name: Wooden Bridge
+      gameModel: {fileID: 100000, guid: a10d1f3307879f24fa4403887422c73f, type: 3}
+    - ID: WoodenBridge_1
+      name: Wooden Bridge
+      gameModel: {fileID: 100000, guid: 0d195c0b730647745af47bd4e3ac8616, type: 3}
+    allBaseActors:
+    - ID: ActorLowPolyTest
+      name: ActorLowPolyTest
+      gameModel: {fileID: 362549134618125790, guid: aea74ccc4f341f34d85d08abadb32ed1,
+        type: 3}
+      itemContainer:
+        all_InventoryItem:
+        - item_Type: 99
+          DatabaseName: vanilla
+          ID: centurion
+          count: 55
+          flagData:
+            keys: []
+            values: []
+      isPersistent: 1
+      allConversations: []
+      allDialogueDatabase: []
+      defaultDialogueDatabase: {fileID: 11400000, guid: 666f42df2286c784ba3a0193441e9c29,
+        type: 2}
+      defaultConversation: 
+      defaultController: {fileID: 9100000, guid: aeaa9a60e73cb7246baa04175065bb0e,
+        type: 2}
+    - ID: WorldTest_StupidVillager01
+      name: Stupid Villager
+      gameModel: {fileID: 3672281099685233026, guid: b5cb78fae1a005247a91f2abf0a2d36c,
+        type: 3}
+      itemContainer:
+        all_InventoryItem:
+        - item_Type: 99
+          DatabaseName: vanilla
+          ID: centurion
+          count: 55
+          flagData:
+            keys: []
+            values: []
+      isPersistent: 1
+      allConversations:
+      - '[START] Villager Ring'
+      - '[START] Villager becomes Gollum'
+      allDialogueDatabase: []
+      defaultDialogueDatabase: {fileID: 11400000, guid: 666f42df2286c784ba3a0193441e9c29,
+        type: 2}
+      defaultConversation: '[START] Villager Ring'
+      defaultController: {fileID: 9100000, guid: aeaa9a60e73cb7246baa04175065bb0e,
+        type: 2}
+    - ID: WorldTest_Turret
+      name: Turret Weapon
+      gameModel: {fileID: 55913674429983473, guid: e495b752b3dc77240873882975fe677d,
+        type: 3}
+      itemContainer:
+        all_InventoryItem:
+        - item_Type: 99
+          DatabaseName: vanilla
+          ID: centurion
+          count: 50
+          flagData:
+            keys: []
+            values: []
+      isPersistent: 0
+      allConversations: []
+      allDialogueDatabase: []
+      defaultDialogueDatabase: {fileID: 0}
+      defaultConversation: 
+      defaultController: {fileID: 0}
+    allBaseQuests:
+    - ID: Bait_Quest1
+      name: BaitQuestTest 1
+      gameModel: {fileID: 0}
+      questID: Bait_Quest1
+      questDisplayName: BaitQuestTest 1
+      questType: 0
+      questStages:
+      - flagName: Visit Homeisland
+        logEntry: This is first test location.
+      - flagName: Visit Homeisland
+        logEntry: This is second test location.
+      questAlias:
+      - aliasName: DevRoom
+        aliasType: 3
+        islandID: vanilla.DevRoom
+        databaseID: 
+        objectData_Type: 0
+        object_ID: 
+        localPositionIsland: {x: 0, y: 0, z: 0}
+        actor_ID: 
+        vehicle_ID: 
+        consultCommandName: 
+      questObjectives:
+      - flagName: Visit Homeisland
+        objectiveText: Test location.
+        targetReference: DevRoom
+      - flagName: Visit Homeisland
+        objectiveText: 2nd Test location.
+        targetReference: DevRoom
+    - ID: MainQuest_StupidVillager
+      name: Stupid Villager
+      gameModel: {fileID: 8701016200784051580, guid: fb82b2d6226417c4ebd3e4afd2842b2d,
+        type: 3}
+      questID: MainQuest_StupidVillager
+      questDisplayName: Stupid Villager
+      questType: 0
+      questStages:
+      - flagName: Visit Homeisland
+        logEntry: The Stupid Villager asked me to visit his home. The Stupid Villager's
+          home is located at WorldTest.
+      - flagName: Visit Homeisland
+        logEntry: I hate this stupid villager. I want to burn his place down.
+      - flagName: Visit Homeisland
+        logEntry: Occupy the villager's home for a day and see what happen.
+      - flagName: Visit Homeisland
+        logEntry: Ignore this stupid quest.
+      - flagName: Visit Homeisland
+        logEntry: Report what you burn to the villager.
+      - flagName: Visit Homeisland
+        logEntry: Report what you did to the villager.
+      questAlias:
+      - aliasName: DemVillage
+        aliasType: 3
+        islandID: vanilla_worldtest
+        databaseID: 
+        objectData_Type: 0
+        object_ID: 
+        localPositionIsland: {x: 0, y: 0, z: 0}
+        actor_ID: WorldTest_StupidVillager01
+        vehicle_ID: 
+        consultCommandName: 
+      - aliasName: StupidVillager
+        aliasType: 5
+        islandID: vanilla_worldtest
+        databaseID: 
+        objectData_Type: 0
+        object_ID: 
+        localPositionIsland: {x: 0, y: 0, z: 0}
+        actor_ID: WorldTest_StupidVillager01
+        vehicle_ID: 
+        consultCommandName: 
+      questObjectives:
+      - flagName: Visit Homeisland
+        objectiveText: Go to villager's home.
+        targetReference: StupidVillager
+      - flagName: Visit Homeisland
+        objectiveText: Burn the villager's home.
+        targetReference: DemVillage
+      - flagName: Visit Homeisland
+        objectiveText: Occupy the villager's home.
+        targetReference: DemVillage
+      - flagName: Visit Homeisland
+        objectiveText: Report to the villager.
+        targetReference: StupidVillager
+    - ID: Misc_PreciousRing
+      name: Precious Ring
+      gameModel: {fileID: 8701016200784051580, guid: 02e3c2aad394478469c60237ddcde1a5,
+        type: 3}
+      questID: Misc_PreciousRing
+      questDisplayName: Precious Rings
+      questType: 4
+      questStages:
+      - flagName: Start
+        logEntry: The Stupid Villager asked me to get the one ring. The ring is probably
+          is dangerous, it is better I give the fake one.
+      - flagName: Real Ring
+        logEntry: Completed quest. I bring him the real one and he turns into a gollum.
+          Uh oh...
+      - flagName: Fake Ring
+        logEntry: Completed quest. I bring him the fake one.
+      questAlias:
+      - aliasName: OneRing
+        aliasType: 5
+        islandID: vanilla.DevRoom
+        databaseID: vanilla
+        objectData_Type: 2
+        object_ID: OneRing
+        localPositionIsland: {x: 0, y: 0, z: 0}
+        actor_ID: WorldTest_StupidVillager01
+        vehicle_ID: 
+        consultCommandName: 
+      - aliasName: StupidVillager
+        aliasType: 4
+        islandID: vanilla.DevRoom
+        databaseID: 
+        objectData_Type: 0
+        object_ID: 
+        localPositionIsland: {x: 420, y: 36, z: 678}
+        actor_ID: 
+        vehicle_ID: 
+        consultCommandName: 
+      questObjectives:
+      - flagName: Real Ring
+        objectiveText: Bring the One Ring to the villager.
+        targetReference: OneRing
+      - flagName: Fake Ring
+        objectiveText: Bring the Fake One Ring to the villager.
+        targetReference: FakeOneRing
+    - ID: Misc_WeaponRetrieval
+      name: Weapon Retrieval
+      gameModel: {fileID: 8970157622937491494, guid: 8abda2e01d845e24e8170f27728c266f,
+        type: 3}
+      questID: Misc_WeaponRetrieval
+      questDisplayName: Weapon Retrieval
+      questType: 4
+      questStages:
+      - flagName: Start
+        logEntry: A villager has requested to bring an AK-47 to him.
+      - flagName: Ak47 Retrieved
+        logEntry: I must give the AK-47 to the villager.
+      questAlias:
+      - aliasName: Ak47
+        aliasType: 3
+        islandID: vanilla.DevRoom
+        databaseID: 
+        objectData_Type: 0
+        object_ID: 
+        localPositionIsland: {x: 0, y: 0, z: 0}
+        actor_ID: 
+        vehicle_ID: 
+        consultCommandName: 
+      - aliasName: Villager2
+        aliasType: 0
+        islandID: vanilla.DevRoom
+        databaseID: vanillaActorLowPolyTest
+        objectData_Type: 0
+        object_ID: 
+        localPositionIsland: {x: 0, y: 0, z: 0}
+        actor_ID: ActorLowPolyTest
+        vehicle_ID: 
+        consultCommandName: 
+      questObjectives:
+      - flagName: Start
+        objectiveText: Retrieve an AK-47.
+        targetReference: Ak47
+      - flagName: Ak47 Retrieved
+        objectiveText: Give the weapon to the villager.
+        targetReference: Villager2
+    allVehicleParts:
+    - ID: Base_TestL200
+      name: TestL200 Chassis
+      gameModel: {fileID: 6472607705786041191, guid: 34d0c834d57f0af42ba78bb2b45d2d43,
+        type: 3}
+      partType: 0
+      description: 
+      craftingRecipes:
+      - databaseID: vanilla
+        itemID: Metal
+        itemType: 1
+        amount: 25
+    - ID: Engine_TestP100
+      name: TestP100 Engine
+      gameModel: {fileID: 3304204129941433937, guid: 0a0807802cc576445ad8bc679c210414,
+        type: 3}
+      partType: 1
+      description: 
+      craftingRecipes:
+      - databaseID: vanilla
+        itemID: Oil
+        itemType: 1
+        amount: 10
+      - databaseID: vanilla
+        itemID: Metal
+        itemType: 1
+        amount: 15
+    - ID: Rear_PropellerTest
+      name: Propeller Test
+      gameModel: {fileID: 4060764956008538215, guid: 8fefaf503ff601647b8181ad8427b183,
+        type: 3}
+      partType: 5
+      description: Propeller to accelerate the vehicle speed.
+      craftingRecipes:
+      - databaseID: vanilla
+        itemID: Metal
+        itemType: 1
+        amount: 5
+    - ID: Top_GliderTest
+      name: Glider Test
+      gameModel: {fileID: 3531752726065855417, guid: 7f1b16e20f53c3e4986241c595b7c65c,
+        type: 3}
+      partType: 4
+      description: Give a lift for vehicle.
+      craftingRecipes:
+      - databaseID: vanilla
+        itemID: Metal
+        itemType: 1
+        amount: 10
+    allMusics:
+    - ID: 01_Distant
+      name: Distant
+      gameModel: {fileID: 0}
+      audioClip: {fileID: 8300000, guid: c5cf1cde17b917a478ee1de2830548f2, type: 3}
+      musicType: 0
+      islandTags: []
+    - ID: 02_EndOfWorld
+      name: removed
+      gameModel: {fileID: 0}
+      audioClip: {fileID: 8300000, guid: b1fc67621b582884199016bc8b8ff69f, type: 3}
+      musicType: 4
+      islandTags:
+      - day
+    - ID: 03_WorldNotFound
+      name: World Not Found
+      gameModel: {fileID: 0}
+      audioClip: {fileID: 8300000, guid: 322777183805745418ded6c1fac3be35, type: 3}
+      musicType: 0
+      islandTags: []
+    - ID: 04_Oceania
+      name: Oceania
+      gameModel: {fileID: 0}
+      audioClip: {fileID: 8300000, guid: 309306df373bc3d48bb2b9cebb2ed8c5, type: 3}
+      musicType: 0
+      islandTags: []
+    - ID: 05_ThoseRemains
+      name: Those Remains
+      gameModel: {fileID: 0}
+      audioClip: {fileID: 8300000, guid: 7ff5511f5791be5418735af0366beb4c, type: 3}
+      musicType: 0
+      islandTags: []
+    - ID: 06_SirenCalls
+      name: Siren Calls
+      gameModel: {fileID: 0}
+      audioClip: {fileID: 8300000, guid: 7ef9a72f7c03a84408638dbb42687fe6, type: 3}
+      musicType: 0
+      islandTags:
+      - night
+    - ID: 08_Synthosis
+      name: Synthosis
+      gameModel: {fileID: 0}
+      audioClip: {fileID: 8300000, guid: a061ea57e0cc0fa4dbb785165101d3c1, type: 3}
+      musicType: 0
+      islandTags:
+      - night
+    allCraftingBench:
+    - ID: AmmoBuild
+      name: Ammunition Build
+      gameModel: {fileID: 0}
+    allAnimations:
+    - ID: UnarmedTest
+      name: Unarmed Pose
+      gameModel: {fileID: 0}
+      controller: {fileID: 9100000, guid: aeaa9a60e73cb7246baa04175065bb0e, type: 2}
+      overrider: {fileID: 0}
+      animationLength: 1.231
+    allSmartphoneApps:
+    - ID: Settings
+      name: Settings
+      gameModel: {fileID: 0}
+      appIcon: {fileID: 21300000, guid: f562a318f18ed2446be15690b86dd1b4, type: 3}
+      phoneApplication: {fileID: 4177794580383312197, guid: bce8c7bf8a5175447b3f07c665c822f0,
+        type: 3}
+      backgroundAppObject: {fileID: 0}
+    - ID: SMS
+      name: SMS
+      gameModel: {fileID: 0}
+      appIcon: {fileID: 21300000, guid: 103d7296322548144877fbdc85b4b2e2, type: 3}
+      phoneApplication: {fileID: 197610685933562103, guid: 585a8f3986c78a04498d1fe9937ce40e,
+        type: 3}
+      backgroundAppObject: {fileID: 0}
+    ingameTips:
+    - After the establishment of the Sixtusian Empire in 2016, King Dragoness declares
+      himself as the Emperor of Sixtusian Empire. He became one of the most powerful
+      person in the universe.
+    - 'Once a desolate ice planet, Second Earth was terranuked by the Dionary to
+      become a habitable colony planet. '
+    - Both Botanics Corp and Naturalics Industried LC are pharmaceutical companies
+      that risen into megacorporations by selling Direct Contact Interspecies iMmunity
+      (DCIM) drugs and vaccines.
+    - Every known biological being has disappeared from the universe. Only the Cybernetics
+      and player remains exists.
+    - The last major space empire, UDE, was destroyed in 3307 by the Ancient Ones.

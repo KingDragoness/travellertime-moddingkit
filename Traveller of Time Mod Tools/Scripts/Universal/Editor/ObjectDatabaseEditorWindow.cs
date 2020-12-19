@@ -23,7 +23,8 @@ namespace DestinyEngine.Object
         Quests,
         Crafting,
         VehiclePart,
-        Animation
+        Animation,
+        SmartphoneApp
     }
 
     public class ObjectDatabaseEditorWindow : EditorWindow
@@ -199,6 +200,11 @@ namespace DestinyEngine.Object
                             if (GUILayout.Button("Animation", buttonStyle))
                             {
                                 typeList = ObjectEditor_TypeList.Animation;
+                                Change_List();
+                            }
+                            if (GUILayout.Button("Smartphone Apps", buttonStyle))
+                            {
+                                typeList = ObjectEditor_TypeList.SmartphoneApp;
                                 Change_List();
                             }
                         }
@@ -461,12 +467,23 @@ namespace DestinyEngine.Object
                 }
             }
 
+
             if (typeList == ObjectEditor_TypeList.VehiclePart)
             {
                 objectDatabase.Data.allVehicleParts = objectDatabase.Data.allVehicleParts.OrderBy(z => z.ID).ToList();
                 foreach (VehiclePart vehiclePart in objectDatabase.Data.allVehicleParts)
                 {
                     pooled_Objects.Add(vehiclePart);
+                }
+            }
+
+
+            if (typeList == ObjectEditor_TypeList.SmartphoneApp)
+            {
+                objectDatabase.Data.allSmartphoneApps = objectDatabase.Data.allSmartphoneApps.OrderBy(z => z.ID).ToList();
+                foreach (SmartphoneApp app in objectDatabase.Data.allSmartphoneApps)
+                {
+                    pooled_Objects.Add(app);
                 }
             }
         }
@@ -734,6 +751,14 @@ namespace DestinyEngine.Object
 
                         break;
                     }
+                case ObjectEditor_TypeList.SmartphoneApp:
+                    {
+                        SmartphoneApp application = new SmartphoneApp();
+                        objectTarget = application;
+                        objectDatabase.Data.allSmartphoneApps.Add(application);
+
+                        break;
+                    }
 
                 default:
 
@@ -860,6 +885,13 @@ namespace DestinyEngine.Object
 
                             break;
                         }
+                    case ObjectEditor_TypeList.SmartphoneApp:
+                        {
+                            SmartphoneApp app = SmartphoneApp.Copy(objectTarget as SmartphoneApp);
+                            objectDatabase.Data.allSmartphoneApps.Add(app);
+
+                            break;
+                        }
 
                     default:
 
@@ -943,6 +975,11 @@ namespace DestinyEngine.Object
 
                     case ObjectEditor_TypeList.VehiclePart:
                         objectDatabase.Data.allVehicleParts.Remove(objectTarget as VehiclePart);
+
+                        break;
+
+                    case ObjectEditor_TypeList.SmartphoneApp:
+                        objectDatabase.Data.allSmartphoneApps.Remove(objectTarget as SmartphoneApp);
 
                         break;
 
