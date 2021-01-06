@@ -24,7 +24,10 @@ namespace DestinyEngine.Object
         Crafting,
         VehiclePart,
         Animation,
-        SmartphoneApp
+        SmartphoneApp,
+        InteriorMat,
+        WindowDoor,
+        GridObject
     }
 
     public class ObjectDatabaseEditorWindow : EditorWindow
@@ -47,6 +50,7 @@ namespace DestinyEngine.Object
         bool foldoutShow_Item;
         bool foldoutShow_Faction;
         bool foldoutShow_Vehicle;
+        bool foldoutShow_Buildings;
         bool foldoutShow_Miscellanous;
 
         Vector2 scrollPos_ItemCategory;
@@ -184,6 +188,29 @@ namespace DestinyEngine.Object
                         EditorGUILayout.EndFoldoutHeaderGroup();
 
 
+
+                        foldoutShow_Buildings = EditorGUILayout.BeginFoldoutHeaderGroup(foldoutShow_Buildings, "Buildings");
+                        if (foldoutShow_Buildings)
+                        {
+                            if (GUILayout.Button("Interior Materials", buttonStyle))
+                            {
+                                typeList = ObjectEditor_TypeList.InteriorMat;
+                                Change_List();
+                            }
+                            if (GUILayout.Button("Window & Doors", buttonStyle))
+                            {
+                                typeList = ObjectEditor_TypeList.WindowDoor;
+                                Change_List();
+                            }
+                            if (GUILayout.Button("Grid Objects", buttonStyle))
+                            {
+                                typeList = ObjectEditor_TypeList.GridObject;
+                                Change_List();
+                            }
+                        }
+                        EditorGUILayout.EndFoldoutHeaderGroup();
+
+
                         foldoutShow_Miscellanous = EditorGUILayout.BeginFoldoutHeaderGroup(foldoutShow_Miscellanous, "Miscellanous");
                         if (foldoutShow_Miscellanous)
                         {
@@ -259,7 +286,7 @@ namespace DestinyEngine.Object
                         ObjectReference_Data data = new ObjectReference_Data();
                         data.formID.BaseID = baseObject.ID;
                         data.formID.DatabaseID = objectDatabase.Data.name;
-                        data.formID.ObjectType = Destiny_MainUtility.Check_ObjectType(baseObject);
+                        data.formID.ObjectType = MainUtility.Check_ObjectType(baseObject);
                         worldObject.Data = data;
                     }
                     else
@@ -267,7 +294,7 @@ namespace DestinyEngine.Object
                         ObjectReference_Data data = worldObject.Data;
                         data.formID.BaseID = baseObject.ID;
                         data.formID.DatabaseID = objectDatabase.Data.name;
-                        data.formID.ObjectType = Destiny_MainUtility.Check_ObjectType(baseObject);
+                        data.formID.ObjectType = MainUtility.Check_ObjectType(baseObject);
                     }
                 }
 
@@ -282,10 +309,10 @@ namespace DestinyEngine.Object
                         ItemData itemData = new ItemData();
                         pickableData.formID.BaseID = baseObject.ID;
                         pickableData.formID.DatabaseID = objectDatabase.Data.name;
-                        pickableData.formID.ObjectType = Destiny_MainUtility.Check_ObjectType(baseObject);
+                        pickableData.formID.ObjectType = MainUtility.Check_ObjectType(baseObject);
                         pickableData.itemData.DatabaseName = objectDatabase.Data.name;
                         pickableData.itemData.ID = baseObject.ID;
-                        pickableData.itemData.item_Type = Destiny_MainUtility.Check_ItemType(baseObject as Item);
+                        pickableData.itemData.item_Type = MainUtility.Check_ItemType(baseObject as Item);
 
                         pickableData.itemData = itemData;
                         pickable.pickableData = pickableData;
@@ -295,10 +322,10 @@ namespace DestinyEngine.Object
                         Pickable_Data pickableData = pickable.pickableData;
                         pickableData.formID.BaseID = baseObject.ID;
                         pickableData.formID.DatabaseID = objectDatabase.Data.name;
-                        pickableData.formID.ObjectType = Destiny_MainUtility.Check_ObjectType(baseObject);
+                        pickableData.formID.ObjectType = MainUtility.Check_ObjectType(baseObject);
                         pickableData.itemData.DatabaseName = objectDatabase.Data.name;
                         pickableData.itemData.ID = baseObject.ID;
-                        pickableData.itemData.item_Type = Destiny_MainUtility.Check_ItemType(baseObject as Item);
+                        pickableData.itemData.item_Type = MainUtility.Check_ItemType(baseObject as Item);
                     }
                 }
 
@@ -312,7 +339,7 @@ namespace DestinyEngine.Object
                         Actor_Data actor_Data = new Actor_Data();
                         actor_Data.formID.BaseID = baseObject.ID;
                         actor_Data.formID.DatabaseID = objectDatabase.Data.name;
-                        actor_Data.formID.ObjectType = Destiny_MainUtility.Check_ObjectType(baseObject);
+                        actor_Data.formID.ObjectType = MainUtility.Check_ObjectType(baseObject);
 
                         actorScript.actorData = actor_Data;
                     }
@@ -321,7 +348,7 @@ namespace DestinyEngine.Object
                         Actor_Data actor_Data = actorScript.actorData;
                         actor_Data.formID.BaseID = baseObject.ID;
                         actor_Data.formID.DatabaseID = objectDatabase.Data.name;
-                        actor_Data.formID.ObjectType = Destiny_MainUtility.Check_ObjectType(baseObject);
+                        actor_Data.formID.ObjectType = MainUtility.Check_ObjectType(baseObject);
                     }
                 }
             }
@@ -484,6 +511,33 @@ namespace DestinyEngine.Object
                 foreach (SmartphoneApp app in objectDatabase.Data.allSmartphoneApps)
                 {
                     pooled_Objects.Add(app);
+                }
+            }
+
+            if (typeList == ObjectEditor_TypeList.InteriorMat)
+            {
+                objectDatabase.Data.allInteriorMaterials = objectDatabase.Data.allInteriorMaterials.OrderBy(z => z.ID).ToList();
+                foreach (InteriorMaterial interiorMat in objectDatabase.Data.allInteriorMaterials)
+                {
+                    pooled_Objects.Add(interiorMat);
+                }
+            }
+
+            if (typeList == ObjectEditor_TypeList.WindowDoor)
+            {
+                objectDatabase.Data.allWindowDoorObject = objectDatabase.Data.allWindowDoorObject.OrderBy(z => z.ID).ToList();
+                foreach (var windowDoor in objectDatabase.Data.allWindowDoorObject)
+                {
+                    pooled_Objects.Add(windowDoor);
+                }
+            }
+
+            if (typeList == ObjectEditor_TypeList.GridObject)
+            {
+                objectDatabase.Data.allGridObjects = objectDatabase.Data.allGridObjects.OrderBy(z => z.ID).ToList();
+                foreach (var gridObject in objectDatabase.Data.allGridObjects)
+                {
+                    pooled_Objects.Add(gridObject);
                 }
             }
         }
@@ -759,6 +813,30 @@ namespace DestinyEngine.Object
 
                         break;
                     }
+                case ObjectEditor_TypeList.InteriorMat:
+                    {
+                        InteriorMaterial interiorMat = new InteriorMaterial();
+                        objectTarget = interiorMat;
+                        objectDatabase.Data.allInteriorMaterials.Add(interiorMat);
+
+                        break;
+                    }
+                case ObjectEditor_TypeList.WindowDoor:
+                    {
+                        WindowDoorObject doorObject = new WindowDoorObject();
+                        objectTarget = doorObject;
+                        objectDatabase.Data.allWindowDoorObject.Add(doorObject);
+
+                        break;
+                    }
+                case ObjectEditor_TypeList.GridObject:
+                    {
+                        GridObject GridObject = new GridObject();
+                        objectTarget = GridObject;
+                        objectDatabase.Data.allGridObjects.Add(GridObject);
+
+                        break;
+                    }
 
                 default:
 
@@ -892,6 +970,27 @@ namespace DestinyEngine.Object
 
                             break;
                         }
+                    case ObjectEditor_TypeList.InteriorMat:
+                        {
+                            InteriorMaterial mat = InteriorMaterial.Copy(objectTarget as InteriorMaterial);
+                            objectDatabase.Data.allInteriorMaterials.Add(mat);
+
+                            break;
+                        }
+                    case ObjectEditor_TypeList.WindowDoor:
+                        {
+                            WindowDoorObject door = WindowDoorObject.Copy(objectTarget as WindowDoorObject);
+                            objectDatabase.Data.allWindowDoorObject.Add(door);
+
+                            break;
+                        }
+                    case ObjectEditor_TypeList.GridObject:
+                        {
+                            GridObject gridobj = GridObject.Copy(objectTarget as GridObject);
+                            objectDatabase.Data.allGridObjects.Add(gridobj);
+
+                            break;
+                        }
 
                     default:
 
@@ -983,6 +1082,22 @@ namespace DestinyEngine.Object
 
                         break;
 
+
+                    case ObjectEditor_TypeList.InteriorMat:
+                        objectDatabase.Data.allInteriorMaterials.Remove(objectTarget as InteriorMaterial);
+
+                        break;
+
+                    case ObjectEditor_TypeList.WindowDoor:
+                        objectDatabase.Data.allWindowDoorObject.Remove(objectTarget as WindowDoorObject);
+
+                        break;
+
+                    case ObjectEditor_TypeList.GridObject:
+                        objectDatabase.Data.allGridObjects.Remove(objectTarget as GridObject);
+
+                        break;
+
                     default:
 
                         break;
@@ -1012,23 +1127,23 @@ namespace DestinyEngine.Object
                         pickable = createdObject.AddComponent<PickableScript>();
                         pickable.pickableData.formID.BaseID = objectTarget.ID;
                         pickable.pickableData.formID.DatabaseID = objectDatabase.Data.name;
-                        pickable.pickableData.formID.ObjectType = Destiny_MainUtility.Check_ObjectType(objectTarget);
-                        pickable.pickableData.formID.ReferenceID = objectTarget.ID + "_" + Destiny_MainUtility.GenerateSpawnableID(6);
+                        pickable.pickableData.formID.ObjectType = MainUtility.Check_ObjectType(objectTarget);
+                        pickable.pickableData.formID.ReferenceID = objectTarget.ID + "_" + MainUtility.GenerateSpawnableID(6);
 
                         pickable.pickableData.itemData.DatabaseName = objectDatabase.Data.name;
                         pickable.pickableData.itemData.ID = objectTarget.ID;
-                        pickable.pickableData.itemData.item_Type = Destiny_MainUtility.Check_ItemType(objectTarget as Item);
+                        pickable.pickableData.itemData.item_Type = MainUtility.Check_ItemType(objectTarget as Item);
                     }
                     else
                     {
                         pickable.pickableData.formID.BaseID = objectTarget.ID;
                         pickable.pickableData.formID.DatabaseID = objectDatabase.Data.name;
-                        pickable.pickableData.formID.ObjectType = Destiny_MainUtility.Check_ObjectType(objectTarget);
-                        pickable.pickableData.formID.ReferenceID = objectTarget.ID + "_" + Destiny_MainUtility.GenerateSpawnableID(6);
+                        pickable.pickableData.formID.ObjectType = MainUtility.Check_ObjectType(objectTarget);
+                        pickable.pickableData.formID.ReferenceID = objectTarget.ID + "_" + MainUtility.GenerateSpawnableID(6);
 
                         pickable.pickableData.itemData.DatabaseName = objectDatabase.Data.name;
                         pickable.pickableData.itemData.ID = objectTarget.ID;
-                        pickable.pickableData.itemData.item_Type = Destiny_MainUtility.Check_ItemType(objectTarget as Item);
+                        pickable.pickableData.itemData.item_Type = MainUtility.Check_ItemType(objectTarget as Item);
                     }
                 }
                 else
@@ -1042,15 +1157,15 @@ namespace DestinyEngine.Object
                         spawnable.Assign_ObjectRefData(new ObjectReference_Data());
                         spawnable.Get_ObjectRefData().formID.BaseID = objectTarget.ID;
                         spawnable.Get_ObjectRefData().formID.DatabaseID = objectDatabase.Data.name;
-                        spawnable.Get_ObjectRefData().formID.ObjectType = Destiny_MainUtility.Check_ObjectType(objectTarget);
-                        spawnable.Get_ObjectRefData().formID.ReferenceID = objectTarget.ID + "_" + Destiny_MainUtility.GenerateSpawnableID(9);
+                        spawnable.Get_ObjectRefData().formID.ObjectType = MainUtility.Check_ObjectType(objectTarget);
+                        spawnable.Get_ObjectRefData().formID.ReferenceID = objectTarget.ID + "_" + MainUtility.GenerateSpawnableID(9);
                     }
                     else
                     {
                         spawnable.Get_ObjectRefData().formID.BaseID = objectTarget.ID;
                         spawnable.Get_ObjectRefData().formID.DatabaseID = objectDatabase.Data.name;
-                        spawnable.Get_ObjectRefData().formID.ObjectType = Destiny_MainUtility.Check_ObjectType(objectTarget);
-                        spawnable.Get_ObjectRefData().formID.ReferenceID = objectTarget.ID + "_" + Destiny_MainUtility.GenerateSpawnableID(9);
+                        spawnable.Get_ObjectRefData().formID.ObjectType = MainUtility.Check_ObjectType(objectTarget);
+                        spawnable.Get_ObjectRefData().formID.ReferenceID = objectTarget.ID + "_" + MainUtility.GenerateSpawnableID(9);
 
                     }
                 }

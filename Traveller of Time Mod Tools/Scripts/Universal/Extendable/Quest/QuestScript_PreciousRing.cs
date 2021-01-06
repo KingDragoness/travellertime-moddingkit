@@ -4,7 +4,7 @@ using UnityEngine;
 using DestinyEngine;
 using PixelCrushers.DialogueSystem;
 
-using QuestState = DestinyEngine.Object.QuestState;
+using QuestState = DestinyEngine.QuestState;
 
 
 namespace TestingTesting.Quests
