@@ -13,12 +13,12 @@ namespace DestinyEngine
 
         private void EnterIsland()
         {
-            DestinyMainEngine.main.LoadIsland
-                (
-                    regionName:         regionName, 
-                    Index:              index, 
-                    fromOverworld:      true
-                );
+            EnterLocalIsland_Token token = new EnterLocalIsland_Token();
+            token.RegionName = regionName;
+            token.SpawnMarkerIndex = index;
+            token.isEnterFromOverworld = true;
+
+            DestinyMainEngine.main.LoadIsland(token);
 
             if (overrideGCECoord)
             {
