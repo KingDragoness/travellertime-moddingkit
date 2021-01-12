@@ -90,10 +90,10 @@ namespace DestinyEngine.Object
             EditorGUILayout.BeginHorizontal();
             objectDatabase = (ObjectDatabase) EditorGUILayout.ObjectField(objectDatabase, typeof(ObjectDatabase), false, GUILayout.MaxWidth(200));
 
-            if (GUILayout.Button("Apply all model script", buttonStyle, GUILayout.Width(220)))
-            {
-                Apply_PrefabChanges();
-            }
+            //if (GUILayout.Button("Apply all model script", buttonStyle, GUILayout.Width(220)))
+            //{
+            //    Apply_PrefabChanges();
+            //}
             EditorGUILayout.EndHorizontal();
 
             EditorGUILayout.BeginHorizontal("Box");
@@ -295,6 +295,7 @@ namespace DestinyEngine.Object
                         data.formID.BaseID = baseObject.ID;
                         data.formID.DatabaseID = objectDatabase.Data.name;
                         data.formID.ObjectType = MainUtility.Check_ObjectType(baseObject);
+                        worldObject.Data = data;
                     }
                 }
 
@@ -326,6 +327,8 @@ namespace DestinyEngine.Object
                         pickableData.itemData.DatabaseName = objectDatabase.Data.name;
                         pickableData.itemData.ID = baseObject.ID;
                         pickableData.itemData.item_Type = MainUtility.Check_ItemType(baseObject as Item);
+
+                        pickable.pickableData = pickableData;
                     }
                 }
 
@@ -349,8 +352,14 @@ namespace DestinyEngine.Object
                         actor_Data.formID.BaseID = baseObject.ID;
                         actor_Data.formID.DatabaseID = objectDatabase.Data.name;
                         actor_Data.formID.ObjectType = MainUtility.Check_ObjectType(baseObject);
+
+                        actorScript.actorData = actor_Data;
                     }
                 }
+
+                //MOTHERFUCKER UNITY, NO WONDER IT'S KEEP GLITCHING
+                PrefabUtility.RecordPrefabInstancePropertyModifications(baseObject.gameModel);
+
             }
         }
 

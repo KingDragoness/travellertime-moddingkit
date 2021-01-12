@@ -78,10 +78,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1224781103418683240}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c5a6643bb3b75545832ef11a1c1da4b, type: 3}
+  m_Script: {fileID: 1573518796, guid: f0d377a72d466ef4192cd2e31f7e8280, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minimumLocalBound: {x: -10, y: 1, z: -12}
+  minimumLocalBound: {x: -10, y: 1, z: -10}
   maximumLocalBound: {x: 10, y: 13, z: 10}
   flySpeed: 0.5
   accelerationAmount: 3
@@ -99,7 +99,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1224781103418683240}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4d8660bdcf1d0c46a3c0d0b1e62a723, type: 3}
+  m_Script: {fileID: -1587410453, guid: f0d377a72d466ef4192cd2e31f7e8280, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   axes: 0
@@ -979,7 +979,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6867198728387889214}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c639abfd4aea7c45ae48417b4333d8a, type: 3}
+  m_Script: {fileID: -813936266, guid: f0d377a72d466ef4192cd2e31f7e8280, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   targetParent: {fileID: 6867198729972389289}
@@ -1218,15 +1218,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 6867198728432547770}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e063ab4c4576ae4bbe9bfa5ffa6deb6, type: 3}
+  m_Script: {fileID: 862926165, guid: f0d377a72d466ef4192cd2e31f7e8280, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InteractRange: 20
+  InteractRange: 15
   onlyDirectLookAllowed: 0
   constantSave: 0
-  entityID_: ConstructionZone
+  entityID_: ConstructionZone0
   ActionCommands:
-  - commandName: Construct a home
+  - commandName: Construct building
     commandID: construct
     commandSprite: {fileID: 0}
     args: []
@@ -1234,7 +1234,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
     disabled: 0
-    commandRange: 25
+    commandRange: 8
     commandQuick: 0
     ActionCommand_childs: []
   dataVariables:
@@ -1242,51 +1242,7 @@ MonoBehaviour:
     values: []
   outlineObject: []
   data:
-    allWalls:
-    - _index: 0
-      startPoint: {x: 0, y: 0, z: 0}
-      endPoint: {x: 1, y: 0, z: 0}
-      isSide0_Interior: 0
-      isSide1_Interior: 0
-      wallpaperSide0_ID: 
-      wallpaperSide0_database: 
-      wallpaperSide1_ID: 
-      wallpaperSide1_database: 
-      holeSize: {x: 0.4, y: 1, z: 0}
-      holeOffset: {x: 0.1, y: 0, z: 0}
-    - _index: 1
-      startPoint: {x: 1, y: 0, z: 0}
-      endPoint: {x: 2, y: 0, z: 0}
-      isSide0_Interior: 0
-      isSide1_Interior: 0
-      wallpaperSide0_ID: 
-      wallpaperSide0_database: 
-      wallpaperSide1_ID: 
-      wallpaperSide1_database: 
-      holeSize: {x: 0.4, y: 1, z: 0}
-      holeOffset: {x: -0.1, y: 0, z: 0}
-    - _index: 2
-      startPoint: {x: 2, y: 0, z: 2}
-      endPoint: {x: 2, y: 0, z: 1}
-      isSide0_Interior: 0
-      isSide1_Interior: 0
-      wallpaperSide0_ID: 
-      wallpaperSide0_database: 
-      wallpaperSide1_ID: 
-      wallpaperSide1_database: 
-      holeSize: {x: 0.4, y: 1, z: 0}
-      holeOffset: {x: 0.1, y: 0, z: 0}
-    - _index: 3
-      startPoint: {x: 2, y: 0, z: 1}
-      endPoint: {x: 2, y: 0, z: 0}
-      isSide0_Interior: 0
-      isSide1_Interior: 0
-      wallpaperSide0_ID: 
-      wallpaperSide0_database: 
-      wallpaperSide1_ID: 
-      wallpaperSide1_database: 
-      holeSize: {x: 0.4, y: 1, z: 0}
-      holeOffset: {x: -0.1, y: 0, z: 0}
+    allWalls: []
     allGrids: []
     allFloors: []
   cameraSystem: {fileID: 1224781103418683240}
@@ -1300,12 +1256,7 @@ MonoBehaviour:
   baseFloorObject: {fileID: 696998567264262994, guid: f4ad9e0752823f842976810e0472dbc5,
     type: 3}
   allFloors: {fileID: 6867198730331154714}
-  defaultFloorMeshes:
-  - {fileID: -5495902117074765545, guid: 0361b427813351448abcfc033aa29e69, type: 3}
-  - {fileID: -5495902117074765545, guid: f2a39735558775047ab57dc2b8d39c53, type: 3}
-  - {fileID: -5495902117074765545, guid: b4c312cd60c8a27408a557acb76f87fa, type: 3}
-  - {fileID: -5495902117074765545, guid: e62b6d2bbd91f1d44ad940644a44f045, type: 3}
-  - {fileID: -5495902117074765545, guid: 2ac0f12bc0d4e744ca0dcfff21359661, type: 3}
+  defaultFloorMeshes: []
   meshBakerWall: {fileID: 6867198728387889212}
   wallPointer: {fileID: 6867198728729003638}
   wallPointer_cachedStartPoint: {fileID: 6867198728514177483}
@@ -1314,7 +1265,7 @@ MonoBehaviour:
   debug_TempDrawWall: {fileID: 6867198729576675253}
   debug_RaycastWallpaperDetect: {fileID: 6867198728566444793}
   debug_baitPoint: {fileID: 6867198728507021887}
-  objectPointer: {fileID: 6867198730032835774}
+  objectPointer: {fileID: 7308106106058318518}
   allGridObjects: {fileID: 6867198729350197446}
   furnishPointer: {fileID: 8750683362286212229}
   furnishLayers:
@@ -1325,7 +1276,7 @@ MonoBehaviour:
   debug_DefaultMaterialWall:
   - {fileID: 2100000, guid: 2c225b30e8065194b9ce44da9f3691d6, type: 2}
   - {fileID: 2100000, guid: 2c225b30e8065194b9ce44da9f3691d6, type: 2}
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 2c225b30e8065194b9ce44da9f3691d6, type: 2}
   gridScale: 1
   minX: -10
   minY: -10
@@ -1334,7 +1285,7 @@ MonoBehaviour:
   gridOffset: {x: 0, y: 0, z: 0}
   topDownGrid: 1
   gizmoMajorLines: 5
-  gizmoLineColor: {r: 1, g: 1, b: 0.5424528, a: 0.30588236}
+  gizmoLineColor: {r: 0.4, g: 0.4, b: 0.3, a: 1}
 --- !u!1 &6867198728507020736
 GameObject:
   m_ObjectHideFlags: 0
@@ -2330,7 +2281,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6867198729528785452
 Transform:
   m_ObjectHideFlags: 0
@@ -2355,7 +2306,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6867198729528785453}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33626d4ab5b080248a432d0343f5bbea, type: 3}
+  m_Script: {fileID: -1219188561, guid: f0d377a72d466ef4192cd2e31f7e8280, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   debug_wallSide: {fileID: 6025328885110701127}
@@ -2557,7 +2508,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6867198729787744226}
-  m_LocalRotation: {x: -0, y: 0.70710677, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.70710677}
   m_LocalPosition: {x: 568.69, y: 31.21, z: 572.28}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2710,7 +2661,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6867198729980725139
 Transform:
   m_ObjectHideFlags: 0
@@ -2736,7 +2687,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6867198729980725140}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4917143321e5f65409e9b901e5213a1a, type: 3}
+  m_Script: {fileID: -1211920745, guid: f0d377a72d466ef4192cd2e31f7e8280, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   floorRenderer: {fileID: 6025328886255146694}
@@ -2750,14 +2701,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6867198730032835775}
-  - component: {fileID: 6867198730032835774}
+  - component: {fileID: 7308106106058318518}
   m_Layer: 0
   m_Name: PointerWindowDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6867198730032835775
 Transform:
   m_ObjectHideFlags: 0
@@ -2773,7 +2724,7 @@ Transform:
   m_Father: {fileID: 6867198728271449900}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6867198730032835774
+--- !u!114 &7308106106058318518
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2782,7 +2733,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6867198730032835648}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed688ab388a44fb468d300d00f1e32bd, type: 3}
+  m_Script: {fileID: 1846821283, guid: f0d377a72d466ef4192cd2e31f7e8280, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   debug_Grid: 1
@@ -2912,7 +2863,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7968424171182860907}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c639abfd4aea7c45ae48417b4333d8a, type: 3}
+  m_Script: {fileID: -813936266, guid: f0d377a72d466ef4192cd2e31f7e8280, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   targetParent: {fileID: 6867198730331154713}
@@ -2973,7 +2924,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8750683362286212227}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9ec37c713c2b8940a98ab4e5a4a55a8, type: 3}
+  m_Script: {fileID: -1193151104, guid: f0d377a72d466ef4192cd2e31f7e8280, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   debug_Grid: 1
@@ -3040,7 +2991,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3652b1f17796a8646afe2cef2c203ed3, type: 2}
+  - {fileID: 2100000, guid: 3d79c992bff326849a7a9bbdcf23d0ec, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3119,7 +3070,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: fdf7a390c4128a8409fcd5a8a5df4126, type: 2}
+  - {fileID: 2100000, guid: c844f15e13a58aa41afb42688e54d662, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3165,13 +3116,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8750683363274855401}
-  m_LocalRotation: {x: -0, y: -1, z: -0, w: -0.00000032782555}
+  m_LocalRotation: {x: -0, y: -0.7071081, z: -0, w: 0.7071055}
   m_LocalPosition: {x: 0, y: 0.00000022910535, z: 1.201}
   m_LocalScale: {x: 0.027073076, y: 0.13536537, z: 0.027073076}
   m_Children: []
   m_Father: {fileID: 8750683362286212228}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: -179.99998, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90.00001, z: 0}
 --- !u!33 &8750683363274855404
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -3198,7 +3149,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 84afef0bff914864993d46b5bf3d1d83, type: 2}
+  - {fileID: 2100000, guid: 6af9d662b688ef44cb0cc1f03c9faabf, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
