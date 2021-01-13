@@ -17,6 +17,11 @@ namespace TestingTesting
             {
                 TeleportPlayer();
             }
+
+            if (command.commandID == "command.read")
+            {
+                DestinyInternalCommand.instance.Interact_ReadBookSign("Teleporter", "The teleport system to almost instaneously moved from one space to another. ");
+            }
         }
 
         public override void CommandExecute(string functionName)
