@@ -27,7 +27,8 @@ namespace DestinyEngine.Object
         SmartphoneApp,
         InteriorMat,
         WindowDoor,
-        GridObject
+        GridObject,
+        Faction
     }
 
     public class ObjectDatabaseEditorWindow : EditorWindow
@@ -169,6 +170,11 @@ namespace DestinyEngine.Object
                             if (GUILayout.Button("Quests", buttonStyle))
                             {
                                 typeList = ObjectEditor_TypeList.Quests;
+                                Change_List();
+                            }
+                            if (GUILayout.Button("Factions", buttonStyle))
+                            {
+                                typeList = ObjectEditor_TypeList.Faction;
                                 Change_List();
                             }
                         }
@@ -549,6 +555,15 @@ namespace DestinyEngine.Object
                     pooled_Objects.Add(gridObject);
                 }
             }
+
+            if (typeList == ObjectEditor_TypeList.Faction)
+            {
+                objectDatabase.Data.allFactions = objectDatabase.Data.allFactions.OrderBy(z => z.ID).ToList();
+                foreach (var faction in objectDatabase.Data.allFactions)
+                {
+                    pooled_Objects.Add(faction);
+                }
+            }
         }
 
 
@@ -846,6 +861,14 @@ namespace DestinyEngine.Object
 
                         break;
                     }
+                case ObjectEditor_TypeList.Faction:
+                    {
+                        Faction faction = new Faction();
+                        objectTarget = faction;
+                        objectDatabase.Data.allFactions.Add(faction);
+
+                        break;
+                    }
 
                 default:
 
@@ -1000,6 +1023,13 @@ namespace DestinyEngine.Object
 
                             break;
                         }
+                    case ObjectEditor_TypeList.Faction:
+                        {
+                            Faction faction = Faction.Copy(objectTarget as Faction);
+                            objectDatabase.Data.allFactions.Add(faction);
+
+                            break;
+                        }
 
                     default:
 
@@ -1104,6 +1134,11 @@ namespace DestinyEngine.Object
 
                     case ObjectEditor_TypeList.GridObject:
                         objectDatabase.Data.allGridObjects.Remove(objectTarget as GridObject);
+
+                        break;
+
+                    case ObjectEditor_TypeList.Faction:
+                        objectDatabase.Data.allFactions.Remove(objectTarget as Faction);
 
                         break;
 

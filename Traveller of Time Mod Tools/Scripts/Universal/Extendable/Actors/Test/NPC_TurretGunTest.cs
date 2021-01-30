@@ -153,7 +153,11 @@ namespace TestingTesting
                 if (mb is IDamageable)
                 {
                     IDamageable damageable = (IDamageable)mb;
-                    damageable.TriggerDamage(TurretDamage);
+                    Damageable_Token token = new Damageable_Token();
+                    token.baseDamage = TurretDamage;
+                    token.damageOrigin = Damageable_Token.DamageOrigin.Player;
+
+                    damageable.TriggerDamage(token);
                 }
             }
         }

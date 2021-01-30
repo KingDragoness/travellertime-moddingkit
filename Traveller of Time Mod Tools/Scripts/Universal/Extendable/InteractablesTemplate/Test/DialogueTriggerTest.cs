@@ -41,8 +41,12 @@ namespace DestinyEngine.Interact
 
         private void Talk()
         {
+            OpenConversationDialogue_Token token = new OpenConversationDialogue_Token();
+            token.dialogueDatabase = DialogueDatabase;
+            token.currentConversation = currentConversation;
+
             DestinyInternalCommand.instance.Camera_NPC_On(true);
-            DestinyInternalCommand.instance.Interact_OpenDialogue(DialogueDatabase, currentConversation);
+            DestinyInternalCommand.instance.Interact_OpenDialogue(token);
             DestinyInternalCommand.instance.Camera_NPC_ChangeTarget(this.transform, this.transform);
             DestinyInternalCommand.instance.Camera_NPC_ChangeDist(new Vector3(0, 0, 6));
             DestinyInternalCommand.instance.GameUI_HideMainUI();
