@@ -1,0 +1,73 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ef591685240e1e4db4562635e081e06, type: 3}
+  m_Name: DungeonTest
+  m_EditorClassIdentifier: 
+  data:
+    InteriorDecorRules:
+    - spawnChance: 0.3
+      defaultRoomBan: defaultroom_1
+      name: Tree set
+      DecorativesRules:
+      - prefab: {fileID: 3920694996346979599, guid: b809066f926c89a4ebfba5ef4216ccfd,
+          type: 3}
+      SpawnRules:
+      - spawnBlankPrefabs: {fileID: 8478680890249105475, guid: 409acc2d7d84c5b4ebd0bc2c8edbd9e6,
+          type: 3}
+      PuzzleRules:
+      - prefab: {fileID: 6482638045231686563, guid: 7ecde30da350ea94da9cee6d18daf8ba,
+          type: 3}
+        entityID: DemDoors
+    - spawnChance: 0.1
+      defaultRoomBan: defaultroom_1
+      name: Only door
+      DecorativesRules: []
+      SpawnRules: []
+      PuzzleRules:
+      - prefab: {fileID: 6482638045231686563, guid: 7ecde30da350ea94da9cee6d18daf8ba,
+          type: 3}
+        entityID: NewDemDoors
+    offsetCenterLayout_X: 1
+    offsetCenterLayout_Z: 0
+    maxCellSize: {x: 6, y: 5}
+    startingCellPoint: {x: 3, y: 0}
+    DefaultRoomPrefabs:
+    - name: defaultroom_0
+      room: {fileID: 1300664830902688603, guid: 1be01215a93e98e458b26c02424a15dc,
+        type: 3}
+      percentage: 30
+    - name: defaultroom_0
+      room: {fileID: 7006141710295794142, guid: b54faf6d105a33645a0f78d13b1fb542,
+        type: 3}
+      percentage: 6
+    WallRoomPrefabs:
+    - {fileID: 4832254644857600809, guid: 6bbb53ac9e2b548439790610b96f8611, type: 3}
+    SpecialRoomPrefabs:
+    - room: {fileID: 5578465780349957475, guid: 450d65e5f77ab5549b68c2fe29fdadd6,
+        type: 3}
+      rule_FurthestPathFromStartingPoint: 1
+      rule_NearestPathFromStartingPoint: 0
+    - room: {fileID: 4108226406392257903, guid: 915bd1e57f365d447ad346645d49d81b,
+        type: 3}
+      rule_FurthestPathFromStartingPoint: 0
+      rule_NearestPathFromStartingPoint: 1
+    - room: {fileID: 1558999033770945848, guid: 92fc027fcbc4e894e80a1e8be6833ffa,
+        type: 3}
+      rule_FurthestPathFromStartingPoint: 0
+      rule_NearestPathFromStartingPoint: 0
+    - room: {fileID: 1558999033770945848, guid: 92fc027fcbc4e894e80a1e8be6833ffa,
+        type: 3}
+      rule_FurthestPathFromStartingPoint: 0
+      rule_NearestPathFromStartingPoint: 0
+    DefaultRoomSize: {x: 56, y: 56}
+    minRoomCount: 12
+    maxRoomCount: 25
