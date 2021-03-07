@@ -14,16 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   toolsIconSmall: {fileID: 0}
   toolsIconLarge: {fileID: 0}
-  toolsName: Destiny Modding Suite
-  toolsVersion: 0.0.7
+  toolsName: GOTS Modkit
+  toolsVersion: 0.3.5
   firstRunWindow:
     assemblyQualifiedName: 
   developerName: Akxel
-  gameName: Traveller of Time
-  gameVersion: 0.0.7
+  gameName: Ghost of the Seas
+  gameVersion: 0.3.5
   modFileExtension: .script
   commandLineLaunchFormat: +mod=$PATH
-  targetUnityVersion: 2019.4.3f1
+  targetUnityVersion: 2019.4.21f1
   developerWebsiteURL: http://trivialinteractive.co.uk
   onlineDocumentationURL: http://umod.trivialinteractive.co.uk/umoduserguide.html
   onlineScriptingReferenceURL: http://umod.trivialinteractive.co.uk/scriptingreference
@@ -46,7 +46,7 @@ MonoBehaviour:
       assetLabels: []
   options:
     allowAssetsInMods: 1
-    allowScenesInMods: 1
+    allowScenesInMods: 0
     allowScriptsInMods: 1
     allowMultipleModsPerProject: 1
     allowModReferences: 1
