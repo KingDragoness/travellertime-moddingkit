@@ -188,6 +188,11 @@ namespace TestingTesting
         {
             throw new System.NotImplementedException();
         }
+
+        public bool ConditionalCheck(string conditionName)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 
 }
