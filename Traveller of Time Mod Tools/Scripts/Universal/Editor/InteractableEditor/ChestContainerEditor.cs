@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEditor;
+using UnityEditor.Experimental.SceneManagement;
+using UnityEditor.SceneManagement;
 using DestinyEngine.Object;
 using DestinyEngine.Interact;
 using Sirenix.OdinInspector.Editor;
@@ -29,7 +31,25 @@ namespace DestinyEngine.Editor
             DrawDefaultInspector();
 
             chestContainer = (ChestContainer)target;
+
+            var stagePrefab = chestContainer.gameObject.scene;
+            var EditorScenes = EditorSceneManager.GetActiveScene();
+
+            if (stagePrefab == null)
+            {
+                return;
+            }
+
+
+            if (EditorScenes.name != stagePrefab.name)
+            {
+                return;
+            }
+
+
+
             EditorUtility.SetDirty(target);
+
 
             EditorGUILayout.Space();
 
