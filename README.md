@@ -1,6 +1,6 @@
-# Traveller Time Modding Kit [Pre-Alpha]
+# Ghost of the Seas Modding Kit [Alpha]
 
-Traveller of Time allows for modders to create islands, vehicle, database or items.
+Ghost of the Seas allows for modders to create islands, vehicle, database or items.
 
 **Current version:** Pre-Alpha 0.3.6
 
