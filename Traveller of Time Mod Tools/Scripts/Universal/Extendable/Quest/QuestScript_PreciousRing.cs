@@ -21,15 +21,6 @@ namespace TestingTesting.Quests
 
         }
 
-        public override void LoadState()
-        {
-
-        }
-
-        public override void SaveState()
-        {
-
-        }
 
         public override void CallCommand(string commandName)
         {

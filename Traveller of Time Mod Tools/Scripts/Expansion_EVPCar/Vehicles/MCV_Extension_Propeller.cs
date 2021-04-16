@@ -122,6 +122,9 @@ namespace EVP.DestinyEngine
             m_Rigidbody.AddForce(forces);
         }
 
-
+        public bool ConditionalCheck(string conditionName)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

@@ -54,7 +54,7 @@ namespace TestingTesting
         private void Start()
         {
             DestinyEventHandler.onActionCommandOpen += UpdateTowingEquipment;
-            DestinyMainEngine.OnTick += TickEquipment;
+            DestinyEngineController.OnTick += TickEquipment;
             LoadState();
             worldObjectScript.OnSaveState += SaveState;
 
@@ -120,8 +120,8 @@ namespace TestingTesting
 
             if (isRopeUnrolled && !isRopeAttached)
             {
-                Vector3 targetLine = DestinyMainEngine.main.cinemachineBrain.transform.position;
-                targetLine += DestinyMainEngine.main.cinemachineBrain.transform.forward * 1;
+                Vector3 targetLine = DestinyEngineController.CinemachineBrain.transform.position;
+                targetLine += DestinyEngineController.CinemachineBrain.transform.forward * 1;
 
                 RefreshFindCar();
 
@@ -281,7 +281,6 @@ namespace TestingTesting
             DestroyObject();
 
             DestinyInternalCommand.instance.Inventory_AddItem("vanilla", "Construct_TowEquipment", "Weapon", 1);
-            DestinyMainEngine.main.SpawnablesManager_.Remove_Spawnable(worldObjectScript);
             DestinyInternalCommand.instance.Quit_ActionCommand();
 
         }
@@ -294,7 +293,7 @@ namespace TestingTesting
         private void DestroyObject()
         {
             DestinyEventHandler.onActionCommandOpen -= UpdateTowingEquipment;
-            DestinyMainEngine.OnTick -= TickEquipment;
+            DestinyEngineController.OnTick -= TickEquipment;
             worldObjectScript.OnLoadState -= LoadState;
             worldObjectScript.OnSaveState -= SaveState;
         }
@@ -313,7 +312,7 @@ namespace TestingTesting
         {
             targetVehicle = null;
 
-            DestinyEngine.VehicleScript vehicle = DestinyMainEngine.main.ActiveVehicle;
+            DestinyEngine.VehicleScript vehicle = DestinyEngineController.main.ActiveVehicle;
 
             if (vehicle != null)
             {
@@ -327,7 +326,7 @@ namespace TestingTesting
             UI_TextValue.text = Mathf.Round(targetThrust).ToString();
         }
 
-        public override void SaveState()
+        public void SaveState()
         {
 
             JsonSerializerSettings jsonSerializerSettings = new JsonSerializerSettings
@@ -356,7 +355,7 @@ namespace TestingTesting
 
         }
 
-        public override void LoadState()
+        public void LoadState()
         {
             ObjectReference_Data Data = worldObjectScript.Get_ObjectRefData();
             JsonSerializerSettings settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All };
@@ -390,7 +389,7 @@ namespace TestingTesting
                 isTowing = false;
             }
 
-            targetVehicle = DestinyMainEngine.main.VehicleManager_.Spawned_Vehicle.Find(x => x.RefID == vehicleRefID);
+            //targetVehicle = DestinyEngineController.main.VehicleManager.Spawned_Vehicle.Find(x => x.RefID == vehicleRefID);
 
             try
             {

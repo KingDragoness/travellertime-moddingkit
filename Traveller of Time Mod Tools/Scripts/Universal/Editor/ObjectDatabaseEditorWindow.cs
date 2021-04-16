@@ -19,6 +19,7 @@ namespace DestinyEngine.Object
         Misc,
         Music,
         BaseWorldObject,
+        CampObject,
         Actors,
         Quests,
         Crafting,
@@ -157,6 +158,11 @@ namespace DestinyEngine.Object
                             if (GUILayout.Button("Actors", buttonStyle))
                             {
                                 typeList = ObjectEditor_TypeList.Actors;
+                                Change_List();
+                            }
+                            if (GUILayout.Button("Camp Object", buttonStyle))
+                            {
+                                typeList = ObjectEditor_TypeList.CampObject;
                                 Change_List();
                             }
                         }
@@ -363,7 +369,30 @@ namespace DestinyEngine.Object
                     }
                 }
 
-                //MOTHERFUCKER UNITY, NO WONDER IT'S KEEP GLITCHING
+                if (baseObject is CampObject)
+                {
+                    WorldObjectScript worldObject = baseObject.gameModel.GetComponent<WorldObjectScript>();
+
+                    if (worldObject == null)
+                    {
+                        worldObject = baseObject.gameModel.AddComponent<WorldObjectScript>();
+                        ObjectReference_Data data = new ObjectReference_Data();
+                        data.formID.BaseID = baseObject.ID;
+                        data.formID.DatabaseID = objectDatabase.Data.name;
+                        data.formID.ObjectType = MainUtility.Check_ObjectType(baseObject);
+                        worldObject.Data = data;
+                    }
+                    else
+                    {
+                        ObjectReference_Data data = worldObject.Data;
+                        data.formID.BaseID = baseObject.ID;
+                        data.formID.DatabaseID = objectDatabase.Data.name;
+                        data.formID.ObjectType = MainUtility.Check_ObjectType(baseObject);
+                        worldObject.Data = data;
+                    }
+                }
+
+                //Goddamnit UNITY, NO WONDER IT'S KEEP GLITCHING
                 PrefabUtility.RecordPrefabInstancePropertyModifications(baseObject.gameModel);
 
             }
@@ -460,6 +489,15 @@ namespace DestinyEngine.Object
                 foreach (BaseWorldObject worldobject in objectDatabase.Data.allBaseWorldObjects)
                 {
                     pooled_Objects.Add(worldobject);
+                }
+            }
+
+            if (typeList == ObjectEditor_TypeList.CampObject)
+            {
+                objectDatabase.Data.allCampObjects = objectDatabase.Data.allCampObjects.OrderBy(z => z.ID).ToList();
+                foreach (CampObject campobject in objectDatabase.Data.allCampObjects)
+                {
+                    pooled_Objects.Add(campobject);
                 }
             }
 
@@ -781,6 +819,14 @@ namespace DestinyEngine.Object
 
                         break;
                     }
+                case ObjectEditor_TypeList.CampObject:
+                    {
+                        CampObject newCamp = new CampObject();
+                        objectTarget = newCamp;
+                        objectDatabase.Data.allCampObjects.Add(newCamp);
+
+                        break;
+                    }
                 case ObjectEditor_TypeList.Actors:
                     {
                         Actor newActor = new Actor();
@@ -953,6 +999,13 @@ namespace DestinyEngine.Object
 
                             break;
                         }
+                    case ObjectEditor_TypeList.CampObject:
+                        {
+                            CampObject campObject = CampObject.Copy(objectTarget as CampObject);
+                            objectDatabase.Data.allCampObjects.Add(campObject);
+
+                            break;
+                        }
                     case ObjectEditor_TypeList.Actors:
                         {
                             Actor actor = Actor.Copy(objectTarget as Actor);
@@ -1082,6 +1135,11 @@ namespace DestinyEngine.Object
 
                     case ObjectEditor_TypeList.BaseWorldObject:
                         objectDatabase.Data.allBaseWorldObjects.Remove(objectTarget as BaseWorldObject);
+
+                        break;
+
+                    case ObjectEditor_TypeList.CampObject:
+                        objectDatabase.Data.allCampObjects.Remove(objectTarget as CampObject);
 
                         break;
 

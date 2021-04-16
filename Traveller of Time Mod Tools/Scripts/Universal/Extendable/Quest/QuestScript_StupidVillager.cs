@@ -12,14 +12,5 @@ namespace TestingTesting.Quests
             throw new System.NotImplementedException();
         }
 
-        public override void LoadState()
-        {
-
-        }
-
-        public override void SaveState()
-        {
-
-        }
     }
 }

@@ -43,12 +43,12 @@ namespace TestingTesting
             throw new System.NotImplementedException();
         }
 
-        public override void LoadState()
+        public  void LoadState()
         {
             
         }
 
-        public override void SaveState()
+        public void SaveState()
         {
             actorScript.Save_Variable("PositionTEST", transform.position.ToString());
         }

@@ -37,7 +37,7 @@ namespace TravellerTime.Vanilla {
 
         private void Update()
         {
-            if (DestinyMainEngine.main.ExamplePlayer.IsPlayerWalking() | DestinyMainEngine.main.ExamplePlayer.IsPlayerSprinting())
+            if (DestinyEngineController.ExamplePlayer.IsPlayerWalking() | DestinyEngineController.ExamplePlayer.IsPlayerSprinting())
             {
                 WeaponAnimator.SetFloat("Moving", 1f);
 
@@ -61,6 +61,11 @@ namespace TravellerTime.Vanilla {
 
         public override void FireUp()
         {
+            if (DestinyEngineController.main.IsGamePaused)
+            {
+                return;
+            }
+
             if (Is_Cooldown | MagazineCurrent <= 0 | Is_Reloading)
             {
                 return;

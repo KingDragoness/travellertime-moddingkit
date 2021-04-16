@@ -29,7 +29,7 @@ namespace TestingTesting
         // Start is called before the first frame update
         void Start()
         {
-            target = DestinyMainEngine.main.ExamplePlayer.transform;
+            target = DestinyEngineController.ExamplePlayer.transform;
         }
 
         // Update is called once per frame
@@ -164,15 +164,6 @@ namespace TestingTesting
         #endregion
 
 
-        public override void LoadState()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override void SaveState()
-        {
-            throw new System.NotImplementedException();
-        }
 
         public List<ActionCommand_Parent> CommandListRetrieveAll()
         {

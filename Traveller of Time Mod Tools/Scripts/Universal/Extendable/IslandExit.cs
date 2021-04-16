@@ -12,7 +12,7 @@ namespace DestinyEngine
         private void ExitIsland()
         {
             print("Exitting Island");
-            DestinyMainEngine.main.LoadOverworld(fromIslandExit: true);
+            DestinyEngineController.main.LoadOverworld(fromIslandExit: true);
         }
 
         private void OnTriggerEnter(Collider other)
@@ -24,9 +24,9 @@ namespace DestinyEngine
             int i = 1;
             while (parent != null)
             {
-                if (DestinyMainEngine.main.ActiveVehicle != null)
+                if (DestinyEngineController.main.ActiveVehicle != null)
                 {
-                    if (parent.gameObject == DestinyMainEngine.main.ActiveVehicle.gameObject)
+                    if (parent.gameObject == DestinyEngineController.main.ActiveVehicle.gameObject)
                     {
                         is_Vehicle = true;
                     }
@@ -36,7 +36,7 @@ namespace DestinyEngine
                 ++i;
             }
 
-            if (other.transform == DestinyMainEngine.main.ExamplePlayer.transform)
+            if (other.transform == DestinyEngineController.ExamplePlayer.transform)
             {
                 is_Player = true;
             }
