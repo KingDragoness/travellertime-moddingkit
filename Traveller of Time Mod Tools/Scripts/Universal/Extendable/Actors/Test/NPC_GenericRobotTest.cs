@@ -30,7 +30,7 @@ namespace TestingTesting
         {
             if (DestinyInternalCommand.instance.Quest_GetFlag("vanilla", "Misc_PreciousRing", "Real Ring") != false)
             {
-                actorScript.currentConversation = actorScript.allConversations[1];
+                actorScript.actorData.currentConversation = actorScript.allConversations[1];
             }
             if (actorScript.Get_Variable("") == "")
             {

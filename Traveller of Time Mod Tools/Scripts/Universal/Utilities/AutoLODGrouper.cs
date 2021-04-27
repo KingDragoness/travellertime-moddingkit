@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Sirenix.OdinInspector;
 
 namespace DestinyEngine.Utility
 {
@@ -24,6 +25,9 @@ namespace DestinyEngine.Utility
         public float LOD2_Size = 0.03f;
         List<LODGroup> allLODGroups_Created = new List<LODGroup>();
 
+        [FoldoutGroup("Grouper LOD")] public GameObject lod0;
+        [FoldoutGroup("Grouper LOD")] public GameObject lod1;
+        [FoldoutGroup("Grouper LOD")] public GameObject lod2;
 
         public static float cubeSize = 50f;
         public static float LODSizeScreen = 36f;
@@ -177,6 +181,55 @@ namespace DestinyEngine.Utility
                 lodgroup.gameObject.name = "LODRegion - " + lodgroup.transform.position.ToString();
                 lodgroup.SetLODs(lods.ToArray());
                 lodgroup.size = LODSizeScreen;
+            }
+        }
+
+        [ContextMenu("GroupingLOD")]
+        public void GroupingLOD()
+        {
+            if (lod0 == null)
+            {
+                lod0 = new GameObject();
+                lod0.name = "lod0";
+                lod0.transform.SetParent(transform);
+            }
+
+            if (lod1 == null)
+            {
+                lod1 = new GameObject();
+                lod1.name = "lod1";
+                lod1.transform.SetParent(transform);
+            }
+
+
+            if (lod2 == null)
+            {
+                lod2 = new GameObject();
+                lod2.name = "lod2";
+                lod2.transform.SetParent(transform);
+            }
+
+            List<MeshRenderer> all_LOD0 = new List<MeshRenderer>();
+            List<MeshRenderer> all_LOD1 = new List<MeshRenderer>();
+            List<MeshRenderer> all_LOD2 = new List<MeshRenderer>();
+
+            all_LOD0 = GetComponentsInChildren<MeshRenderer>().Where(x => x.name.EndsWith("LOD0")).ToList();
+            all_LOD1 = GetComponentsInChildren<MeshRenderer>().Where(x => x.name.EndsWith("LOD1")).ToList();
+            all_LOD2 = GetComponentsInChildren<MeshRenderer>().Where(x => x.name.EndsWith("LOD2")).ToList();
+
+            foreach (MeshRenderer meshRenderer in all_LOD0)
+            {
+                meshRenderer.transform.SetParent(lod0.transform);
+            }
+
+            foreach (MeshRenderer meshRenderer in all_LOD1)
+            {
+                meshRenderer.transform.SetParent(lod1.transform);
+            }
+
+            foreach (MeshRenderer meshRenderer in all_LOD2)
+            {
+                meshRenderer.transform.SetParent(lod2.transform);
             }
         }
 
