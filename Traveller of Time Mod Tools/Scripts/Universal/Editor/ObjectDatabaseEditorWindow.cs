@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEditor;
 using System.Linq;
 using DestinyEngine;
+using System.IO;
 
 namespace DestinyEngine.Object
 {
@@ -29,7 +30,8 @@ namespace DestinyEngine.Object
         InteriorMat,
         WindowDoor,
         GridObject,
-        Faction
+        Faction,
+        NaturePopulatorObject
     }
 
     public class ObjectDatabaseEditorWindow : EditorWindow
@@ -41,6 +43,7 @@ namespace DestinyEngine.Object
         private List<BaseObject>    filter_Objects = new List<BaseObject>();
         private string          wordFilter = "";
 
+        public static string PATH_MODDINGHELPER_DATABASE_PRINT = Application.streamingAssetsPath + "/Modding Help/vanillaDatabase_Print.txt";
 
         private GUISkin skin;
         private GUIStyle buttonStyle;
@@ -92,10 +95,10 @@ namespace DestinyEngine.Object
             EditorGUILayout.BeginHorizontal();
             objectDatabase = (ObjectDatabase) EditorGUILayout.ObjectField(objectDatabase, typeof(ObjectDatabase), false, GUILayout.MaxWidth(200));
 
-            //if (GUILayout.Button("Apply all model script", buttonStyle, GUILayout.Width(220)))
-            //{
-            //    Apply_PrefabChanges();
-            //}
+            if (GUILayout.Button("Print Database", buttonStyle, GUILayout.Width(220)))
+            {
+                PrintDatabase();
+            }
             EditorGUILayout.EndHorizontal();
 
             EditorGUILayout.BeginHorizontal("Box");
@@ -246,6 +249,11 @@ namespace DestinyEngine.Object
                                 typeList = ObjectEditor_TypeList.SmartphoneApp;
                                 Change_List();
                             }
+                            if (GUILayout.Button("Nature Object", buttonStyle))
+                            {
+                                typeList = ObjectEditor_TypeList.NaturePopulatorObject;
+                                Change_List();
+                            }
                         }
                         EditorGUILayout.EndFoldoutHeaderGroup();
                     }
@@ -267,6 +275,32 @@ namespace DestinyEngine.Object
 
             }
             EditorGUILayout.EndHorizontal();
+        }
+
+        private void PrintDatabase()
+        {
+            var path = PATH_MODDINGHELPER_DATABASE_PRINT;
+            string s = objectDatabase.Data.name;
+
+            var allObjectDatabase = objectDatabase.GetAllBaseObjectsFromDatabase();
+            s += System.Environment.NewLine;
+            s += System.Environment.NewLine;
+
+            foreach (var baseObj in allObjectDatabase)
+            {
+                var name = baseObj.ID;
+                var typeObj = MainUtility.Check_ObjectType(baseObj);
+
+                s += name.ToString();
+                s += " | " + typeObj.ToString();
+                s += System.Environment.NewLine;
+
+            }
+
+            StreamWriter writer = new StreamWriter(path, false);
+            writer.WriteLine(s);
+            writer.Close();
+
         }
 
         private void Apply_PrefabChanges()
@@ -564,6 +598,15 @@ namespace DestinyEngine.Object
                 foreach (SmartphoneApp app in objectDatabase.Data.allSmartphoneApps)
                 {
                     pooled_Objects.Add(app);
+                }
+            }
+
+            if (typeList == ObjectEditor_TypeList.NaturePopulatorObject)
+            {
+                objectDatabase.Data.allNatureObjects = objectDatabase.Data.allNatureObjects.OrderBy(z => z.ID).ToList();
+                foreach (NaturalPopulatorObject natureObject in objectDatabase.Data.allNatureObjects)
+                {
+                    pooled_Objects.Add(natureObject);
                 }
             }
 
@@ -883,6 +926,14 @@ namespace DestinyEngine.Object
 
                         break;
                     }
+                case ObjectEditor_TypeList.NaturePopulatorObject:
+                    {
+                        NaturalPopulatorObject natureObj = new NaturalPopulatorObject();
+                        objectTarget = natureObj;
+                        objectDatabase.Data.allNatureObjects.Add(natureObj);
+
+                        break;
+                    }
                 case ObjectEditor_TypeList.InteriorMat:
                     {
                         InteriorMaterial interiorMat = new InteriorMaterial();
@@ -1055,6 +1106,13 @@ namespace DestinyEngine.Object
 
                             break;
                         }
+                    case ObjectEditor_TypeList.NaturePopulatorObject:
+                        {
+                            NaturalPopulatorObject natureObj = NaturalPopulatorObject.Copy(objectTarget as NaturalPopulatorObject);
+                            objectDatabase.Data.allNatureObjects.Add(natureObj);
+
+                            break;
+                        }
                     case ObjectEditor_TypeList.InteriorMat:
                         {
                             InteriorMaterial mat = InteriorMaterial.Copy(objectTarget as InteriorMaterial);
@@ -1179,6 +1237,10 @@ namespace DestinyEngine.Object
 
                         break;
 
+                    case ObjectEditor_TypeList.NaturePopulatorObject:
+                        objectDatabase.Data.allNatureObjects.Remove(objectTarget as NaturalPopulatorObject);
+
+                        break;
 
                     case ObjectEditor_TypeList.InteriorMat:
                         objectDatabase.Data.allInteriorMaterials.Remove(objectTarget as InteriorMaterial);
