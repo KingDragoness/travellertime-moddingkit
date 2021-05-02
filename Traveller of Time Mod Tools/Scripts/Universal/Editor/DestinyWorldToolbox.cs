@@ -18,7 +18,7 @@ namespace DestinyEngine.Editor
             public string entityID = "";
         }
 
-        public IslandLocal targetIsland;
+        public GameObject targetIsland;
         private Color almostwhite = new Color(1, 1, 1, 0.2f);
 
         [MenuItem("Destiny Engine/World Toolbox Helper")]
@@ -47,7 +47,7 @@ namespace DestinyEngine.Editor
             {
                 EditorGUILayout.BeginHorizontal();
                 GUILayout.Label("Island Local: ");
-                targetIsland = (IslandLocal)EditorGUILayout.ObjectField(targetIsland, typeof(IslandLocal), true, GUILayout.Width(250));
+                targetIsland = (GameObject)EditorGUILayout.ObjectField(targetIsland, typeof(GameObject), true, GUILayout.Width(250));
                 EditorGUILayout.EndHorizontal();
             }
 
