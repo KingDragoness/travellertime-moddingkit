@@ -28,27 +28,14 @@ namespace EVP.DestinyEngine
         private Player player;
         private bool isOn = false;
 
-        public void CommandExecute(ActionCommand command)
+        private void Awake()
         {
-            if (command.commandID == "Toggle.Propeller")
-            {
-                isOn = !isOn;
-            }
+            bodyPart = GetComponent<MCV_BodyParts>();
         }
 
-        public void CommandExecute(string functionName)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public List<ActionCommand_Parent> CommandListRetrieveAll()
-        {
-            return PropellerCommands;
-        }
 
         private void Start()
         {
-            bodyPart = GetComponent<MCV_BodyParts>();
             player = ReInput.players.GetPlayer(0);
             m_Rigidbody = bodyPart.ModularCustomVehicle.vehicleRigidbody;
         }
@@ -73,6 +60,25 @@ namespace EVP.DestinyEngine
             {
                 autoMoveAndRotate.enabled = false;
             }
+        }
+
+
+        public void CommandExecute(ActionCommand command)
+        {
+            if (command.commandID == "Toggle.Propeller")
+            {
+                isOn = !isOn;
+            }
+        }
+
+        public void CommandExecute(string functionName)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public List<ActionCommand_Parent> CommandListRetrieveAll()
+        {
+            return PropellerCommands;
         }
 
         private void LegacyTest()
@@ -123,6 +129,11 @@ namespace EVP.DestinyEngine
         }
 
         public bool ConditionalCheck(string conditionName)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void InsertNewCommand(ActionCommand command)
         {
             throw new System.NotImplementedException();
         }

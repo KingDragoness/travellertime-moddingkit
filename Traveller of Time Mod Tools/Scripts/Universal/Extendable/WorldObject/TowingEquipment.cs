@@ -420,5 +420,10 @@ namespace TestingTesting
         {
             throw new System.NotImplementedException();
         }
+
+        public void InsertNewCommand(ActionCommand command)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

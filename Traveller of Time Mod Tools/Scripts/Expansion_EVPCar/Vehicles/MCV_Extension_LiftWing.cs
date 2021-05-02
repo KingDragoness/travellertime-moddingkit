@@ -32,10 +32,13 @@ namespace EVP.DestinyEngine
         private float m_AeroFactor;
         private Player player;
 
+        private void Awake()
+        {
+            bodyPart = GetComponent<MCV_BodyParts>();
+        }
 
         private void Start()
         {
-            bodyPart = GetComponent<MCV_BodyParts>();
             player = ReInput.players.GetPlayer(0);
             m_Rigidbody = bodyPart.ModularCustomVehicle.vehicleRigidbody;
         }
