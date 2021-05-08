@@ -212,9 +212,5 @@ namespace TravellerTime.Vanilla
 
         }
 
-        public override void CommandExecute(string functionName)
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }

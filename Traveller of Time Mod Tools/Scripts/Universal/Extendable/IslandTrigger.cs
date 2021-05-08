@@ -8,15 +8,36 @@ namespace DestinyEngine
     {
         public int index = 0;
         public bool overrideGCECoord = true;
+        public bool isDungeonEnter = false;
         public string regionName = "";
         public Collider triggerCollider;
 
+        private void Awake()
+        {
+            triggerCollider.enabled = false;
+        }
+
+        private void Start()
+        {
+            Invoke("ReenableCollider", 1f);
+        }
+
+        private void ReenableCollider()
+        {
+            triggerCollider.enabled = true;
+        }
+
         private void EnterIsland()
         {
+            if (DestinyEngineController.IsGameFreezing())
+            {
+                return;
+            }
+
             EnterLocalIsland_Token token = new EnterLocalIsland_Token();
             token.RegionName = regionName;
             token.SpawnMarkerIndex = index;
-            token.isEnterFromOverworld = true;
+            token.isEnterFromOverworld = !isDungeonEnter;
 
             DestinyEngineController.main.LoadIsland(token);
 

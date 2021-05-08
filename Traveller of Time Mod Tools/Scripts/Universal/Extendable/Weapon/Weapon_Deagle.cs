@@ -148,9 +148,6 @@ namespace TravellerTime.Vanilla {
             SaveFlag();
         }
 
-        public override void CommandExecute(string functionName)
-        {
-            throw new System.NotImplementedException();
-        }
+
     }
 }
