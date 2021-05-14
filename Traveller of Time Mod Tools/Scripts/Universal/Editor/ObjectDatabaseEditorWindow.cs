@@ -31,6 +31,7 @@ namespace DestinyEngine.Object
         WindowDoor,
         GridObject,
         Faction,
+        Trivia,
         NaturePopulatorObject
     }
 
@@ -247,6 +248,11 @@ namespace DestinyEngine.Object
                             if (GUILayout.Button("Smartphone Apps", buttonStyle))
                             {
                                 typeList = ObjectEditor_TypeList.SmartphoneApp;
+                                Change_List();
+                            }
+                            if (GUILayout.Button("Trivias", buttonStyle))
+                            {
+                                typeList = ObjectEditor_TypeList.Trivia;
                                 Change_List();
                             }
                             if (GUILayout.Button("Nature Object", buttonStyle))
@@ -601,6 +607,15 @@ namespace DestinyEngine.Object
                 }
             }
 
+            if (typeList == ObjectEditor_TypeList.Trivia)
+            {
+                objectDatabase.Data.allTrivias = objectDatabase.Data.allTrivias.OrderBy(z => z.ID).ToList();
+                foreach (Trivia trivia in objectDatabase.Data.allTrivias)
+                {
+                    pooled_Objects.Add(trivia);
+                }
+            }
+
             if (typeList == ObjectEditor_TypeList.NaturePopulatorObject)
             {
                 objectDatabase.Data.allNatureObjects = objectDatabase.Data.allNatureObjects.OrderBy(z => z.ID).ToList();
@@ -926,6 +941,14 @@ namespace DestinyEngine.Object
 
                         break;
                     }
+                case ObjectEditor_TypeList.Trivia:
+                    {
+                        Trivia trivia = new Trivia();
+                        objectTarget = trivia;
+                        objectDatabase.Data.allTrivias.Add(trivia);
+
+                        break;
+                    }
                 case ObjectEditor_TypeList.NaturePopulatorObject:
                     {
                         NaturalPopulatorObject natureObj = new NaturalPopulatorObject();
@@ -1106,6 +1129,13 @@ namespace DestinyEngine.Object
 
                             break;
                         }
+                    case ObjectEditor_TypeList.Trivia:
+                        {
+                            Trivia trivia = Trivia.Copy(objectTarget as Trivia);
+                            objectDatabase.Data.allTrivias.Add(trivia);
+
+                            break;
+                        }
                     case ObjectEditor_TypeList.NaturePopulatorObject:
                         {
                             NaturalPopulatorObject natureObj = NaturalPopulatorObject.Copy(objectTarget as NaturalPopulatorObject);
@@ -1234,6 +1264,11 @@ namespace DestinyEngine.Object
 
                     case ObjectEditor_TypeList.SmartphoneApp:
                         objectDatabase.Data.allSmartphoneApps.Remove(objectTarget as SmartphoneApp);
+
+                        break;
+
+                    case ObjectEditor_TypeList.Trivia:
+                        objectDatabase.Data.allTrivias.Remove(objectTarget as Trivia);
 
                         break;
 
