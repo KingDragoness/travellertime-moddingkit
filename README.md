@@ -1,6 +1,6 @@
 # Ghost of the Seas Modding Kit [Alpha]
 
-Ghost of the Seas allows for modders to create islands, vehicle, database or items. Learning basic modding kit and setting up took 1 day.
+Ghost of the Seas allows for modders to create islands, vehicle, database or items. Learning basic modding kit and setting up the project might took 1 day.
 
 **Current version:** Pre-Alpha 0.4
 
