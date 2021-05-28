@@ -148,6 +148,9 @@ namespace TravellerTime.Vanilla {
             SaveFlag();
         }
 
+        public override void IdleReady()
+        {
 
+        }
     }
 }

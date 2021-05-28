@@ -14,6 +14,7 @@ namespace TravellerTime.Vanilla
         public int magazineCapacity = 30;
         public float ak47_cooldown = 0.15f;
         public AudioSource gunFireSource;
+        public AudioSource noAmmoSource;
 
         public int MagazineCurrent { get { return magazineCurrent; } set { magazineCurrent = value; } }
         public int MagazineCapacity { get { return magazineCapacity; } set { magazineCapacity = value; } }
@@ -90,6 +91,8 @@ namespace TravellerTime.Vanilla
             }
         }
 
+        private bool doFire = false;
+
         public override void Fire()
         {
             if (DestinyEngineController.main.IsGamePaused)
@@ -97,6 +100,10 @@ namespace TravellerTime.Vanilla
                 return;
             }
 
+            if (doFire == false)
+            {
+                return;
+            }
             if (isSprinting)
             {
                 return;
@@ -112,6 +119,12 @@ namespace TravellerTime.Vanilla
             else if (MagazineCurrent <= 0)
             {
                 WeaponAnimator.SetBool("Fire", false);
+
+                if (noAmmoSource != null)
+                {
+                    noAmmoSource.Play();
+
+                }
                 return;
             }
 
@@ -147,11 +160,12 @@ namespace TravellerTime.Vanilla
 
         public override void FireDown()
         {
-
+            doFire = true;
         }
 
         public override void FireUp()
         {
+            doFire = false;
         }
 
         public override void Inaction()
@@ -212,5 +226,9 @@ namespace TravellerTime.Vanilla
 
         }
 
+        public override void IdleReady()
+        {
+
+        }
     }
 }
