@@ -44,7 +44,8 @@ namespace DestinyEngine.Object
         private List<BaseObject>    filter_Objects = new List<BaseObject>();
         private string          wordFilter = "";
 
-        public static string PATH_MODDINGHELPER_DATABASE_PRINT = Application.streamingAssetsPath + "/Modding Help/vanillaDatabase_Print.txt";
+        public static string PATH_MODDINGHELPER_DATABASE_PRINT = Application.streamingAssetsPath + "/Modding Help/";
+        public static string PATH_DEFAULT_DATABASE = Application.streamingAssetsPath + "/Modding Help/";
 
         private GUISkin skin;
         private GUIStyle buttonStyle;
@@ -71,7 +72,7 @@ namespace DestinyEngine.Object
         [MenuItem("Destiny Engine/Object Database Editor Window")]
         public static void OpenWindow(ObjectDatabase objectDatabase)
         {
-            ObjectDatabaseEditorWindow window = GetWindow<ObjectDatabaseEditorWindow>();
+            ObjectDatabaseEditorWindow window = GetWindow<ObjectDatabaseEditorWindow>(false, "Object Database Editor");
         }
 
         #region useless2
@@ -96,11 +97,27 @@ namespace DestinyEngine.Object
             EditorGUILayout.BeginHorizontal();
             objectDatabase = (ObjectDatabase) EditorGUILayout.ObjectField(objectDatabase, typeof(ObjectDatabase), false, GUILayout.MaxWidth(200));
 
-            if (GUILayout.Button("Print Database", buttonStyle, GUILayout.Width(220)))
+            if (GUILayout.Button("Print Database", buttonStyle, GUILayout.Width(200)))
             {
                 PrintDatabase();
             }
+
+            if (GUILayout.Button("Backup!", buttonStyle, GUILayout.Width(200)))
+            {
+                Backup();
+            }
             EditorGUILayout.EndHorizontal();
+
+
+            if (GUILayout.Button(PATH_MODDINGHELPER_DATABASE_PRINT, buttonStyle, GUILayout.Width(500)))
+            {
+                string path = EditorUtility.OpenFolderPanel("Folder path for database", PATH_DEFAULT_DATABASE, "");
+
+                if (path.Length != 0)
+                {
+                    PATH_MODDINGHELPER_DATABASE_PRINT = path;
+                }
+            }
 
             EditorGUILayout.BeginHorizontal("Box");
             {
@@ -285,8 +302,9 @@ namespace DestinyEngine.Object
 
         private void PrintDatabase()
         {
-            var path = PATH_MODDINGHELPER_DATABASE_PRINT;
             string s = objectDatabase.Data.name;
+            var path = PATH_MODDINGHELPER_DATABASE_PRINT + $"{s}.txt";
+            EditorUtility.RevealInFinder(path);
 
             var allObjectDatabase = objectDatabase.GetAllBaseObjectsFromDatabase();
             s += System.Environment.NewLine;
@@ -436,6 +454,39 @@ namespace DestinyEngine.Object
                 PrefabUtility.RecordPrefabInstancePropertyModifications(baseObject.gameModel);
 
             }
+        }
+
+        private void Backup()
+        {
+            if (objectDatabase == null) return;
+            try
+            {
+                var path = AssetDatabase.GetAssetPath(objectDatabase);
+                if (path.EndsWith("(Auto-Backup).asset"))
+                {
+                    Debug.Log("Object Database Editor: Not creating an auto-backup. You're already editing the auto-backup file.");
+                    return;
+                }
+                var backupPath = Path.GetDirectoryName(path) + "/" + Path.GetFileNameWithoutExtension(path) + " (Auto-Backup).asset";
+
+
+                EditorUtility.DisplayProgressBar("Object Database  Editor Auto-Backup", "Creating auto-backup " + Path.GetFileNameWithoutExtension(backupPath), 0);
+                AssetDatabase.DeleteAsset(backupPath);
+                AssetDatabase.CopyAsset(path, backupPath);
+                AssetDatabase.Refresh();
+#if !(UNITY_4_6 || UNITY_4_7 || UNITY_4_8 || UNITY_4_9)
+                if (!string.IsNullOrEmpty(AssetImporter.GetAtPath(backupPath).assetBundleName))
+                {
+                    AssetImporter.GetAtPath(backupPath).assetBundleVariant = string.Empty;
+                    AssetImporter.GetAtPath(backupPath).assetBundleName = string.Empty;
+                }
+#endif
+            }
+            finally
+            {
+                EditorUtility.ClearProgressBar();
+            }
+
         }
 
         private GameObject Create_BrandNewPrefab(BaseObject baseObject)
@@ -663,6 +714,15 @@ namespace DestinyEngine.Object
         }
 
 
+        private void DisplayDialog_New()
+        {
+            if (EditorUtility.DisplayDialog($"New {typeList}",
+                $"Are you sure you want to create new object for {typeList}?", "Create", "Cancel")) 
+            {
+                Context_New();
+            }
+        }
+
         void ShowItemsGUI()
         {
             filter_Objects.Clear();
@@ -679,6 +739,11 @@ namespace DestinyEngine.Object
                 GUILayout.Label("Filter: ", GUILayout.MaxWidth(50));
                 wordFilter = GUILayout.TextField(wordFilter, GUILayout.MaxWidth(100));
                 filter = wordFilter;
+
+                if (GUILayout.Button("+", buttonStyle, GUILayout.Width(60)))
+                {
+                    DisplayDialog_New();
+                }
             }
             EditorGUILayout.EndHorizontal();
 
@@ -1396,6 +1461,7 @@ namespace DestinyEngine.Object
             labelStyle = skin.GetStyle("Label");
             // Here we retrieve the data if it exists or we save the default field initialisers we set above
             var data = EditorPrefs.GetString("ObjectDatabaseEditor", JsonUtility.ToJson(this, false));
+
             // Then we apply them to this window
             JsonUtility.FromJsonOverwrite(data, this);
         }

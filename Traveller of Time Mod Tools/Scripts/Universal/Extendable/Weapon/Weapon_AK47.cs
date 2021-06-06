@@ -122,7 +122,10 @@ namespace TravellerTime.Vanilla
 
                 if (noAmmoSource != null)
                 {
-                    noAmmoSource.Play();
+                    if (noAmmoSource.isPlaying == false)
+                    {
+                        noAmmoSource.Play();
+                    }
 
                 }
                 return;

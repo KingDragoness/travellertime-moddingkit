@@ -24,7 +24,7 @@ namespace DestinyEngine.Editor
         [MenuItem("Destiny Engine/World Toolbox Helper")]
         static void Init()
         {
-            DestinyWorldToolbox window = (DestinyWorldToolbox)EditorWindow.GetWindow(typeof(DestinyWorldToolbox));
+            DestinyWorldToolbox window = (DestinyWorldToolbox)EditorWindow.GetWindow(typeof(DestinyWorldToolbox), false, "World Toolbox");
             window.Show();
         }
 
