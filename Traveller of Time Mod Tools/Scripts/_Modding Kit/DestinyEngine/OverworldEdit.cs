@@ -158,7 +158,7 @@ namespace DestinyEngine
         public void Save_WorldMap(string fileName)
         {
             string mapDat = JsonUtility.ToJson(mapData, true);
-            File.WriteAllText(fileName, mapDat);
+            File.WriteAllText(Application.streamingAssetsPath + "/Editor/" + fileName + ".json", mapDat);
 
             Debug.Log("Overworld Map data has been saved.");
         }
