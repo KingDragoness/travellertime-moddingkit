@@ -32,7 +32,8 @@ namespace DestinyEngine.Object
         GridObject,
         Faction,
         Trivia,
-        NaturePopulatorObject
+        NaturePopulatorObject,
+        TemplateAilment
     }
 
     public class ObjectDatabaseEditorWindow : EditorWindow
@@ -202,6 +203,11 @@ namespace DestinyEngine.Object
                             if (GUILayout.Button("Factions", buttonStyle))
                             {
                                 typeList = ObjectEditor_TypeList.Faction;
+                                Change_List();
+                            }
+                            if (GUILayout.Button("Ailments", buttonStyle))
+                            {
+                                typeList = ObjectEditor_TypeList.TemplateAilment;
                                 Change_List();
                             }
                         }
@@ -667,6 +673,15 @@ namespace DestinyEngine.Object
                 }
             }
 
+            if (typeList == ObjectEditor_TypeList.TemplateAilment)
+            {
+                objectDatabase.Data.allTemplateAilments = objectDatabase.Data.allTemplateAilments.OrderBy(z => z.ID).ToList();
+                foreach (TemplateAilment ailment in objectDatabase.Data.allTemplateAilments)
+                {
+                    pooled_Objects.Add(ailment);
+                }
+            }
+
             if (typeList == ObjectEditor_TypeList.NaturePopulatorObject)
             {
                 objectDatabase.Data.allNatureObjects = objectDatabase.Data.allNatureObjects.OrderBy(z => z.ID).ToList();
@@ -1014,6 +1029,14 @@ namespace DestinyEngine.Object
 
                         break;
                     }
+                case ObjectEditor_TypeList.TemplateAilment:
+                    {
+                        TemplateAilment templateAilment = new TemplateAilment();
+                        objectTarget = templateAilment;
+                        objectDatabase.Data.allTemplateAilments.Add(templateAilment);
+
+                        break;
+                    }
                 case ObjectEditor_TypeList.NaturePopulatorObject:
                     {
                         NaturalPopulatorObject natureObj = new NaturalPopulatorObject();
@@ -1201,6 +1224,13 @@ namespace DestinyEngine.Object
 
                             break;
                         }
+                    case ObjectEditor_TypeList.TemplateAilment:
+                        {
+                            TemplateAilment trivia = TemplateAilment.Copy(objectTarget as TemplateAilment);
+                            objectDatabase.Data.allTemplateAilments.Add(trivia);
+
+                            break;
+                        }
                     case ObjectEditor_TypeList.NaturePopulatorObject:
                         {
                             NaturalPopulatorObject natureObj = NaturalPopulatorObject.Copy(objectTarget as NaturalPopulatorObject);
@@ -1334,6 +1364,11 @@ namespace DestinyEngine.Object
 
                     case ObjectEditor_TypeList.Trivia:
                         objectDatabase.Data.allTrivias.Remove(objectTarget as Trivia);
+
+                        break;
+
+                    case ObjectEditor_TypeList.TemplateAilment:
+                        objectDatabase.Data.allTemplateAilments.Remove(objectTarget as TemplateAilment);
 
                         break;
 

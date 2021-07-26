@@ -13,6 +13,16 @@ namespace TravellerTime
 
         public override void TurnOff_Vehicle()
         {
+            try
+            {
+                var ac_TurnOff = GetActionCommand_TurnOffVehicle();
+                ac_TurnOff.unityEvent?.Invoke();
+            }
+            catch (System.Exception e)
+            {
+                Debug.Log(e.Message);
+            }
+
             planeControl.enabled = false;
         }
         public override void TurnOn_Vehicle()

@@ -26,7 +26,6 @@ namespace TestingTesting
 
         private DestinyEngine.VehicleScript targetVehicle;
         private WorldObjectScript worldObjectScript;
-        private ScriptInstaller installer;
 
         //Data internal
         private bool isRopeUnrolled = false;
