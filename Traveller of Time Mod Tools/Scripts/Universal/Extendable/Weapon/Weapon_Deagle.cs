@@ -7,6 +7,8 @@ using DestinyEngine;
 
 namespace TravellerTime.Vanilla {
 
+    [RequireComponent(typeof(WeaponComponentAnimation))]
+
     public class Weapon_Deagle : WeaponScript, Weapon_Gun
     {
 
@@ -16,11 +18,17 @@ namespace TravellerTime.Vanilla {
 
         public int MagazineCurrent { get { return magazineCurrent;  } set { magazineCurrent = value; } }
         public int MagazineCapacity { get { return magazineCapacity; } set { magazineCapacity = value; } }
-        public float cooldownFire { get { return deagle_cooldown; } set { deagle_cooldown = value; } }
-        public bool Is_Reloading { get { return is_Reloading; } set { is_Reloading = value; } }
+        public float CooldownFire { get { return deagle_cooldown; } set { deagle_cooldown = value; } }
+        public bool IsReloading { get { return is_Reloading; } set { is_Reloading = value; } }
 
 
         private bool is_Reloading = false;
+        private WeaponComponentAnimation componentAnimation;
+
+        private void Awake()
+        {
+            componentAnimation = GetComponent<WeaponComponentAnimation>();
+        }
 
         public override void Initialize_Weapon()
         {
@@ -39,12 +47,12 @@ namespace TravellerTime.Vanilla {
         {
             if (DestinyEngineController.ExamplePlayer.IsPlayerWalking() | DestinyEngineController.ExamplePlayer.IsPlayerSprinting())
             {
-                WeaponAnimator.SetFloat("Moving", 1f);
+                componentAnimation.WeaponAnimator.SetFloat("Moving", 1f);
 
             }
             else
             {
-                WeaponAnimator.SetFloat("Moving", 0f);
+                componentAnimation.WeaponAnimator.SetFloat("Moving", 0f);
 
             }
         }
@@ -66,7 +74,7 @@ namespace TravellerTime.Vanilla {
                 return;
             }
 
-            if (Is_Cooldown | MagazineCurrent <= 0 | Is_Reloading)
+            if (Is_Cooldown | MagazineCurrent <= 0 | IsReloading)
             {
                 return;
             }
@@ -75,7 +83,7 @@ namespace TravellerTime.Vanilla {
             if (MagazineCurrent > 0)
                 MagazineCurrent -= 1;
 
-            WeaponAnimator.SetTrigger("Fire");
+            componentAnimation.WeaponAnimator.SetTrigger("Fire");
 
             SaveFlag();
             Impact();
@@ -117,14 +125,14 @@ namespace TravellerTime.Vanilla {
             {
 
             }
-            Is_Reloading = true;
-            WeaponAnimator.SetTrigger("Reload");
+            IsReloading = true;
+            componentAnimation.WeaponAnimator.SetTrigger("Reload");
 
         }
 
         public void Set_ReloadOff()
         {
-            Is_Reloading = false;
+            IsReloading = false;
 
             if (ItemDataAmmo != null)
             {

@@ -8,6 +8,7 @@ using DestinyEngine.Object;
 namespace TravellerTime.Vanilla
 {
 
+    [RequireComponent(typeof(WeaponComponentAnimation))]
     public class Weapon_AK47 : WeaponScript, Weapon_Gun
     {
         public int magazineCurrent = 30;
@@ -18,14 +19,20 @@ namespace TravellerTime.Vanilla
 
         public int MagazineCurrent { get { return magazineCurrent; } set { magazineCurrent = value; } }
         public int MagazineCapacity { get { return magazineCapacity; } set { magazineCapacity = value; } }
-        public float cooldownFire { get { return ak47_cooldown; } set { ak47_cooldown = value; } }
-        public bool Is_Reloading { get { return isReloading; } set { isReloading = value; } }
+        public float CooldownFire { get { return ak47_cooldown; } set { ak47_cooldown = value; } }
+        public bool IsReloading { get { return isReloading; } set { isReloading = value; } }
 
 
         private bool isReloading = false;
         private bool isSprinting = false;
+        private WeaponComponentAnimation componentAnimation;
 
         private float internalCooldownTimer = 0.15f;
+
+        private void Awake()
+        {
+            componentAnimation = GetComponent<WeaponComponentAnimation>();
+        }
 
         public override void Initialize_Weapon()
         {
@@ -48,12 +55,12 @@ namespace TravellerTime.Vanilla
         {
             if (DestinyEngineController.ExamplePlayer.IsPlayerWalking())
             {
-                WeaponAnimator.SetFloat("Moving", 1f);
+                componentAnimation.WeaponAnimator.SetFloat("Moving", 1f);
 
             }
             else
             {
-                WeaponAnimator.SetFloat("Moving", 0f);
+                componentAnimation.WeaponAnimator.SetFloat("Moving", 0f);
 
             }
 
@@ -70,12 +77,12 @@ namespace TravellerTime.Vanilla
 
             if (isSprinting)
             {
-                WeaponAnimator.SetBool("isSprinting", true);
+                componentAnimation.WeaponAnimator.SetBool("isSprinting", true);
 
             }
             else
             {
-                WeaponAnimator.SetBool("isSprinting", false);
+                componentAnimation.WeaponAnimator.SetBool("isSprinting", false);
 
             }
 
@@ -95,10 +102,6 @@ namespace TravellerTime.Vanilla
 
         public override void Fire()
         {
-            if (DestinyEngineController.main.IsGamePaused)
-            {
-                return;
-            }
 
             if (doFire == false)
             {
@@ -108,7 +111,7 @@ namespace TravellerTime.Vanilla
             {
                 return;
             }
-            if (Is_Reloading)
+            if (IsReloading)
             {
                 return;
             }
@@ -118,7 +121,7 @@ namespace TravellerTime.Vanilla
             }
             else if (MagazineCurrent <= 0)
             {
-                WeaponAnimator.SetBool("Fire", false);
+                componentAnimation.WeaponAnimator.SetBool("Fire", false);
 
                 if (noAmmoSource != null)
                 {
@@ -131,13 +134,14 @@ namespace TravellerTime.Vanilla
                 return;
             }
 
-            internalCooldownTimer = cooldownFire;
+            internalCooldownTimer = CooldownFire;
             Is_Cooldown = true;
             if (MagazineCurrent > 0)
                 MagazineCurrent -= 1;
 
-            WeaponAnimator.SetBool("Fire", true);
-            gunFireSource.Play();
+            componentAnimation.WeaponAnimator.SetBool("Fire", true);
+            gunFireSource.pitch = 1 + Random.Range(-0.01f, 0.01f);
+            gunFireSource.PlayOneShot(gunFireSource.clip, gunFireSource.volume);
 
             SaveFlag();
             Impact();
@@ -173,12 +177,12 @@ namespace TravellerTime.Vanilla
 
         public override void Inaction()
         {
-            WeaponAnimator.SetBool("Fire", false);
+            componentAnimation.WeaponAnimator.SetBool("Fire", false);
         }
 
         public override void Reload()
         {
-            if (Is_Reloading)
+            if (IsReloading)
             {
                 return;
             }
@@ -197,14 +201,14 @@ namespace TravellerTime.Vanilla
             {
 
             }
-            Is_Reloading = true;
+            IsReloading = true;
 
-            WeaponAnimator.SetTrigger("Reload");
+            componentAnimation.WeaponAnimator.SetTrigger("Reload");
         }
 
         public void Set_ReloadOff()
         {
-            Is_Reloading = false;
+            IsReloading = false;
 
             if (ItemDataAmmo != null)
             {
